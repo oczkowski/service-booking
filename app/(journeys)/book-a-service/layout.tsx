@@ -7,7 +7,8 @@ const PagesLayout = ({
 }>) => {
     return (
         <>
-            <JourneyHeader journeyName="Book a service." />
+            <JourneyHeader journeyName="Book a service.
+            " />
             {children}
         </>
     )
