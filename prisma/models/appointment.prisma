@@ -1,0 +1,17 @@
+model Appointment {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    customer   Customer @relation(fields: [customerId], references: [id])
+    customerId Int
+
+    service   Service @relation(fields: [serviceId], references: [id])
+    serviceId Int
+
+    slot   BookableSlot @relation(fields: [slotId], references: [id])
+    slotId Int
+
+    // When canceling, the appointment can return to the availability group or remain blocked here
+    isCancelled Boolean @default(false)
+}
