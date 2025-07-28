@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "prisma": {
-    "schema": "./prisma"
+    "schema": "./prisma",
+    "migrations": "./prisma/migrations"
   },
   "scripts": {
     "dev": "next dev --turbopack",
@@ -25,6 +26,7 @@
     "dotenv-cli": "^9.0.0",
     "lucide-react": "^0.525.0",
     "next": "15.4.4",
+    "next-auth": "^4.24.11",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.1",

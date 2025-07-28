@@ -12,6 +12,13 @@ model Appointment {
     slot   BookableSlot @relation(fields: [slotId], references: [id])
     slotId Int
 
+    status      Status
     // When canceling, the appointment can return to the availability group or remain blocked here
     isCancelled Boolean @default(false)
+}
+
+enum Status {
+    UPCOMING
+    ATTENDED
+    MISSED
 }
