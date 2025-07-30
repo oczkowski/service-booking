@@ -12,8 +12,17 @@ const businessCustomerSchema = z.object({
 })
 
 export async function POST(request: Request) {
-    const body = await request.json();
-    const { email, mobile, firstName, lastName, secret } = body;
+    let body;
+    try {
+        body = await request.json();
+    } catch (e) {
+        return new Response(JSON.stringify({ error: 'Invalid input' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
+
+    const { secret, ...userPayload } = body;
 
     // Check the secret validity
     if (secret !== env.AUTH0_HOOK_SECRET) {
@@ -22,8 +31,6 @@ export async function POST(request: Request) {
             headers: { 'Content-Type': 'application/json' },
         });
     }
-
-    const userPayload = { email, mobile, firstName, lastName };
 
     const parsedUserPayload = businessCustomerSchema.safeParse(userPayload);
 
