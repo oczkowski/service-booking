@@ -1,3 +1,4 @@
+// Customer does not authenticate
 model Customer {
     id           Int           @id @default(autoincrement())
     createdAt    DateTime      @default(now())
@@ -12,5 +13,4 @@ model Customer {
 
 enum CustomerType {
     GUEST
-    CLIENT
 }

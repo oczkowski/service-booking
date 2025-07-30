@@ -21,7 +21,9 @@ type NavigationItemsType = Array<NavigationItem>;
 
 const navigationItems: NavigationItemsType = [
   { title: "Home", path: "/" },
-  { title: "Book a service", path: "/book-a-service" },
+  { title: "Pricing", path: "/pricing" },
+  { title: "Business dashboard", path: "/business/dashboard" },
+  { title: "Book a service", path: "/book" },
 ];
 
 const Navigation = () => {

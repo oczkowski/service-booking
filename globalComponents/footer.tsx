@@ -13,6 +13,7 @@ const footerLinks: FooterLink[] = [
   { title: "For Developers", path: "/developers" },
   { title: "Socials", path: "/socials" },
   { title: "Jobs", path: "/jobs" },
+  { title: "Business login", path: "/business" },
 ];
 
 const legalLinks: FooterLink[] = [

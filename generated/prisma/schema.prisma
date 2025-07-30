@@ -1,0 +1,180 @@
+model Appointment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int
+
+  service   Service @relation(fields: [serviceId], references: [id])
+  serviceId Int
+
+  slot   BookableSlot @relation(fields: [slotId], references: [id])
+  slotId Int
+
+  status      Status
+  // When canceling, the appointment can return to the availability group or remain blocked here
+  isCancelled Boolean @default(false)
+}
+
+enum Status {
+  UPCOMING
+  ATTENDED
+  MISSED
+}
+
+// Model connected to Auth0
+model BusinessCustomer {
+  id         Int                          @id @default(autoincrement())
+  createdAt  DateTime                     @default(now())
+  updatedAt  DateTime                     @updatedAt
+  email      String                       @unique
+  mobile     String?                      @unique
+  firstName  String
+  lastName   String
+  businesses BusinessCustomerOnBusiness[]
+}
+
+model Business {
+  id                Int                          @id @default(autoincrement())
+  createdAt         DateTime                     @default(now())
+  updatedAt         DateTime                     @updatedAt
+  contactNumber     String
+  businessName      String
+  type              BusinessType[]
+  BusinessCustomers BusinessCustomerOnBusiness[]
+  services          Service[]
+}
+
+model BusinessCustomerOnBusiness {
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId Int
+
+  user   BusinessCustomer @relation(fields: [userId], references: [id])
+  userId Int
+
+  role BusinessRole
+
+  @@id([businessId, userId])
+}
+
+enum BusinessRole {
+  OWNER
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum BusinessType {
+  SME
+  ENTERPRISE
+}
+
+// Customer does not authenticate
+model Customer {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  email        String        @unique
+  mobile       String?       @unique
+  firstName    String?
+  lastName     String?
+  type         CustomerType  @default(GUEST)
+  appointments Appointment[]
+}
+
+enum CustomerType {
+  GUEST
+}
+
+// How does a service work
+// 1. Availability group and underlying models dictate how bookable slots are generated daily/weekly/monthly
+
+// A service that can be booked by a customer
+model Service {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  active Boolean @default(true)
+
+  Business   Business? @relation(fields: [businessId], references: [id])
+  businessId Int?
+
+  appointments        Appointment[]
+  availibilityGroup   AvailabilityGroup @relation(fields: [availibilityGroupId], references: [id])
+  availibilityGroupId Int
+}
+
+// Availability group which can be referenced by many services
+model AvailabilityGroup {
+  id                Int                 @id @default(autoincrement())
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  dailyAvailability DailyAvailability[]
+  services          Service[]
+  BookableSlot      BookableSlot[]
+}
+
+// Defines how time slots are generated for a day in a week
+model DailyAvailability {
+  id                  Int               @id @default(autoincrement())
+  availabilityGroup   AvailabilityGroup @relation(fields: [availabilityGroupId], references: [id])
+  availabilityGroupId Int
+  availabilityBlocks  TimeBlock[]
+  dayOfWeek           WeekDay
+
+  @@unique([availabilityGroupId, dayOfWeek])
+}
+
+// Time block for daily availability
+model TimeBlock {
+  id                     Int               @id @default(autoincrement())
+  dailyAvailabilityDay   DailyAvailability @relation(fields: [dailyAvailabilityDayId], references: [id])
+  dailyAvailabilityDayId Int
+
+  startTime String // e.g. "09:00"
+  endTime   String // e.g. "12:00"
+}
+
+// A generate bookable slot which is claimed by appointment
+model BookableSlot {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  startTime DateTime
+  endTime   DateTime
+
+  isBooked    Boolean       @default(false)
+  Appointment Appointment[]
+
+  AvailabilityGroup   AvailabilityGroup? @relation(fields: [availabilityGroupId], references: [id])
+  availabilityGroupId Int?
+}
+
+enum WeekDay {
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+}
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
