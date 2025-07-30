@@ -2,10 +2,6 @@
   "name": "service-booking",
   "version": "0.1.0",
   "private": true,
-  "prisma": {
-    "schema": "./prisma",
-    "migrations": "./prisma/migrations"
-  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
