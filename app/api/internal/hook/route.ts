@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     let body;
     try {
         body = await request.json();
-    } catch (e) {
+    } catch (_) {
         return new Response(JSON.stringify({ error: 'Invalid input' }), {
             status: 400,
             headers: { 'Content-Type': 'application/json' },
