@@ -10,8 +10,8 @@ export const env = createEnv({
     // Postgres
     POSTGRES_PRISMA_URL: z.string().min(1),
     // Google OAuth
-    GOOGLE_CLIENT_ID: z.string().min(1),
-    GOOGLE_CLIENT_SECRET: z.string().min(1),
+    // GOOGLE_CLIENT_ID: z.string().min(1),
+    // GOOGLE_CLIENT_SECRET: z.string().min(1),
     // Auth0
     APP_BASE_URL: z.url(),
     AUTH0_SECRET: z.string().min(10),
@@ -34,8 +34,8 @@ export const env = createEnv({
     NEXT_PUBLIC_BRAND_NAME: process.env.NEXT_PUBLIC_BRAND_NAME,
     NEXT_PUBLIC_COMPANY_NAME: process.env.NEXT_PUBLIC_COMPANY_NAME,
     // Google SSO
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    // GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    // GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     // Auth0
     APP_BASE_URL: process.env.APP_BASE_URL,
     AUTH0_SECRET: process.env.AUTH0_SECRET,
