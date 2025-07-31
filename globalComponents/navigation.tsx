@@ -22,7 +22,7 @@ type NavigationItemsType = Array<NavigationItem>;
 const navigationItems: NavigationItemsType = [
   { title: "Home", path: "/" },
   { title: "Pricing", path: "/pricing" },
-  { title: "Business dashboard", path: "/business/dashboard" },
+  { title: "Business dashboard", path: "/business" },
   { title: "Book a service", path: "/book" },
 ];
 
