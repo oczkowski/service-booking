@@ -13,7 +13,7 @@ export const env = createEnv({
     // GOOGLE_CLIENT_ID: z.string().min(1),
     // GOOGLE_CLIENT_SECRET: z.string().min(1),
     // Auth0
-    AUTH0_BASE_URL: z.url(),
+    AUTH0_BASE_URL: z.string().min(1),
     AUTH0_SECRET: z.string().min(10),
     AUTH0_ISSUER_BASE_URL: z.url(),
     AUTH0_CLIENT_ID: z.string().min(1),
