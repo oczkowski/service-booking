@@ -33,9 +33,6 @@ export const env = createEnv({
     // App settings
     NEXT_PUBLIC_BRAND_NAME: process.env.NEXT_PUBLIC_BRAND_NAME,
     NEXT_PUBLIC_COMPANY_NAME: process.env.NEXT_PUBLIC_COMPANY_NAME,
-    // Google SSO
-    // GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    // GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     // Auth0
     AUTH0_BASE_URL: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
