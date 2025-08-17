@@ -58,7 +58,7 @@ const Navigation = async () => {
         </div>
       ) : (
         <Button asChild>
-          <Link className="font-medium" href="/manage/organization/setup">Try free for 21 days</Link>
+          <Link className="font-medium" href="/manage/organization/setup/choose-plan">Try free for 21 days</Link>
         </Button>
       )}
     </NavigationMenu>
