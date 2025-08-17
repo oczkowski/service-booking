@@ -1,16 +1,11 @@
 // Customer does not authenticate
 model Customer {
-    id           Int           @id @default(autoincrement())
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
-    email        String        @unique
-    mobile       String?       @unique
-    firstName    String?
-    lastName     String?
-    type         CustomerType  @default(GUEST)
-    appointments Appointment[]
-}
-
-enum CustomerType {
-    GUEST
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  email        String        @unique
+  mobile       String?       @unique
+  firstName    String?
+  lastName     String?
+  appointments Appointment[]
 }

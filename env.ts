@@ -21,6 +21,8 @@ export const env = createEnv({
     // AUTH0_AUDIENCE: z.string().min(1),
     // AUTH0_SCOPE: z.string().min(1),
     AUTH0_HOOK_SECRET: z.string().min(10),
+    // Stripe
+    STRIPE_SECRET_KEY: z.string().min(10)
   },
   client: {
     // Project specific
@@ -44,5 +46,7 @@ export const env = createEnv({
     // AUTH0_AUDIENCE: process.env.AUTH0_AUDIENCE,
     // AUTH0_SCOPE: process.env.AUTH0_SCOPE,
     AUTH0_HOOK_SECRET: process.env.AUTH0_HOOK_SECRET,
+    // Stripe
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY
   },
 });

@@ -1,24 +1,24 @@
 model Appointment {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    customer   Customer @relation(fields: [customerId], references: [id])
-    customerId Int
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int
 
-    service   Service @relation(fields: [serviceId], references: [id])
-    serviceId Int
+  service   Service @relation(fields: [serviceId], references: [id])
+  serviceId Int
 
-    slot   BookableSlot @relation(fields: [slotId], references: [id])
-    slotId Int
+  slot   BookableSlot @relation(fields: [slotId], references: [id])
+  slotId Int
 
-    status      Status
-    // When canceling, the appointment can return to the availability group or remain blocked here
-    isCancelled Boolean @default(false)
+  status      Status
 }
 
 enum Status {
-    UPCOMING
-    ATTENDED
-    MISSED
+  UPCOMING
+  ATTENDED
+  MISSED
+  // When canceling, the appointment can return to the availability group or remain blocked here
+  CANCELLED
 }

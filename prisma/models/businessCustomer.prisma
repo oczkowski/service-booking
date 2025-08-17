@@ -1,0 +1,12 @@
+// Model connected to Auth0
+model BusinessCustomer {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique
+  mobile    String?  @unique
+  firstName String
+  lastName  String
+
+  organization OrganizationOnBusinessCustomer[]
+}

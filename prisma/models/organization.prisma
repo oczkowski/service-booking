@@ -1,0 +1,65 @@
+model Organization {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  legalName String
+
+  businessCustomers OrganizationOnBusinessCustomer[]
+
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId Int @unique
+
+  Business     Business[]
+}
+
+model OrganizationOnBusinessCustomer {
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+
+  businessCustomer   BusinessCustomer @relation(fields: [businessCustomerId], references: [id])
+  businessCustomerId Int
+
+  role OrganizationRole
+
+  @@id([organizationId, businessCustomerId])
+}
+
+model Subscription {
+  id    Int               @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  level SubscriptionLevel
+  price Decimal           @db.Decimal(10, 2)
+  status SubscriptionStatus @default(TRIAL)
+  stripeCustomerId String?
+  stripeSubscriptionId String?
+  trialEndsAt DateTime?
+
+  organization Organization?
+}
+
+enum SubscriptionLevel {
+  SMALL // 1 Business, 20 Services, 2,000 Appointments / Monthly
+  MEDIUM // 3 Businesses, 60 Services, 10,000 Appointments / Monthly
+  LARGE // 10 Businesses, 200 Services, 80,000 Appointments / Monthly
+  ENTERPRISE // Confirmed during enquiry
+}
+
+enum SubscriptionStatus {
+  TRIAL // Free trial period
+  ACTIVE // Paid and active
+  PAST_DUE // Payment failed
+  CANCELED // Subscription canceled
+  UNPAID // Payment required
+}
+
+// The further down you go the more restricted the role is
+enum OrganizationRole {
+  // Only the owner manages billing, has access to remove the business and manage subscriptions
+  OWNER
+  // Can change business names, images, services and information, change pricing
+  ADMIN
+  // Can amend other staffs appointments, cancel appointments, issue refunds etc.
+  MANAGER
+  // Can manage their own appointments, cancel their own appointments
+  STAFF
+}

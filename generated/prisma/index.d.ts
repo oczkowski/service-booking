@@ -19,25 +19,35 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Appointment = $Result.DefaultSelection<Prisma.$AppointmentPayload>
 /**
- * Model BusinessCustomer
- * 
- */
-export type BusinessCustomer = $Result.DefaultSelection<Prisma.$BusinessCustomerPayload>
-/**
  * Model Business
  * 
  */
 export type Business = $Result.DefaultSelection<Prisma.$BusinessPayload>
 /**
- * Model BusinessCustomerOnBusiness
+ * Model BusinessCustomer
  * 
  */
-export type BusinessCustomerOnBusiness = $Result.DefaultSelection<Prisma.$BusinessCustomerOnBusinessPayload>
+export type BusinessCustomer = $Result.DefaultSelection<Prisma.$BusinessCustomerPayload>
 /**
  * Model Customer
  * 
  */
 export type Customer = $Result.DefaultSelection<Prisma.$CustomerPayload>
+/**
+ * Model Organization
+ * 
+ */
+export type Organization = $Result.DefaultSelection<Prisma.$OrganizationPayload>
+/**
+ * Model OrganizationOnBusinessCustomer
+ * 
+ */
+export type OrganizationOnBusinessCustomer = $Result.DefaultSelection<Prisma.$OrganizationOnBusinessCustomerPayload>
+/**
+ * Model Subscription
+ * 
+ */
+export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
 /**
  * Model Service
  * 
@@ -71,35 +81,42 @@ export namespace $Enums {
   export const Status: {
   UPCOMING: 'UPCOMING',
   ATTENDED: 'ATTENDED',
-  MISSED: 'MISSED'
+  MISSED: 'MISSED',
+  CANCELLED: 'CANCELLED'
 };
 
 export type Status = (typeof Status)[keyof typeof Status]
 
 
-export const BusinessRole: {
+export const SubscriptionLevel: {
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE',
+  ENTERPRISE: 'ENTERPRISE'
+};
+
+export type SubscriptionLevel = (typeof SubscriptionLevel)[keyof typeof SubscriptionLevel]
+
+
+export const SubscriptionStatus: {
+  TRIAL: 'TRIAL',
+  ACTIVE: 'ACTIVE',
+  PAST_DUE: 'PAST_DUE',
+  CANCELED: 'CANCELED',
+  UNPAID: 'UNPAID'
+};
+
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
+
+
+export const OrganizationRole: {
   OWNER: 'OWNER',
   ADMIN: 'ADMIN',
   MANAGER: 'MANAGER',
   STAFF: 'STAFF'
 };
 
-export type BusinessRole = (typeof BusinessRole)[keyof typeof BusinessRole]
-
-
-export const BusinessType: {
-  SME: 'SME',
-  ENTERPRISE: 'ENTERPRISE'
-};
-
-export type BusinessType = (typeof BusinessType)[keyof typeof BusinessType]
-
-
-export const CustomerType: {
-  GUEST: 'GUEST'
-};
-
-export type CustomerType = (typeof CustomerType)[keyof typeof CustomerType]
+export type OrganizationRole = (typeof OrganizationRole)[keyof typeof OrganizationRole]
 
 
 export const WeekDay: {
@@ -120,17 +137,17 @@ export type Status = $Enums.Status
 
 export const Status: typeof $Enums.Status
 
-export type BusinessRole = $Enums.BusinessRole
+export type SubscriptionLevel = $Enums.SubscriptionLevel
 
-export const BusinessRole: typeof $Enums.BusinessRole
+export const SubscriptionLevel: typeof $Enums.SubscriptionLevel
 
-export type BusinessType = $Enums.BusinessType
+export type SubscriptionStatus = $Enums.SubscriptionStatus
 
-export const BusinessType: typeof $Enums.BusinessType
+export const SubscriptionStatus: typeof $Enums.SubscriptionStatus
 
-export type CustomerType = $Enums.CustomerType
+export type OrganizationRole = $Enums.OrganizationRole
 
-export const CustomerType: typeof $Enums.CustomerType
+export const OrganizationRole: typeof $Enums.OrganizationRole
 
 export type WeekDay = $Enums.WeekDay
 
@@ -272,16 +289,6 @@ export class PrismaClient<
   get appointment(): Prisma.AppointmentDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.businessCustomer`: Exposes CRUD operations for the **BusinessCustomer** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more BusinessCustomers
-    * const businessCustomers = await prisma.businessCustomer.findMany()
-    * ```
-    */
-  get businessCustomer(): Prisma.BusinessCustomerDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.business`: Exposes CRUD operations for the **Business** model.
     * Example usage:
     * ```ts
@@ -292,14 +299,14 @@ export class PrismaClient<
   get business(): Prisma.BusinessDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.businessCustomerOnBusiness`: Exposes CRUD operations for the **BusinessCustomerOnBusiness** model.
+   * `prisma.businessCustomer`: Exposes CRUD operations for the **BusinessCustomer** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more BusinessCustomerOnBusinesses
-    * const businessCustomerOnBusinesses = await prisma.businessCustomerOnBusiness.findMany()
+    * // Fetch zero or more BusinessCustomers
+    * const businessCustomers = await prisma.businessCustomer.findMany()
     * ```
     */
-  get businessCustomerOnBusiness(): Prisma.BusinessCustomerOnBusinessDelegate<ExtArgs, ClientOptions>;
+  get businessCustomer(): Prisma.BusinessCustomerDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.customer`: Exposes CRUD operations for the **Customer** model.
@@ -310,6 +317,36 @@ export class PrismaClient<
     * ```
     */
   get customer(): Prisma.CustomerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.organization`: Exposes CRUD operations for the **Organization** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Organizations
+    * const organizations = await prisma.organization.findMany()
+    * ```
+    */
+  get organization(): Prisma.OrganizationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.organizationOnBusinessCustomer`: Exposes CRUD operations for the **OrganizationOnBusinessCustomer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OrganizationOnBusinessCustomers
+    * const organizationOnBusinessCustomers = await prisma.organizationOnBusinessCustomer.findMany()
+    * ```
+    */
+  get organizationOnBusinessCustomer(): Prisma.OrganizationOnBusinessCustomerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subscription`: Exposes CRUD operations for the **Subscription** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Subscriptions
+    * const subscriptions = await prisma.subscription.findMany()
+    * ```
+    */
+  get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.service`: Exposes CRUD operations for the **Service** model.
@@ -801,10 +838,12 @@ export namespace Prisma {
 
   export const ModelName: {
     Appointment: 'Appointment',
-    BusinessCustomer: 'BusinessCustomer',
     Business: 'Business',
-    BusinessCustomerOnBusiness: 'BusinessCustomerOnBusiness',
+    BusinessCustomer: 'BusinessCustomer',
     Customer: 'Customer',
+    Organization: 'Organization',
+    OrganizationOnBusinessCustomer: 'OrganizationOnBusinessCustomer',
+    Subscription: 'Subscription',
     Service: 'Service',
     AvailabilityGroup: 'AvailabilityGroup',
     DailyAvailability: 'DailyAvailability',
@@ -828,7 +867,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "appointment" | "businessCustomer" | "business" | "businessCustomerOnBusiness" | "customer" | "service" | "availabilityGroup" | "dailyAvailability" | "timeBlock" | "bookableSlot"
+      modelProps: "appointment" | "business" | "businessCustomer" | "customer" | "organization" | "organizationOnBusinessCustomer" | "subscription" | "service" | "availabilityGroup" | "dailyAvailability" | "timeBlock" | "bookableSlot"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -906,80 +945,6 @@ export namespace Prisma {
           }
         }
       }
-      BusinessCustomer: {
-        payload: Prisma.$BusinessCustomerPayload<ExtArgs>
-        fields: Prisma.BusinessCustomerFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.BusinessCustomerFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.BusinessCustomerFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
-          }
-          findFirst: {
-            args: Prisma.BusinessCustomerFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.BusinessCustomerFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
-          }
-          findMany: {
-            args: Prisma.BusinessCustomerFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>[]
-          }
-          create: {
-            args: Prisma.BusinessCustomerCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
-          }
-          createMany: {
-            args: Prisma.BusinessCustomerCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.BusinessCustomerCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>[]
-          }
-          delete: {
-            args: Prisma.BusinessCustomerDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
-          }
-          update: {
-            args: Prisma.BusinessCustomerUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
-          }
-          deleteMany: {
-            args: Prisma.BusinessCustomerDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.BusinessCustomerUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.BusinessCustomerUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>[]
-          }
-          upsert: {
-            args: Prisma.BusinessCustomerUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
-          }
-          aggregate: {
-            args: Prisma.BusinessCustomerAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateBusinessCustomer>
-          }
-          groupBy: {
-            args: Prisma.BusinessCustomerGroupByArgs<ExtArgs>
-            result: $Utils.Optional<BusinessCustomerGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.BusinessCustomerCountArgs<ExtArgs>
-            result: $Utils.Optional<BusinessCustomerCountAggregateOutputType> | number
-          }
-        }
-      }
       Business: {
         payload: Prisma.$BusinessPayload<ExtArgs>
         fields: Prisma.BusinessFieldRefs
@@ -1054,77 +1019,77 @@ export namespace Prisma {
           }
         }
       }
-      BusinessCustomerOnBusiness: {
-        payload: Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>
-        fields: Prisma.BusinessCustomerOnBusinessFieldRefs
+      BusinessCustomer: {
+        payload: Prisma.$BusinessCustomerPayload<ExtArgs>
+        fields: Prisma.BusinessCustomerFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.BusinessCustomerOnBusinessFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload> | null
+            args: Prisma.BusinessCustomerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.BusinessCustomerOnBusinessFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload>
+            args: Prisma.BusinessCustomerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
           }
           findFirst: {
-            args: Prisma.BusinessCustomerOnBusinessFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload> | null
+            args: Prisma.BusinessCustomerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.BusinessCustomerOnBusinessFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload>
+            args: Prisma.BusinessCustomerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
           }
           findMany: {
-            args: Prisma.BusinessCustomerOnBusinessFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload>[]
+            args: Prisma.BusinessCustomerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>[]
           }
           create: {
-            args: Prisma.BusinessCustomerOnBusinessCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload>
+            args: Prisma.BusinessCustomerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
           }
           createMany: {
-            args: Prisma.BusinessCustomerOnBusinessCreateManyArgs<ExtArgs>
+            args: Prisma.BusinessCustomerCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.BusinessCustomerOnBusinessCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload>[]
+            args: Prisma.BusinessCustomerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>[]
           }
           delete: {
-            args: Prisma.BusinessCustomerOnBusinessDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload>
+            args: Prisma.BusinessCustomerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
           }
           update: {
-            args: Prisma.BusinessCustomerOnBusinessUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload>
+            args: Prisma.BusinessCustomerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
           }
           deleteMany: {
-            args: Prisma.BusinessCustomerOnBusinessDeleteManyArgs<ExtArgs>
+            args: Prisma.BusinessCustomerDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.BusinessCustomerOnBusinessUpdateManyArgs<ExtArgs>
+            args: Prisma.BusinessCustomerUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.BusinessCustomerOnBusinessUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload>[]
+            args: Prisma.BusinessCustomerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>[]
           }
           upsert: {
-            args: Prisma.BusinessCustomerOnBusinessUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerOnBusinessPayload>
+            args: Prisma.BusinessCustomerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessCustomerPayload>
           }
           aggregate: {
-            args: Prisma.BusinessCustomerOnBusinessAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateBusinessCustomerOnBusiness>
+            args: Prisma.BusinessCustomerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBusinessCustomer>
           }
           groupBy: {
-            args: Prisma.BusinessCustomerOnBusinessGroupByArgs<ExtArgs>
-            result: $Utils.Optional<BusinessCustomerOnBusinessGroupByOutputType>[]
+            args: Prisma.BusinessCustomerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BusinessCustomerGroupByOutputType>[]
           }
           count: {
-            args: Prisma.BusinessCustomerOnBusinessCountArgs<ExtArgs>
-            result: $Utils.Optional<BusinessCustomerOnBusinessCountAggregateOutputType> | number
+            args: Prisma.BusinessCustomerCountArgs<ExtArgs>
+            result: $Utils.Optional<BusinessCustomerCountAggregateOutputType> | number
           }
         }
       }
@@ -1199,6 +1164,228 @@ export namespace Prisma {
           count: {
             args: Prisma.CustomerCountArgs<ExtArgs>
             result: $Utils.Optional<CustomerCountAggregateOutputType> | number
+          }
+        }
+      }
+      Organization: {
+        payload: Prisma.$OrganizationPayload<ExtArgs>
+        fields: Prisma.OrganizationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OrganizationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OrganizationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          findFirst: {
+            args: Prisma.OrganizationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OrganizationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          findMany: {
+            args: Prisma.OrganizationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>[]
+          }
+          create: {
+            args: Prisma.OrganizationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          createMany: {
+            args: Prisma.OrganizationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OrganizationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>[]
+          }
+          delete: {
+            args: Prisma.OrganizationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          update: {
+            args: Prisma.OrganizationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          deleteMany: {
+            args: Prisma.OrganizationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OrganizationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OrganizationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>[]
+          }
+          upsert: {
+            args: Prisma.OrganizationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          aggregate: {
+            args: Prisma.OrganizationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOrganization>
+          }
+          groupBy: {
+            args: Prisma.OrganizationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OrganizationCountArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationCountAggregateOutputType> | number
+          }
+        }
+      }
+      OrganizationOnBusinessCustomer: {
+        payload: Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>
+        fields: Prisma.OrganizationOnBusinessCustomerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OrganizationOnBusinessCustomerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OrganizationOnBusinessCustomerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload>
+          }
+          findFirst: {
+            args: Prisma.OrganizationOnBusinessCustomerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OrganizationOnBusinessCustomerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload>
+          }
+          findMany: {
+            args: Prisma.OrganizationOnBusinessCustomerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload>[]
+          }
+          create: {
+            args: Prisma.OrganizationOnBusinessCustomerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload>
+          }
+          createMany: {
+            args: Prisma.OrganizationOnBusinessCustomerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OrganizationOnBusinessCustomerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload>[]
+          }
+          delete: {
+            args: Prisma.OrganizationOnBusinessCustomerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload>
+          }
+          update: {
+            args: Prisma.OrganizationOnBusinessCustomerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload>
+          }
+          deleteMany: {
+            args: Prisma.OrganizationOnBusinessCustomerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OrganizationOnBusinessCustomerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OrganizationOnBusinessCustomerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload>[]
+          }
+          upsert: {
+            args: Prisma.OrganizationOnBusinessCustomerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationOnBusinessCustomerPayload>
+          }
+          aggregate: {
+            args: Prisma.OrganizationOnBusinessCustomerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOrganizationOnBusinessCustomer>
+          }
+          groupBy: {
+            args: Prisma.OrganizationOnBusinessCustomerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationOnBusinessCustomerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OrganizationOnBusinessCustomerCountArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationOnBusinessCustomerCountAggregateOutputType> | number
+          }
+        }
+      }
+      Subscription: {
+        payload: Prisma.$SubscriptionPayload<ExtArgs>
+        fields: Prisma.SubscriptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubscriptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubscriptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findFirst: {
+            args: Prisma.SubscriptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubscriptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findMany: {
+            args: Prisma.SubscriptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          create: {
+            args: Prisma.SubscriptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          createMany: {
+            args: Prisma.SubscriptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubscriptionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          delete: {
+            args: Prisma.SubscriptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          update: {
+            args: Prisma.SubscriptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SubscriptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubscriptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SubscriptionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          upsert: {
+            args: Prisma.SubscriptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          aggregate: {
+            args: Prisma.SubscriptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubscription>
+          }
+          groupBy: {
+            args: Prisma.SubscriptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubscriptionCountArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionCountAggregateOutputType> | number
           }
         }
       }
@@ -1665,10 +1852,12 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     appointment?: AppointmentOmit
-    businessCustomer?: BusinessCustomerOmit
     business?: BusinessOmit
-    businessCustomerOnBusiness?: BusinessCustomerOnBusinessOmit
+    businessCustomer?: BusinessCustomerOmit
     customer?: CustomerOmit
+    organization?: OrganizationOmit
+    organizationOnBusinessCustomer?: OrganizationOnBusinessCustomerOmit
+    subscription?: SubscriptionOmit
     service?: ServiceOmit
     availabilityGroup?: AvailabilityGroupOmit
     dailyAvailability?: DailyAvailabilityOmit
@@ -1769,47 +1958,14 @@ export namespace Prisma {
 
 
   /**
-   * Count Type BusinessCustomerCountOutputType
-   */
-
-  export type BusinessCustomerCountOutputType = {
-    businesses: number
-  }
-
-  export type BusinessCustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    businesses?: boolean | BusinessCustomerCountOutputTypeCountBusinessesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * BusinessCustomerCountOutputType without action
-   */
-  export type BusinessCustomerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerCountOutputType
-     */
-    select?: BusinessCustomerCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * BusinessCustomerCountOutputType without action
-   */
-  export type BusinessCustomerCountOutputTypeCountBusinessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BusinessCustomerOnBusinessWhereInput
-  }
-
-
-  /**
    * Count Type BusinessCountOutputType
    */
 
   export type BusinessCountOutputType = {
-    BusinessCustomers: number
     services: number
   }
 
   export type BusinessCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    BusinessCustomers?: boolean | BusinessCountOutputTypeCountBusinessCustomersArgs
     services?: boolean | BusinessCountOutputTypeCountServicesArgs
   }
 
@@ -1827,15 +1983,39 @@ export namespace Prisma {
   /**
    * BusinessCountOutputType without action
    */
-  export type BusinessCountOutputTypeCountBusinessCustomersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BusinessCustomerOnBusinessWhereInput
+  export type BusinessCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceWhereInput
+  }
+
+
+  /**
+   * Count Type BusinessCustomerCountOutputType
+   */
+
+  export type BusinessCustomerCountOutputType = {
+    organization: number
+  }
+
+  export type BusinessCustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | BusinessCustomerCountOutputTypeCountOrganizationArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BusinessCustomerCountOutputType without action
+   */
+  export type BusinessCustomerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessCustomerCountOutputType
+     */
+    select?: BusinessCustomerCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * BusinessCountOutputType without action
+   * BusinessCustomerCountOutputType without action
    */
-  export type BusinessCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ServiceWhereInput
+  export type BusinessCustomerCountOutputTypeCountOrganizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationOnBusinessCustomerWhereInput
   }
 
 
@@ -1867,6 +2047,46 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountAppointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AppointmentWhereInput
+  }
+
+
+  /**
+   * Count Type OrganizationCountOutputType
+   */
+
+  export type OrganizationCountOutputType = {
+    businessCustomers: number
+    Business: number
+  }
+
+  export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    businessCustomers?: boolean | OrganizationCountOutputTypeCountBusinessCustomersArgs
+    Business?: boolean | OrganizationCountOutputTypeCountBusinessArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationCountOutputType
+     */
+    select?: OrganizationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountBusinessCustomersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationOnBusinessCustomerWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountBusinessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BusinessWhereInput
   }
 
 
@@ -2048,7 +2268,6 @@ export namespace Prisma {
     serviceId: number | null
     slotId: number | null
     status: $Enums.Status | null
-    isCancelled: boolean | null
   }
 
   export type AppointmentMaxAggregateOutputType = {
@@ -2059,7 +2278,6 @@ export namespace Prisma {
     serviceId: number | null
     slotId: number | null
     status: $Enums.Status | null
-    isCancelled: boolean | null
   }
 
   export type AppointmentCountAggregateOutputType = {
@@ -2070,7 +2288,6 @@ export namespace Prisma {
     serviceId: number
     slotId: number
     status: number
-    isCancelled: number
     _all: number
   }
 
@@ -2095,7 +2312,6 @@ export namespace Prisma {
     serviceId?: true
     slotId?: true
     status?: true
-    isCancelled?: true
   }
 
   export type AppointmentMaxAggregateInputType = {
@@ -2106,7 +2322,6 @@ export namespace Prisma {
     serviceId?: true
     slotId?: true
     status?: true
-    isCancelled?: true
   }
 
   export type AppointmentCountAggregateInputType = {
@@ -2117,7 +2332,6 @@ export namespace Prisma {
     serviceId?: true
     slotId?: true
     status?: true
-    isCancelled?: true
     _all?: true
   }
 
@@ -2215,7 +2429,6 @@ export namespace Prisma {
     serviceId: number
     slotId: number
     status: $Enums.Status
-    isCancelled: boolean
     _count: AppointmentCountAggregateOutputType | null
     _avg: AppointmentAvgAggregateOutputType | null
     _sum: AppointmentSumAggregateOutputType | null
@@ -2245,7 +2458,6 @@ export namespace Prisma {
     serviceId?: boolean
     slotId?: boolean
     status?: boolean
-    isCancelled?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     slot?: boolean | BookableSlotDefaultArgs<ExtArgs>
@@ -2259,7 +2471,6 @@ export namespace Prisma {
     serviceId?: boolean
     slotId?: boolean
     status?: boolean
-    isCancelled?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     slot?: boolean | BookableSlotDefaultArgs<ExtArgs>
@@ -2273,7 +2484,6 @@ export namespace Prisma {
     serviceId?: boolean
     slotId?: boolean
     status?: boolean
-    isCancelled?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     slot?: boolean | BookableSlotDefaultArgs<ExtArgs>
@@ -2287,10 +2497,9 @@ export namespace Prisma {
     serviceId?: boolean
     slotId?: boolean
     status?: boolean
-    isCancelled?: boolean
   }
 
-  export type AppointmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "customerId" | "serviceId" | "slotId" | "status" | "isCancelled", ExtArgs["result"]["appointment"]>
+  export type AppointmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "customerId" | "serviceId" | "slotId" | "status", ExtArgs["result"]["appointment"]>
   export type AppointmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
@@ -2322,7 +2531,6 @@ export namespace Prisma {
       serviceId: number
       slotId: number
       status: $Enums.Status
-      isCancelled: boolean
     }, ExtArgs["result"]["appointment"]>
     composites: {}
   }
@@ -2756,7 +2964,6 @@ export namespace Prisma {
     readonly serviceId: FieldRef<"Appointment", 'Int'>
     readonly slotId: FieldRef<"Appointment", 'Int'>
     readonly status: FieldRef<"Appointment", 'Status'>
-    readonly isCancelled: FieldRef<"Appointment", 'Boolean'>
   }
     
 
@@ -3172,6 +3379,1145 @@ export namespace Prisma {
 
 
   /**
+   * Model Business
+   */
+
+  export type AggregateBusiness = {
+    _count: BusinessCountAggregateOutputType | null
+    _avg: BusinessAvgAggregateOutputType | null
+    _sum: BusinessSumAggregateOutputType | null
+    _min: BusinessMinAggregateOutputType | null
+    _max: BusinessMaxAggregateOutputType | null
+  }
+
+  export type BusinessAvgAggregateOutputType = {
+    id: number | null
+    organizationId: number | null
+  }
+
+  export type BusinessSumAggregateOutputType = {
+    id: number | null
+    organizationId: number | null
+  }
+
+  export type BusinessMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    contactNumber: string | null
+    businessName: string | null
+    organizationId: number | null
+  }
+
+  export type BusinessMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    contactNumber: string | null
+    businessName: string | null
+    organizationId: number | null
+  }
+
+  export type BusinessCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    contactNumber: number
+    businessName: number
+    organizationId: number
+    _all: number
+  }
+
+
+  export type BusinessAvgAggregateInputType = {
+    id?: true
+    organizationId?: true
+  }
+
+  export type BusinessSumAggregateInputType = {
+    id?: true
+    organizationId?: true
+  }
+
+  export type BusinessMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    contactNumber?: true
+    businessName?: true
+    organizationId?: true
+  }
+
+  export type BusinessMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    contactNumber?: true
+    businessName?: true
+    organizationId?: true
+  }
+
+  export type BusinessCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    contactNumber?: true
+    businessName?: true
+    organizationId?: true
+    _all?: true
+  }
+
+  export type BusinessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Business to aggregate.
+     */
+    where?: BusinessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Businesses to fetch.
+     */
+    orderBy?: BusinessOrderByWithRelationInput | BusinessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BusinessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Businesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Businesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Businesses
+    **/
+    _count?: true | BusinessCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BusinessAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BusinessSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BusinessMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BusinessMaxAggregateInputType
+  }
+
+  export type GetBusinessAggregateType<T extends BusinessAggregateArgs> = {
+        [P in keyof T & keyof AggregateBusiness]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBusiness[P]>
+      : GetScalarType<T[P], AggregateBusiness[P]>
+  }
+
+
+
+
+  export type BusinessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BusinessWhereInput
+    orderBy?: BusinessOrderByWithAggregationInput | BusinessOrderByWithAggregationInput[]
+    by: BusinessScalarFieldEnum[] | BusinessScalarFieldEnum
+    having?: BusinessScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BusinessCountAggregateInputType | true
+    _avg?: BusinessAvgAggregateInputType
+    _sum?: BusinessSumAggregateInputType
+    _min?: BusinessMinAggregateInputType
+    _max?: BusinessMaxAggregateInputType
+  }
+
+  export type BusinessGroupByOutputType = {
+    id: number
+    createdAt: Date
+    updatedAt: Date
+    contactNumber: string
+    businessName: string
+    organizationId: number
+    _count: BusinessCountAggregateOutputType | null
+    _avg: BusinessAvgAggregateOutputType | null
+    _sum: BusinessSumAggregateOutputType | null
+    _min: BusinessMinAggregateOutputType | null
+    _max: BusinessMaxAggregateOutputType | null
+  }
+
+  type GetBusinessGroupByPayload<T extends BusinessGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BusinessGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BusinessGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BusinessGroupByOutputType[P]>
+            : GetScalarType<T[P], BusinessGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BusinessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contactNumber?: boolean
+    businessName?: boolean
+    organizationId?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    services?: boolean | Business$servicesArgs<ExtArgs>
+    _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["business"]>
+
+  export type BusinessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contactNumber?: boolean
+    businessName?: boolean
+    organizationId?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["business"]>
+
+  export type BusinessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contactNumber?: boolean
+    businessName?: boolean
+    organizationId?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["business"]>
+
+  export type BusinessSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contactNumber?: boolean
+    businessName?: boolean
+    organizationId?: boolean
+  }
+
+  export type BusinessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "contactNumber" | "businessName" | "organizationId", ExtArgs["result"]["business"]>
+  export type BusinessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    services?: boolean | Business$servicesArgs<ExtArgs>
+    _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BusinessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type BusinessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $BusinessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Business"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      services: Prisma.$ServicePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+      updatedAt: Date
+      contactNumber: string
+      businessName: string
+      organizationId: number
+    }, ExtArgs["result"]["business"]>
+    composites: {}
+  }
+
+  type BusinessGetPayload<S extends boolean | null | undefined | BusinessDefaultArgs> = $Result.GetResult<Prisma.$BusinessPayload, S>
+
+  type BusinessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BusinessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BusinessCountAggregateInputType | true
+    }
+
+  export interface BusinessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Business'], meta: { name: 'Business' } }
+    /**
+     * Find zero or one Business that matches the filter.
+     * @param {BusinessFindUniqueArgs} args - Arguments to find a Business
+     * @example
+     * // Get one Business
+     * const business = await prisma.business.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BusinessFindUniqueArgs>(args: SelectSubset<T, BusinessFindUniqueArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Business that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BusinessFindUniqueOrThrowArgs} args - Arguments to find a Business
+     * @example
+     * // Get one Business
+     * const business = await prisma.business.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BusinessFindUniqueOrThrowArgs>(args: SelectSubset<T, BusinessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Business that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessFindFirstArgs} args - Arguments to find a Business
+     * @example
+     * // Get one Business
+     * const business = await prisma.business.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BusinessFindFirstArgs>(args?: SelectSubset<T, BusinessFindFirstArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Business that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessFindFirstOrThrowArgs} args - Arguments to find a Business
+     * @example
+     * // Get one Business
+     * const business = await prisma.business.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BusinessFindFirstOrThrowArgs>(args?: SelectSubset<T, BusinessFindFirstOrThrowArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Businesses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Businesses
+     * const businesses = await prisma.business.findMany()
+     * 
+     * // Get first 10 Businesses
+     * const businesses = await prisma.business.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const businessWithIdOnly = await prisma.business.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BusinessFindManyArgs>(args?: SelectSubset<T, BusinessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Business.
+     * @param {BusinessCreateArgs} args - Arguments to create a Business.
+     * @example
+     * // Create one Business
+     * const Business = await prisma.business.create({
+     *   data: {
+     *     // ... data to create a Business
+     *   }
+     * })
+     * 
+     */
+    create<T extends BusinessCreateArgs>(args: SelectSubset<T, BusinessCreateArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Businesses.
+     * @param {BusinessCreateManyArgs} args - Arguments to create many Businesses.
+     * @example
+     * // Create many Businesses
+     * const business = await prisma.business.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BusinessCreateManyArgs>(args?: SelectSubset<T, BusinessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Businesses and returns the data saved in the database.
+     * @param {BusinessCreateManyAndReturnArgs} args - Arguments to create many Businesses.
+     * @example
+     * // Create many Businesses
+     * const business = await prisma.business.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Businesses and only return the `id`
+     * const businessWithIdOnly = await prisma.business.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BusinessCreateManyAndReturnArgs>(args?: SelectSubset<T, BusinessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Business.
+     * @param {BusinessDeleteArgs} args - Arguments to delete one Business.
+     * @example
+     * // Delete one Business
+     * const Business = await prisma.business.delete({
+     *   where: {
+     *     // ... filter to delete one Business
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BusinessDeleteArgs>(args: SelectSubset<T, BusinessDeleteArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Business.
+     * @param {BusinessUpdateArgs} args - Arguments to update one Business.
+     * @example
+     * // Update one Business
+     * const business = await prisma.business.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BusinessUpdateArgs>(args: SelectSubset<T, BusinessUpdateArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Businesses.
+     * @param {BusinessDeleteManyArgs} args - Arguments to filter Businesses to delete.
+     * @example
+     * // Delete a few Businesses
+     * const { count } = await prisma.business.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BusinessDeleteManyArgs>(args?: SelectSubset<T, BusinessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Businesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Businesses
+     * const business = await prisma.business.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BusinessUpdateManyArgs>(args: SelectSubset<T, BusinessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Businesses and returns the data updated in the database.
+     * @param {BusinessUpdateManyAndReturnArgs} args - Arguments to update many Businesses.
+     * @example
+     * // Update many Businesses
+     * const business = await prisma.business.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Businesses and only return the `id`
+     * const businessWithIdOnly = await prisma.business.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BusinessUpdateManyAndReturnArgs>(args: SelectSubset<T, BusinessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Business.
+     * @param {BusinessUpsertArgs} args - Arguments to update or create a Business.
+     * @example
+     * // Update or create a Business
+     * const business = await prisma.business.upsert({
+     *   create: {
+     *     // ... data to create a Business
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Business we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BusinessUpsertArgs>(args: SelectSubset<T, BusinessUpsertArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Businesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessCountArgs} args - Arguments to filter Businesses to count.
+     * @example
+     * // Count the number of Businesses
+     * const count = await prisma.business.count({
+     *   where: {
+     *     // ... the filter for the Businesses we want to count
+     *   }
+     * })
+    **/
+    count<T extends BusinessCountArgs>(
+      args?: Subset<T, BusinessCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BusinessCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Business.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BusinessAggregateArgs>(args: Subset<T, BusinessAggregateArgs>): Prisma.PrismaPromise<GetBusinessAggregateType<T>>
+
+    /**
+     * Group by Business.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BusinessGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BusinessGroupByArgs['orderBy'] }
+        : { orderBy?: BusinessGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BusinessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBusinessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Business model
+   */
+  readonly fields: BusinessFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Business.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    services<T extends Business$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Business$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Business model
+   */
+  interface BusinessFieldRefs {
+    readonly id: FieldRef<"Business", 'Int'>
+    readonly createdAt: FieldRef<"Business", 'DateTime'>
+    readonly updatedAt: FieldRef<"Business", 'DateTime'>
+    readonly contactNumber: FieldRef<"Business", 'String'>
+    readonly businessName: FieldRef<"Business", 'String'>
+    readonly organizationId: FieldRef<"Business", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Business findUnique
+   */
+  export type BusinessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    /**
+     * Filter, which Business to fetch.
+     */
+    where: BusinessWhereUniqueInput
+  }
+
+  /**
+   * Business findUniqueOrThrow
+   */
+  export type BusinessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    /**
+     * Filter, which Business to fetch.
+     */
+    where: BusinessWhereUniqueInput
+  }
+
+  /**
+   * Business findFirst
+   */
+  export type BusinessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    /**
+     * Filter, which Business to fetch.
+     */
+    where?: BusinessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Businesses to fetch.
+     */
+    orderBy?: BusinessOrderByWithRelationInput | BusinessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Businesses.
+     */
+    cursor?: BusinessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Businesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Businesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Businesses.
+     */
+    distinct?: BusinessScalarFieldEnum | BusinessScalarFieldEnum[]
+  }
+
+  /**
+   * Business findFirstOrThrow
+   */
+  export type BusinessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    /**
+     * Filter, which Business to fetch.
+     */
+    where?: BusinessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Businesses to fetch.
+     */
+    orderBy?: BusinessOrderByWithRelationInput | BusinessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Businesses.
+     */
+    cursor?: BusinessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Businesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Businesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Businesses.
+     */
+    distinct?: BusinessScalarFieldEnum | BusinessScalarFieldEnum[]
+  }
+
+  /**
+   * Business findMany
+   */
+  export type BusinessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    /**
+     * Filter, which Businesses to fetch.
+     */
+    where?: BusinessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Businesses to fetch.
+     */
+    orderBy?: BusinessOrderByWithRelationInput | BusinessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Businesses.
+     */
+    cursor?: BusinessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Businesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Businesses.
+     */
+    skip?: number
+    distinct?: BusinessScalarFieldEnum | BusinessScalarFieldEnum[]
+  }
+
+  /**
+   * Business create
+   */
+  export type BusinessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Business.
+     */
+    data: XOR<BusinessCreateInput, BusinessUncheckedCreateInput>
+  }
+
+  /**
+   * Business createMany
+   */
+  export type BusinessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Businesses.
+     */
+    data: BusinessCreateManyInput | BusinessCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Business createManyAndReturn
+   */
+  export type BusinessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * The data used to create many Businesses.
+     */
+    data: BusinessCreateManyInput | BusinessCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Business update
+   */
+  export type BusinessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Business.
+     */
+    data: XOR<BusinessUpdateInput, BusinessUncheckedUpdateInput>
+    /**
+     * Choose, which Business to update.
+     */
+    where: BusinessWhereUniqueInput
+  }
+
+  /**
+   * Business updateMany
+   */
+  export type BusinessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Businesses.
+     */
+    data: XOR<BusinessUpdateManyMutationInput, BusinessUncheckedUpdateManyInput>
+    /**
+     * Filter which Businesses to update
+     */
+    where?: BusinessWhereInput
+    /**
+     * Limit how many Businesses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Business updateManyAndReturn
+   */
+  export type BusinessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * The data used to update Businesses.
+     */
+    data: XOR<BusinessUpdateManyMutationInput, BusinessUncheckedUpdateManyInput>
+    /**
+     * Filter which Businesses to update
+     */
+    where?: BusinessWhereInput
+    /**
+     * Limit how many Businesses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Business upsert
+   */
+  export type BusinessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Business to update in case it exists.
+     */
+    where: BusinessWhereUniqueInput
+    /**
+     * In case the Business found by the `where` argument doesn't exist, create a new Business with this data.
+     */
+    create: XOR<BusinessCreateInput, BusinessUncheckedCreateInput>
+    /**
+     * In case the Business was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BusinessUpdateInput, BusinessUncheckedUpdateInput>
+  }
+
+  /**
+   * Business delete
+   */
+  export type BusinessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    /**
+     * Filter which Business to delete.
+     */
+    where: BusinessWhereUniqueInput
+  }
+
+  /**
+   * Business deleteMany
+   */
+  export type BusinessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Businesses to delete
+     */
+    where?: BusinessWhereInput
+    /**
+     * Limit how many Businesses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Business.services
+   */
+  export type Business$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    cursor?: ServiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+  }
+
+  /**
+   * Business without action
+   */
+  export type BusinessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model BusinessCustomer
    */
 
@@ -3385,7 +4731,7 @@ export namespace Prisma {
     mobile?: boolean
     firstName?: boolean
     lastName?: boolean
-    businesses?: boolean | BusinessCustomer$businessesArgs<ExtArgs>
+    organization?: boolean | BusinessCustomer$organizationArgs<ExtArgs>
     _count?: boolean | BusinessCustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["businessCustomer"]>
 
@@ -3421,7 +4767,7 @@ export namespace Prisma {
 
   export type BusinessCustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "email" | "mobile" | "firstName" | "lastName", ExtArgs["result"]["businessCustomer"]>
   export type BusinessCustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    businesses?: boolean | BusinessCustomer$businessesArgs<ExtArgs>
+    organization?: boolean | BusinessCustomer$organizationArgs<ExtArgs>
     _count?: boolean | BusinessCustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BusinessCustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3430,7 +4776,7 @@ export namespace Prisma {
   export type $BusinessCustomerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BusinessCustomer"
     objects: {
-      businesses: Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>[]
+      organization: Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3834,7 +5180,7 @@ export namespace Prisma {
    */
   export interface Prisma__BusinessCustomerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    businesses<T extends BusinessCustomer$businessesArgs<ExtArgs> = {}>(args?: Subset<T, BusinessCustomer$businessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    organization<T extends BusinessCustomer$organizationArgs<ExtArgs> = {}>(args?: Subset<T, BusinessCustomer$organizationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4259,27 +5605,27 @@ export namespace Prisma {
   }
 
   /**
-   * BusinessCustomer.businesses
+   * BusinessCustomer.organization
    */
-  export type BusinessCustomer$businessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BusinessCustomer$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
      */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
+     * Omit specific fields from the OrganizationOnBusinessCustomer
      */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    where?: BusinessCustomerOnBusinessWhereInput
-    orderBy?: BusinessCustomerOnBusinessOrderByWithRelationInput | BusinessCustomerOnBusinessOrderByWithRelationInput[]
-    cursor?: BusinessCustomerOnBusinessWhereUniqueInput
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    where?: OrganizationOnBusinessCustomerWhereInput
+    orderBy?: OrganizationOnBusinessCustomerOrderByWithRelationInput | OrganizationOnBusinessCustomerOrderByWithRelationInput[]
+    cursor?: OrganizationOnBusinessCustomerWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: BusinessCustomerOnBusinessScalarFieldEnum | BusinessCustomerOnBusinessScalarFieldEnum[]
+    distinct?: OrganizationOnBusinessCustomerScalarFieldEnum | OrganizationOnBusinessCustomerScalarFieldEnum[]
   }
 
   /**
@@ -4298,2225 +5644,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BusinessCustomerInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Business
-   */
-
-  export type AggregateBusiness = {
-    _count: BusinessCountAggregateOutputType | null
-    _avg: BusinessAvgAggregateOutputType | null
-    _sum: BusinessSumAggregateOutputType | null
-    _min: BusinessMinAggregateOutputType | null
-    _max: BusinessMaxAggregateOutputType | null
-  }
-
-  export type BusinessAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type BusinessSumAggregateOutputType = {
-    id: number | null
-  }
-
-  export type BusinessMinAggregateOutputType = {
-    id: number | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    contactNumber: string | null
-    businessName: string | null
-  }
-
-  export type BusinessMaxAggregateOutputType = {
-    id: number | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    contactNumber: string | null
-    businessName: string | null
-  }
-
-  export type BusinessCountAggregateOutputType = {
-    id: number
-    createdAt: number
-    updatedAt: number
-    contactNumber: number
-    businessName: number
-    type: number
-    _all: number
-  }
-
-
-  export type BusinessAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type BusinessSumAggregateInputType = {
-    id?: true
-  }
-
-  export type BusinessMinAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    contactNumber?: true
-    businessName?: true
-  }
-
-  export type BusinessMaxAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    contactNumber?: true
-    businessName?: true
-  }
-
-  export type BusinessCountAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    contactNumber?: true
-    businessName?: true
-    type?: true
-    _all?: true
-  }
-
-  export type BusinessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Business to aggregate.
-     */
-    where?: BusinessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Businesses to fetch.
-     */
-    orderBy?: BusinessOrderByWithRelationInput | BusinessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: BusinessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Businesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Businesses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Businesses
-    **/
-    _count?: true | BusinessCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: BusinessAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: BusinessSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: BusinessMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: BusinessMaxAggregateInputType
-  }
-
-  export type GetBusinessAggregateType<T extends BusinessAggregateArgs> = {
-        [P in keyof T & keyof AggregateBusiness]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBusiness[P]>
-      : GetScalarType<T[P], AggregateBusiness[P]>
-  }
-
-
-
-
-  export type BusinessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BusinessWhereInput
-    orderBy?: BusinessOrderByWithAggregationInput | BusinessOrderByWithAggregationInput[]
-    by: BusinessScalarFieldEnum[] | BusinessScalarFieldEnum
-    having?: BusinessScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: BusinessCountAggregateInputType | true
-    _avg?: BusinessAvgAggregateInputType
-    _sum?: BusinessSumAggregateInputType
-    _min?: BusinessMinAggregateInputType
-    _max?: BusinessMaxAggregateInputType
-  }
-
-  export type BusinessGroupByOutputType = {
-    id: number
-    createdAt: Date
-    updatedAt: Date
-    contactNumber: string
-    businessName: string
-    type: $Enums.BusinessType[]
-    _count: BusinessCountAggregateOutputType | null
-    _avg: BusinessAvgAggregateOutputType | null
-    _sum: BusinessSumAggregateOutputType | null
-    _min: BusinessMinAggregateOutputType | null
-    _max: BusinessMaxAggregateOutputType | null
-  }
-
-  type GetBusinessGroupByPayload<T extends BusinessGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<BusinessGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof BusinessGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], BusinessGroupByOutputType[P]>
-            : GetScalarType<T[P], BusinessGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type BusinessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    contactNumber?: boolean
-    businessName?: boolean
-    type?: boolean
-    BusinessCustomers?: boolean | Business$BusinessCustomersArgs<ExtArgs>
-    services?: boolean | Business$servicesArgs<ExtArgs>
-    _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["business"]>
-
-  export type BusinessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    contactNumber?: boolean
-    businessName?: boolean
-    type?: boolean
-  }, ExtArgs["result"]["business"]>
-
-  export type BusinessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    contactNumber?: boolean
-    businessName?: boolean
-    type?: boolean
-  }, ExtArgs["result"]["business"]>
-
-  export type BusinessSelectScalar = {
-    id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    contactNumber?: boolean
-    businessName?: boolean
-    type?: boolean
-  }
-
-  export type BusinessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "contactNumber" | "businessName" | "type", ExtArgs["result"]["business"]>
-  export type BusinessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    BusinessCustomers?: boolean | Business$BusinessCustomersArgs<ExtArgs>
-    services?: boolean | Business$servicesArgs<ExtArgs>
-    _count?: boolean | BusinessCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type BusinessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type BusinessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $BusinessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Business"
-    objects: {
-      BusinessCustomers: Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>[]
-      services: Prisma.$ServicePayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      createdAt: Date
-      updatedAt: Date
-      contactNumber: string
-      businessName: string
-      type: $Enums.BusinessType[]
-    }, ExtArgs["result"]["business"]>
-    composites: {}
-  }
-
-  type BusinessGetPayload<S extends boolean | null | undefined | BusinessDefaultArgs> = $Result.GetResult<Prisma.$BusinessPayload, S>
-
-  type BusinessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<BusinessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: BusinessCountAggregateInputType | true
-    }
-
-  export interface BusinessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Business'], meta: { name: 'Business' } }
-    /**
-     * Find zero or one Business that matches the filter.
-     * @param {BusinessFindUniqueArgs} args - Arguments to find a Business
-     * @example
-     * // Get one Business
-     * const business = await prisma.business.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends BusinessFindUniqueArgs>(args: SelectSubset<T, BusinessFindUniqueArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Business that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {BusinessFindUniqueOrThrowArgs} args - Arguments to find a Business
-     * @example
-     * // Get one Business
-     * const business = await prisma.business.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends BusinessFindUniqueOrThrowArgs>(args: SelectSubset<T, BusinessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Business that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessFindFirstArgs} args - Arguments to find a Business
-     * @example
-     * // Get one Business
-     * const business = await prisma.business.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends BusinessFindFirstArgs>(args?: SelectSubset<T, BusinessFindFirstArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Business that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessFindFirstOrThrowArgs} args - Arguments to find a Business
-     * @example
-     * // Get one Business
-     * const business = await prisma.business.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends BusinessFindFirstOrThrowArgs>(args?: SelectSubset<T, BusinessFindFirstOrThrowArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Businesses that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Businesses
-     * const businesses = await prisma.business.findMany()
-     * 
-     * // Get first 10 Businesses
-     * const businesses = await prisma.business.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const businessWithIdOnly = await prisma.business.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends BusinessFindManyArgs>(args?: SelectSubset<T, BusinessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Business.
-     * @param {BusinessCreateArgs} args - Arguments to create a Business.
-     * @example
-     * // Create one Business
-     * const Business = await prisma.business.create({
-     *   data: {
-     *     // ... data to create a Business
-     *   }
-     * })
-     * 
-     */
-    create<T extends BusinessCreateArgs>(args: SelectSubset<T, BusinessCreateArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Businesses.
-     * @param {BusinessCreateManyArgs} args - Arguments to create many Businesses.
-     * @example
-     * // Create many Businesses
-     * const business = await prisma.business.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends BusinessCreateManyArgs>(args?: SelectSubset<T, BusinessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Businesses and returns the data saved in the database.
-     * @param {BusinessCreateManyAndReturnArgs} args - Arguments to create many Businesses.
-     * @example
-     * // Create many Businesses
-     * const business = await prisma.business.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Businesses and only return the `id`
-     * const businessWithIdOnly = await prisma.business.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends BusinessCreateManyAndReturnArgs>(args?: SelectSubset<T, BusinessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Business.
-     * @param {BusinessDeleteArgs} args - Arguments to delete one Business.
-     * @example
-     * // Delete one Business
-     * const Business = await prisma.business.delete({
-     *   where: {
-     *     // ... filter to delete one Business
-     *   }
-     * })
-     * 
-     */
-    delete<T extends BusinessDeleteArgs>(args: SelectSubset<T, BusinessDeleteArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Business.
-     * @param {BusinessUpdateArgs} args - Arguments to update one Business.
-     * @example
-     * // Update one Business
-     * const business = await prisma.business.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends BusinessUpdateArgs>(args: SelectSubset<T, BusinessUpdateArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Businesses.
-     * @param {BusinessDeleteManyArgs} args - Arguments to filter Businesses to delete.
-     * @example
-     * // Delete a few Businesses
-     * const { count } = await prisma.business.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends BusinessDeleteManyArgs>(args?: SelectSubset<T, BusinessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Businesses.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Businesses
-     * const business = await prisma.business.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends BusinessUpdateManyArgs>(args: SelectSubset<T, BusinessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Businesses and returns the data updated in the database.
-     * @param {BusinessUpdateManyAndReturnArgs} args - Arguments to update many Businesses.
-     * @example
-     * // Update many Businesses
-     * const business = await prisma.business.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Businesses and only return the `id`
-     * const businessWithIdOnly = await prisma.business.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends BusinessUpdateManyAndReturnArgs>(args: SelectSubset<T, BusinessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Business.
-     * @param {BusinessUpsertArgs} args - Arguments to update or create a Business.
-     * @example
-     * // Update or create a Business
-     * const business = await prisma.business.upsert({
-     *   create: {
-     *     // ... data to create a Business
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Business we want to update
-     *   }
-     * })
-     */
-    upsert<T extends BusinessUpsertArgs>(args: SelectSubset<T, BusinessUpsertArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Businesses.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessCountArgs} args - Arguments to filter Businesses to count.
-     * @example
-     * // Count the number of Businesses
-     * const count = await prisma.business.count({
-     *   where: {
-     *     // ... the filter for the Businesses we want to count
-     *   }
-     * })
-    **/
-    count<T extends BusinessCountArgs>(
-      args?: Subset<T, BusinessCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], BusinessCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Business.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends BusinessAggregateArgs>(args: Subset<T, BusinessAggregateArgs>): Prisma.PrismaPromise<GetBusinessAggregateType<T>>
-
-    /**
-     * Group by Business.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends BusinessGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: BusinessGroupByArgs['orderBy'] }
-        : { orderBy?: BusinessGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, BusinessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBusinessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Business model
-   */
-  readonly fields: BusinessFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Business.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    BusinessCustomers<T extends Business$BusinessCustomersArgs<ExtArgs> = {}>(args?: Subset<T, Business$BusinessCustomersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    services<T extends Business$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Business$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Business model
-   */
-  interface BusinessFieldRefs {
-    readonly id: FieldRef<"Business", 'Int'>
-    readonly createdAt: FieldRef<"Business", 'DateTime'>
-    readonly updatedAt: FieldRef<"Business", 'DateTime'>
-    readonly contactNumber: FieldRef<"Business", 'String'>
-    readonly businessName: FieldRef<"Business", 'String'>
-    readonly type: FieldRef<"Business", 'BusinessType[]'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Business findUnique
-   */
-  export type BusinessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which Business to fetch.
-     */
-    where: BusinessWhereUniqueInput
-  }
-
-  /**
-   * Business findUniqueOrThrow
-   */
-  export type BusinessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which Business to fetch.
-     */
-    where: BusinessWhereUniqueInput
-  }
-
-  /**
-   * Business findFirst
-   */
-  export type BusinessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which Business to fetch.
-     */
-    where?: BusinessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Businesses to fetch.
-     */
-    orderBy?: BusinessOrderByWithRelationInput | BusinessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Businesses.
-     */
-    cursor?: BusinessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Businesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Businesses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Businesses.
-     */
-    distinct?: BusinessScalarFieldEnum | BusinessScalarFieldEnum[]
-  }
-
-  /**
-   * Business findFirstOrThrow
-   */
-  export type BusinessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which Business to fetch.
-     */
-    where?: BusinessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Businesses to fetch.
-     */
-    orderBy?: BusinessOrderByWithRelationInput | BusinessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Businesses.
-     */
-    cursor?: BusinessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Businesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Businesses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Businesses.
-     */
-    distinct?: BusinessScalarFieldEnum | BusinessScalarFieldEnum[]
-  }
-
-  /**
-   * Business findMany
-   */
-  export type BusinessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which Businesses to fetch.
-     */
-    where?: BusinessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Businesses to fetch.
-     */
-    orderBy?: BusinessOrderByWithRelationInput | BusinessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Businesses.
-     */
-    cursor?: BusinessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Businesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Businesses.
-     */
-    skip?: number
-    distinct?: BusinessScalarFieldEnum | BusinessScalarFieldEnum[]
-  }
-
-  /**
-   * Business create
-   */
-  export type BusinessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Business.
-     */
-    data: XOR<BusinessCreateInput, BusinessUncheckedCreateInput>
-  }
-
-  /**
-   * Business createMany
-   */
-  export type BusinessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Businesses.
-     */
-    data: BusinessCreateManyInput | BusinessCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Business createManyAndReturn
-   */
-  export type BusinessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * The data used to create many Businesses.
-     */
-    data: BusinessCreateManyInput | BusinessCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Business update
-   */
-  export type BusinessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Business.
-     */
-    data: XOR<BusinessUpdateInput, BusinessUncheckedUpdateInput>
-    /**
-     * Choose, which Business to update.
-     */
-    where: BusinessWhereUniqueInput
-  }
-
-  /**
-   * Business updateMany
-   */
-  export type BusinessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Businesses.
-     */
-    data: XOR<BusinessUpdateManyMutationInput, BusinessUncheckedUpdateManyInput>
-    /**
-     * Filter which Businesses to update
-     */
-    where?: BusinessWhereInput
-    /**
-     * Limit how many Businesses to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Business updateManyAndReturn
-   */
-  export type BusinessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * The data used to update Businesses.
-     */
-    data: XOR<BusinessUpdateManyMutationInput, BusinessUncheckedUpdateManyInput>
-    /**
-     * Filter which Businesses to update
-     */
-    where?: BusinessWhereInput
-    /**
-     * Limit how many Businesses to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Business upsert
-   */
-  export type BusinessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Business to update in case it exists.
-     */
-    where: BusinessWhereUniqueInput
-    /**
-     * In case the Business found by the `where` argument doesn't exist, create a new Business with this data.
-     */
-    create: XOR<BusinessCreateInput, BusinessUncheckedCreateInput>
-    /**
-     * In case the Business was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<BusinessUpdateInput, BusinessUncheckedUpdateInput>
-  }
-
-  /**
-   * Business delete
-   */
-  export type BusinessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-    /**
-     * Filter which Business to delete.
-     */
-    where: BusinessWhereUniqueInput
-  }
-
-  /**
-   * Business deleteMany
-   */
-  export type BusinessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Businesses to delete
-     */
-    where?: BusinessWhereInput
-    /**
-     * Limit how many Businesses to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Business.BusinessCustomers
-   */
-  export type Business$BusinessCustomersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    where?: BusinessCustomerOnBusinessWhereInput
-    orderBy?: BusinessCustomerOnBusinessOrderByWithRelationInput | BusinessCustomerOnBusinessOrderByWithRelationInput[]
-    cursor?: BusinessCustomerOnBusinessWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: BusinessCustomerOnBusinessScalarFieldEnum | BusinessCustomerOnBusinessScalarFieldEnum[]
-  }
-
-  /**
-   * Business.services
-   */
-  export type Business$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Service
-     */
-    select?: ServiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Service
-     */
-    omit?: ServiceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ServiceInclude<ExtArgs> | null
-    where?: ServiceWhereInput
-    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
-    cursor?: ServiceWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
-  }
-
-  /**
-   * Business without action
-   */
-  export type BusinessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Business
-     */
-    select?: BusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Business
-     */
-    omit?: BusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model BusinessCustomerOnBusiness
-   */
-
-  export type AggregateBusinessCustomerOnBusiness = {
-    _count: BusinessCustomerOnBusinessCountAggregateOutputType | null
-    _avg: BusinessCustomerOnBusinessAvgAggregateOutputType | null
-    _sum: BusinessCustomerOnBusinessSumAggregateOutputType | null
-    _min: BusinessCustomerOnBusinessMinAggregateOutputType | null
-    _max: BusinessCustomerOnBusinessMaxAggregateOutputType | null
-  }
-
-  export type BusinessCustomerOnBusinessAvgAggregateOutputType = {
-    businessId: number | null
-    userId: number | null
-  }
-
-  export type BusinessCustomerOnBusinessSumAggregateOutputType = {
-    businessId: number | null
-    userId: number | null
-  }
-
-  export type BusinessCustomerOnBusinessMinAggregateOutputType = {
-    businessId: number | null
-    userId: number | null
-    role: $Enums.BusinessRole | null
-  }
-
-  export type BusinessCustomerOnBusinessMaxAggregateOutputType = {
-    businessId: number | null
-    userId: number | null
-    role: $Enums.BusinessRole | null
-  }
-
-  export type BusinessCustomerOnBusinessCountAggregateOutputType = {
-    businessId: number
-    userId: number
-    role: number
-    _all: number
-  }
-
-
-  export type BusinessCustomerOnBusinessAvgAggregateInputType = {
-    businessId?: true
-    userId?: true
-  }
-
-  export type BusinessCustomerOnBusinessSumAggregateInputType = {
-    businessId?: true
-    userId?: true
-  }
-
-  export type BusinessCustomerOnBusinessMinAggregateInputType = {
-    businessId?: true
-    userId?: true
-    role?: true
-  }
-
-  export type BusinessCustomerOnBusinessMaxAggregateInputType = {
-    businessId?: true
-    userId?: true
-    role?: true
-  }
-
-  export type BusinessCustomerOnBusinessCountAggregateInputType = {
-    businessId?: true
-    userId?: true
-    role?: true
-    _all?: true
-  }
-
-  export type BusinessCustomerOnBusinessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BusinessCustomerOnBusiness to aggregate.
-     */
-    where?: BusinessCustomerOnBusinessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BusinessCustomerOnBusinesses to fetch.
-     */
-    orderBy?: BusinessCustomerOnBusinessOrderByWithRelationInput | BusinessCustomerOnBusinessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: BusinessCustomerOnBusinessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BusinessCustomerOnBusinesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BusinessCustomerOnBusinesses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned BusinessCustomerOnBusinesses
-    **/
-    _count?: true | BusinessCustomerOnBusinessCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: BusinessCustomerOnBusinessAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: BusinessCustomerOnBusinessSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: BusinessCustomerOnBusinessMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: BusinessCustomerOnBusinessMaxAggregateInputType
-  }
-
-  export type GetBusinessCustomerOnBusinessAggregateType<T extends BusinessCustomerOnBusinessAggregateArgs> = {
-        [P in keyof T & keyof AggregateBusinessCustomerOnBusiness]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBusinessCustomerOnBusiness[P]>
-      : GetScalarType<T[P], AggregateBusinessCustomerOnBusiness[P]>
-  }
-
-
-
-
-  export type BusinessCustomerOnBusinessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BusinessCustomerOnBusinessWhereInput
-    orderBy?: BusinessCustomerOnBusinessOrderByWithAggregationInput | BusinessCustomerOnBusinessOrderByWithAggregationInput[]
-    by: BusinessCustomerOnBusinessScalarFieldEnum[] | BusinessCustomerOnBusinessScalarFieldEnum
-    having?: BusinessCustomerOnBusinessScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: BusinessCustomerOnBusinessCountAggregateInputType | true
-    _avg?: BusinessCustomerOnBusinessAvgAggregateInputType
-    _sum?: BusinessCustomerOnBusinessSumAggregateInputType
-    _min?: BusinessCustomerOnBusinessMinAggregateInputType
-    _max?: BusinessCustomerOnBusinessMaxAggregateInputType
-  }
-
-  export type BusinessCustomerOnBusinessGroupByOutputType = {
-    businessId: number
-    userId: number
-    role: $Enums.BusinessRole
-    _count: BusinessCustomerOnBusinessCountAggregateOutputType | null
-    _avg: BusinessCustomerOnBusinessAvgAggregateOutputType | null
-    _sum: BusinessCustomerOnBusinessSumAggregateOutputType | null
-    _min: BusinessCustomerOnBusinessMinAggregateOutputType | null
-    _max: BusinessCustomerOnBusinessMaxAggregateOutputType | null
-  }
-
-  type GetBusinessCustomerOnBusinessGroupByPayload<T extends BusinessCustomerOnBusinessGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<BusinessCustomerOnBusinessGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof BusinessCustomerOnBusinessGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], BusinessCustomerOnBusinessGroupByOutputType[P]>
-            : GetScalarType<T[P], BusinessCustomerOnBusinessGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type BusinessCustomerOnBusinessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    businessId?: boolean
-    userId?: boolean
-    role?: boolean
-    business?: boolean | BusinessDefaultArgs<ExtArgs>
-    user?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["businessCustomerOnBusiness"]>
-
-  export type BusinessCustomerOnBusinessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    businessId?: boolean
-    userId?: boolean
-    role?: boolean
-    business?: boolean | BusinessDefaultArgs<ExtArgs>
-    user?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["businessCustomerOnBusiness"]>
-
-  export type BusinessCustomerOnBusinessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    businessId?: boolean
-    userId?: boolean
-    role?: boolean
-    business?: boolean | BusinessDefaultArgs<ExtArgs>
-    user?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["businessCustomerOnBusiness"]>
-
-  export type BusinessCustomerOnBusinessSelectScalar = {
-    businessId?: boolean
-    userId?: boolean
-    role?: boolean
-  }
-
-  export type BusinessCustomerOnBusinessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"businessId" | "userId" | "role", ExtArgs["result"]["businessCustomerOnBusiness"]>
-  export type BusinessCustomerOnBusinessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    business?: boolean | BusinessDefaultArgs<ExtArgs>
-    user?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
-  }
-  export type BusinessCustomerOnBusinessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    business?: boolean | BusinessDefaultArgs<ExtArgs>
-    user?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
-  }
-  export type BusinessCustomerOnBusinessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    business?: boolean | BusinessDefaultArgs<ExtArgs>
-    user?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
-  }
-
-  export type $BusinessCustomerOnBusinessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "BusinessCustomerOnBusiness"
-    objects: {
-      business: Prisma.$BusinessPayload<ExtArgs>
-      user: Prisma.$BusinessCustomerPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      businessId: number
-      userId: number
-      role: $Enums.BusinessRole
-    }, ExtArgs["result"]["businessCustomerOnBusiness"]>
-    composites: {}
-  }
-
-  type BusinessCustomerOnBusinessGetPayload<S extends boolean | null | undefined | BusinessCustomerOnBusinessDefaultArgs> = $Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload, S>
-
-  type BusinessCustomerOnBusinessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<BusinessCustomerOnBusinessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: BusinessCustomerOnBusinessCountAggregateInputType | true
-    }
-
-  export interface BusinessCustomerOnBusinessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BusinessCustomerOnBusiness'], meta: { name: 'BusinessCustomerOnBusiness' } }
-    /**
-     * Find zero or one BusinessCustomerOnBusiness that matches the filter.
-     * @param {BusinessCustomerOnBusinessFindUniqueArgs} args - Arguments to find a BusinessCustomerOnBusiness
-     * @example
-     * // Get one BusinessCustomerOnBusiness
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends BusinessCustomerOnBusinessFindUniqueArgs>(args: SelectSubset<T, BusinessCustomerOnBusinessFindUniqueArgs<ExtArgs>>): Prisma__BusinessCustomerOnBusinessClient<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one BusinessCustomerOnBusiness that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {BusinessCustomerOnBusinessFindUniqueOrThrowArgs} args - Arguments to find a BusinessCustomerOnBusiness
-     * @example
-     * // Get one BusinessCustomerOnBusiness
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends BusinessCustomerOnBusinessFindUniqueOrThrowArgs>(args: SelectSubset<T, BusinessCustomerOnBusinessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BusinessCustomerOnBusinessClient<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first BusinessCustomerOnBusiness that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessCustomerOnBusinessFindFirstArgs} args - Arguments to find a BusinessCustomerOnBusiness
-     * @example
-     * // Get one BusinessCustomerOnBusiness
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends BusinessCustomerOnBusinessFindFirstArgs>(args?: SelectSubset<T, BusinessCustomerOnBusinessFindFirstArgs<ExtArgs>>): Prisma__BusinessCustomerOnBusinessClient<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first BusinessCustomerOnBusiness that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessCustomerOnBusinessFindFirstOrThrowArgs} args - Arguments to find a BusinessCustomerOnBusiness
-     * @example
-     * // Get one BusinessCustomerOnBusiness
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends BusinessCustomerOnBusinessFindFirstOrThrowArgs>(args?: SelectSubset<T, BusinessCustomerOnBusinessFindFirstOrThrowArgs<ExtArgs>>): Prisma__BusinessCustomerOnBusinessClient<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more BusinessCustomerOnBusinesses that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessCustomerOnBusinessFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all BusinessCustomerOnBusinesses
-     * const businessCustomerOnBusinesses = await prisma.businessCustomerOnBusiness.findMany()
-     * 
-     * // Get first 10 BusinessCustomerOnBusinesses
-     * const businessCustomerOnBusinesses = await prisma.businessCustomerOnBusiness.findMany({ take: 10 })
-     * 
-     * // Only select the `businessId`
-     * const businessCustomerOnBusinessWithBusinessIdOnly = await prisma.businessCustomerOnBusiness.findMany({ select: { businessId: true } })
-     * 
-     */
-    findMany<T extends BusinessCustomerOnBusinessFindManyArgs>(args?: SelectSubset<T, BusinessCustomerOnBusinessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a BusinessCustomerOnBusiness.
-     * @param {BusinessCustomerOnBusinessCreateArgs} args - Arguments to create a BusinessCustomerOnBusiness.
-     * @example
-     * // Create one BusinessCustomerOnBusiness
-     * const BusinessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.create({
-     *   data: {
-     *     // ... data to create a BusinessCustomerOnBusiness
-     *   }
-     * })
-     * 
-     */
-    create<T extends BusinessCustomerOnBusinessCreateArgs>(args: SelectSubset<T, BusinessCustomerOnBusinessCreateArgs<ExtArgs>>): Prisma__BusinessCustomerOnBusinessClient<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many BusinessCustomerOnBusinesses.
-     * @param {BusinessCustomerOnBusinessCreateManyArgs} args - Arguments to create many BusinessCustomerOnBusinesses.
-     * @example
-     * // Create many BusinessCustomerOnBusinesses
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends BusinessCustomerOnBusinessCreateManyArgs>(args?: SelectSubset<T, BusinessCustomerOnBusinessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many BusinessCustomerOnBusinesses and returns the data saved in the database.
-     * @param {BusinessCustomerOnBusinessCreateManyAndReturnArgs} args - Arguments to create many BusinessCustomerOnBusinesses.
-     * @example
-     * // Create many BusinessCustomerOnBusinesses
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many BusinessCustomerOnBusinesses and only return the `businessId`
-     * const businessCustomerOnBusinessWithBusinessIdOnly = await prisma.businessCustomerOnBusiness.createManyAndReturn({
-     *   select: { businessId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends BusinessCustomerOnBusinessCreateManyAndReturnArgs>(args?: SelectSubset<T, BusinessCustomerOnBusinessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a BusinessCustomerOnBusiness.
-     * @param {BusinessCustomerOnBusinessDeleteArgs} args - Arguments to delete one BusinessCustomerOnBusiness.
-     * @example
-     * // Delete one BusinessCustomerOnBusiness
-     * const BusinessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.delete({
-     *   where: {
-     *     // ... filter to delete one BusinessCustomerOnBusiness
-     *   }
-     * })
-     * 
-     */
-    delete<T extends BusinessCustomerOnBusinessDeleteArgs>(args: SelectSubset<T, BusinessCustomerOnBusinessDeleteArgs<ExtArgs>>): Prisma__BusinessCustomerOnBusinessClient<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one BusinessCustomerOnBusiness.
-     * @param {BusinessCustomerOnBusinessUpdateArgs} args - Arguments to update one BusinessCustomerOnBusiness.
-     * @example
-     * // Update one BusinessCustomerOnBusiness
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends BusinessCustomerOnBusinessUpdateArgs>(args: SelectSubset<T, BusinessCustomerOnBusinessUpdateArgs<ExtArgs>>): Prisma__BusinessCustomerOnBusinessClient<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more BusinessCustomerOnBusinesses.
-     * @param {BusinessCustomerOnBusinessDeleteManyArgs} args - Arguments to filter BusinessCustomerOnBusinesses to delete.
-     * @example
-     * // Delete a few BusinessCustomerOnBusinesses
-     * const { count } = await prisma.businessCustomerOnBusiness.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends BusinessCustomerOnBusinessDeleteManyArgs>(args?: SelectSubset<T, BusinessCustomerOnBusinessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more BusinessCustomerOnBusinesses.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessCustomerOnBusinessUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many BusinessCustomerOnBusinesses
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends BusinessCustomerOnBusinessUpdateManyArgs>(args: SelectSubset<T, BusinessCustomerOnBusinessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more BusinessCustomerOnBusinesses and returns the data updated in the database.
-     * @param {BusinessCustomerOnBusinessUpdateManyAndReturnArgs} args - Arguments to update many BusinessCustomerOnBusinesses.
-     * @example
-     * // Update many BusinessCustomerOnBusinesses
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more BusinessCustomerOnBusinesses and only return the `businessId`
-     * const businessCustomerOnBusinessWithBusinessIdOnly = await prisma.businessCustomerOnBusiness.updateManyAndReturn({
-     *   select: { businessId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends BusinessCustomerOnBusinessUpdateManyAndReturnArgs>(args: SelectSubset<T, BusinessCustomerOnBusinessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one BusinessCustomerOnBusiness.
-     * @param {BusinessCustomerOnBusinessUpsertArgs} args - Arguments to update or create a BusinessCustomerOnBusiness.
-     * @example
-     * // Update or create a BusinessCustomerOnBusiness
-     * const businessCustomerOnBusiness = await prisma.businessCustomerOnBusiness.upsert({
-     *   create: {
-     *     // ... data to create a BusinessCustomerOnBusiness
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the BusinessCustomerOnBusiness we want to update
-     *   }
-     * })
-     */
-    upsert<T extends BusinessCustomerOnBusinessUpsertArgs>(args: SelectSubset<T, BusinessCustomerOnBusinessUpsertArgs<ExtArgs>>): Prisma__BusinessCustomerOnBusinessClient<$Result.GetResult<Prisma.$BusinessCustomerOnBusinessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of BusinessCustomerOnBusinesses.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessCustomerOnBusinessCountArgs} args - Arguments to filter BusinessCustomerOnBusinesses to count.
-     * @example
-     * // Count the number of BusinessCustomerOnBusinesses
-     * const count = await prisma.businessCustomerOnBusiness.count({
-     *   where: {
-     *     // ... the filter for the BusinessCustomerOnBusinesses we want to count
-     *   }
-     * })
-    **/
-    count<T extends BusinessCustomerOnBusinessCountArgs>(
-      args?: Subset<T, BusinessCustomerOnBusinessCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], BusinessCustomerOnBusinessCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a BusinessCustomerOnBusiness.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessCustomerOnBusinessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends BusinessCustomerOnBusinessAggregateArgs>(args: Subset<T, BusinessCustomerOnBusinessAggregateArgs>): Prisma.PrismaPromise<GetBusinessCustomerOnBusinessAggregateType<T>>
-
-    /**
-     * Group by BusinessCustomerOnBusiness.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BusinessCustomerOnBusinessGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends BusinessCustomerOnBusinessGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: BusinessCustomerOnBusinessGroupByArgs['orderBy'] }
-        : { orderBy?: BusinessCustomerOnBusinessGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, BusinessCustomerOnBusinessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBusinessCustomerOnBusinessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the BusinessCustomerOnBusiness model
-   */
-  readonly fields: BusinessCustomerOnBusinessFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for BusinessCustomerOnBusiness.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__BusinessCustomerOnBusinessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    business<T extends BusinessDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BusinessDefaultArgs<ExtArgs>>): Prisma__BusinessClient<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    user<T extends BusinessCustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BusinessCustomerDefaultArgs<ExtArgs>>): Prisma__BusinessCustomerClient<$Result.GetResult<Prisma.$BusinessCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the BusinessCustomerOnBusiness model
-   */
-  interface BusinessCustomerOnBusinessFieldRefs {
-    readonly businessId: FieldRef<"BusinessCustomerOnBusiness", 'Int'>
-    readonly userId: FieldRef<"BusinessCustomerOnBusiness", 'Int'>
-    readonly role: FieldRef<"BusinessCustomerOnBusiness", 'BusinessRole'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * BusinessCustomerOnBusiness findUnique
-   */
-  export type BusinessCustomerOnBusinessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which BusinessCustomerOnBusiness to fetch.
-     */
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-  }
-
-  /**
-   * BusinessCustomerOnBusiness findUniqueOrThrow
-   */
-  export type BusinessCustomerOnBusinessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which BusinessCustomerOnBusiness to fetch.
-     */
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-  }
-
-  /**
-   * BusinessCustomerOnBusiness findFirst
-   */
-  export type BusinessCustomerOnBusinessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which BusinessCustomerOnBusiness to fetch.
-     */
-    where?: BusinessCustomerOnBusinessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BusinessCustomerOnBusinesses to fetch.
-     */
-    orderBy?: BusinessCustomerOnBusinessOrderByWithRelationInput | BusinessCustomerOnBusinessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BusinessCustomerOnBusinesses.
-     */
-    cursor?: BusinessCustomerOnBusinessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BusinessCustomerOnBusinesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BusinessCustomerOnBusinesses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BusinessCustomerOnBusinesses.
-     */
-    distinct?: BusinessCustomerOnBusinessScalarFieldEnum | BusinessCustomerOnBusinessScalarFieldEnum[]
-  }
-
-  /**
-   * BusinessCustomerOnBusiness findFirstOrThrow
-   */
-  export type BusinessCustomerOnBusinessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which BusinessCustomerOnBusiness to fetch.
-     */
-    where?: BusinessCustomerOnBusinessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BusinessCustomerOnBusinesses to fetch.
-     */
-    orderBy?: BusinessCustomerOnBusinessOrderByWithRelationInput | BusinessCustomerOnBusinessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BusinessCustomerOnBusinesses.
-     */
-    cursor?: BusinessCustomerOnBusinessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BusinessCustomerOnBusinesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BusinessCustomerOnBusinesses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BusinessCustomerOnBusinesses.
-     */
-    distinct?: BusinessCustomerOnBusinessScalarFieldEnum | BusinessCustomerOnBusinessScalarFieldEnum[]
-  }
-
-  /**
-   * BusinessCustomerOnBusiness findMany
-   */
-  export type BusinessCustomerOnBusinessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    /**
-     * Filter, which BusinessCustomerOnBusinesses to fetch.
-     */
-    where?: BusinessCustomerOnBusinessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BusinessCustomerOnBusinesses to fetch.
-     */
-    orderBy?: BusinessCustomerOnBusinessOrderByWithRelationInput | BusinessCustomerOnBusinessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing BusinessCustomerOnBusinesses.
-     */
-    cursor?: BusinessCustomerOnBusinessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BusinessCustomerOnBusinesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BusinessCustomerOnBusinesses.
-     */
-    skip?: number
-    distinct?: BusinessCustomerOnBusinessScalarFieldEnum | BusinessCustomerOnBusinessScalarFieldEnum[]
-  }
-
-  /**
-   * BusinessCustomerOnBusiness create
-   */
-  export type BusinessCustomerOnBusinessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    /**
-     * The data needed to create a BusinessCustomerOnBusiness.
-     */
-    data: XOR<BusinessCustomerOnBusinessCreateInput, BusinessCustomerOnBusinessUncheckedCreateInput>
-  }
-
-  /**
-   * BusinessCustomerOnBusiness createMany
-   */
-  export type BusinessCustomerOnBusinessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many BusinessCustomerOnBusinesses.
-     */
-    data: BusinessCustomerOnBusinessCreateManyInput | BusinessCustomerOnBusinessCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * BusinessCustomerOnBusiness createManyAndReturn
-   */
-  export type BusinessCustomerOnBusinessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * The data used to create many BusinessCustomerOnBusinesses.
-     */
-    data: BusinessCustomerOnBusinessCreateManyInput | BusinessCustomerOnBusinessCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * BusinessCustomerOnBusiness update
-   */
-  export type BusinessCustomerOnBusinessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    /**
-     * The data needed to update a BusinessCustomerOnBusiness.
-     */
-    data: XOR<BusinessCustomerOnBusinessUpdateInput, BusinessCustomerOnBusinessUncheckedUpdateInput>
-    /**
-     * Choose, which BusinessCustomerOnBusiness to update.
-     */
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-  }
-
-  /**
-   * BusinessCustomerOnBusiness updateMany
-   */
-  export type BusinessCustomerOnBusinessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update BusinessCustomerOnBusinesses.
-     */
-    data: XOR<BusinessCustomerOnBusinessUpdateManyMutationInput, BusinessCustomerOnBusinessUncheckedUpdateManyInput>
-    /**
-     * Filter which BusinessCustomerOnBusinesses to update
-     */
-    where?: BusinessCustomerOnBusinessWhereInput
-    /**
-     * Limit how many BusinessCustomerOnBusinesses to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * BusinessCustomerOnBusiness updateManyAndReturn
-   */
-  export type BusinessCustomerOnBusinessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * The data used to update BusinessCustomerOnBusinesses.
-     */
-    data: XOR<BusinessCustomerOnBusinessUpdateManyMutationInput, BusinessCustomerOnBusinessUncheckedUpdateManyInput>
-    /**
-     * Filter which BusinessCustomerOnBusinesses to update
-     */
-    where?: BusinessCustomerOnBusinessWhereInput
-    /**
-     * Limit how many BusinessCustomerOnBusinesses to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * BusinessCustomerOnBusiness upsert
-   */
-  export type BusinessCustomerOnBusinessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    /**
-     * The filter to search for the BusinessCustomerOnBusiness to update in case it exists.
-     */
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-    /**
-     * In case the BusinessCustomerOnBusiness found by the `where` argument doesn't exist, create a new BusinessCustomerOnBusiness with this data.
-     */
-    create: XOR<BusinessCustomerOnBusinessCreateInput, BusinessCustomerOnBusinessUncheckedCreateInput>
-    /**
-     * In case the BusinessCustomerOnBusiness was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<BusinessCustomerOnBusinessUpdateInput, BusinessCustomerOnBusinessUncheckedUpdateInput>
-  }
-
-  /**
-   * BusinessCustomerOnBusiness delete
-   */
-  export type BusinessCustomerOnBusinessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
-    /**
-     * Filter which BusinessCustomerOnBusiness to delete.
-     */
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-  }
-
-  /**
-   * BusinessCustomerOnBusiness deleteMany
-   */
-  export type BusinessCustomerOnBusinessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BusinessCustomerOnBusinesses to delete
-     */
-    where?: BusinessCustomerOnBusinessWhereInput
-    /**
-     * Limit how many BusinessCustomerOnBusinesses to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * BusinessCustomerOnBusiness without action
-   */
-  export type BusinessCustomerOnBusinessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerOnBusiness
-     */
-    select?: BusinessCustomerOnBusinessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BusinessCustomerOnBusiness
-     */
-    omit?: BusinessCustomerOnBusinessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BusinessCustomerOnBusinessInclude<ExtArgs> | null
   }
 
 
@@ -6548,7 +5675,6 @@ export namespace Prisma {
     mobile: string | null
     firstName: string | null
     lastName: string | null
-    type: $Enums.CustomerType | null
   }
 
   export type CustomerMaxAggregateOutputType = {
@@ -6559,7 +5685,6 @@ export namespace Prisma {
     mobile: string | null
     firstName: string | null
     lastName: string | null
-    type: $Enums.CustomerType | null
   }
 
   export type CustomerCountAggregateOutputType = {
@@ -6570,7 +5695,6 @@ export namespace Prisma {
     mobile: number
     firstName: number
     lastName: number
-    type: number
     _all: number
   }
 
@@ -6591,7 +5715,6 @@ export namespace Prisma {
     mobile?: true
     firstName?: true
     lastName?: true
-    type?: true
   }
 
   export type CustomerMaxAggregateInputType = {
@@ -6602,7 +5725,6 @@ export namespace Prisma {
     mobile?: true
     firstName?: true
     lastName?: true
-    type?: true
   }
 
   export type CustomerCountAggregateInputType = {
@@ -6613,7 +5735,6 @@ export namespace Prisma {
     mobile?: true
     firstName?: true
     lastName?: true
-    type?: true
     _all?: true
   }
 
@@ -6711,7 +5832,6 @@ export namespace Prisma {
     mobile: string | null
     firstName: string | null
     lastName: string | null
-    type: $Enums.CustomerType
     _count: CustomerCountAggregateOutputType | null
     _avg: CustomerAvgAggregateOutputType | null
     _sum: CustomerSumAggregateOutputType | null
@@ -6741,7 +5861,6 @@ export namespace Prisma {
     mobile?: boolean
     firstName?: boolean
     lastName?: boolean
-    type?: boolean
     appointments?: boolean | Customer$appointmentsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
@@ -6754,7 +5873,6 @@ export namespace Prisma {
     mobile?: boolean
     firstName?: boolean
     lastName?: boolean
-    type?: boolean
   }, ExtArgs["result"]["customer"]>
 
   export type CustomerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6765,7 +5883,6 @@ export namespace Prisma {
     mobile?: boolean
     firstName?: boolean
     lastName?: boolean
-    type?: boolean
   }, ExtArgs["result"]["customer"]>
 
   export type CustomerSelectScalar = {
@@ -6776,10 +5893,9 @@ export namespace Prisma {
     mobile?: boolean
     firstName?: boolean
     lastName?: boolean
-    type?: boolean
   }
 
-  export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "email" | "mobile" | "firstName" | "lastName" | "type", ExtArgs["result"]["customer"]>
+  export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "email" | "mobile" | "firstName" | "lastName", ExtArgs["result"]["customer"]>
   export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointments?: boolean | Customer$appointmentsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
@@ -6800,7 +5916,6 @@ export namespace Prisma {
       mobile: string | null
       firstName: string | null
       lastName: string | null
-      type: $Enums.CustomerType
     }, ExtArgs["result"]["customer"]>
     composites: {}
   }
@@ -7232,7 +6347,6 @@ export namespace Prisma {
     readonly mobile: FieldRef<"Customer", 'String'>
     readonly firstName: FieldRef<"Customer", 'String'>
     readonly lastName: FieldRef<"Customer", 'String'>
-    readonly type: FieldRef<"Customer", 'CustomerType'>
   }
     
 
@@ -7660,6 +6774,3378 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CustomerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Organization
+   */
+
+  export type AggregateOrganization = {
+    _count: OrganizationCountAggregateOutputType | null
+    _avg: OrganizationAvgAggregateOutputType | null
+    _sum: OrganizationSumAggregateOutputType | null
+    _min: OrganizationMinAggregateOutputType | null
+    _max: OrganizationMaxAggregateOutputType | null
+  }
+
+  export type OrganizationAvgAggregateOutputType = {
+    id: number | null
+    subscriptionId: number | null
+  }
+
+  export type OrganizationSumAggregateOutputType = {
+    id: number | null
+    subscriptionId: number | null
+  }
+
+  export type OrganizationMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    legalName: string | null
+    subscriptionId: number | null
+  }
+
+  export type OrganizationMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    legalName: string | null
+    subscriptionId: number | null
+  }
+
+  export type OrganizationCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    legalName: number
+    subscriptionId: number
+    _all: number
+  }
+
+
+  export type OrganizationAvgAggregateInputType = {
+    id?: true
+    subscriptionId?: true
+  }
+
+  export type OrganizationSumAggregateInputType = {
+    id?: true
+    subscriptionId?: true
+  }
+
+  export type OrganizationMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    legalName?: true
+    subscriptionId?: true
+  }
+
+  export type OrganizationMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    legalName?: true
+    subscriptionId?: true
+  }
+
+  export type OrganizationCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    legalName?: true
+    subscriptionId?: true
+    _all?: true
+  }
+
+  export type OrganizationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Organization to aggregate.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Organizations
+    **/
+    _count?: true | OrganizationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OrganizationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OrganizationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OrganizationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OrganizationMaxAggregateInputType
+  }
+
+  export type GetOrganizationAggregateType<T extends OrganizationAggregateArgs> = {
+        [P in keyof T & keyof AggregateOrganization]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOrganization[P]>
+      : GetScalarType<T[P], AggregateOrganization[P]>
+  }
+
+
+
+
+  export type OrganizationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationWhereInput
+    orderBy?: OrganizationOrderByWithAggregationInput | OrganizationOrderByWithAggregationInput[]
+    by: OrganizationScalarFieldEnum[] | OrganizationScalarFieldEnum
+    having?: OrganizationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OrganizationCountAggregateInputType | true
+    _avg?: OrganizationAvgAggregateInputType
+    _sum?: OrganizationSumAggregateInputType
+    _min?: OrganizationMinAggregateInputType
+    _max?: OrganizationMaxAggregateInputType
+  }
+
+  export type OrganizationGroupByOutputType = {
+    id: number
+    createdAt: Date
+    updatedAt: Date
+    legalName: string
+    subscriptionId: number
+    _count: OrganizationCountAggregateOutputType | null
+    _avg: OrganizationAvgAggregateOutputType | null
+    _sum: OrganizationSumAggregateOutputType | null
+    _min: OrganizationMinAggregateOutputType | null
+    _max: OrganizationMaxAggregateOutputType | null
+  }
+
+  type GetOrganizationGroupByPayload<T extends OrganizationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OrganizationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OrganizationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OrganizationGroupByOutputType[P]>
+            : GetScalarType<T[P], OrganizationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OrganizationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    legalName?: boolean
+    subscriptionId?: boolean
+    businessCustomers?: boolean | Organization$businessCustomersArgs<ExtArgs>
+    subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
+    Business?: boolean | Organization$BusinessArgs<ExtArgs>
+    _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organization"]>
+
+  export type OrganizationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    legalName?: boolean
+    subscriptionId?: boolean
+    subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organization"]>
+
+  export type OrganizationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    legalName?: boolean
+    subscriptionId?: boolean
+    subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organization"]>
+
+  export type OrganizationSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    legalName?: boolean
+    subscriptionId?: boolean
+  }
+
+  export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "legalName" | "subscriptionId", ExtArgs["result"]["organization"]>
+  export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    businessCustomers?: boolean | Organization$businessCustomersArgs<ExtArgs>
+    subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
+    Business?: boolean | Organization$BusinessArgs<ExtArgs>
+    _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
+  }
+  export type OrganizationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
+  }
+
+  export type $OrganizationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Organization"
+    objects: {
+      businessCustomers: Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>[]
+      subscription: Prisma.$SubscriptionPayload<ExtArgs>
+      Business: Prisma.$BusinessPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+      updatedAt: Date
+      legalName: string
+      subscriptionId: number
+    }, ExtArgs["result"]["organization"]>
+    composites: {}
+  }
+
+  type OrganizationGetPayload<S extends boolean | null | undefined | OrganizationDefaultArgs> = $Result.GetResult<Prisma.$OrganizationPayload, S>
+
+  type OrganizationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OrganizationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OrganizationCountAggregateInputType | true
+    }
+
+  export interface OrganizationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Organization'], meta: { name: 'Organization' } }
+    /**
+     * Find zero or one Organization that matches the filter.
+     * @param {OrganizationFindUniqueArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OrganizationFindUniqueArgs>(args: SelectSubset<T, OrganizationFindUniqueArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Organization that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OrganizationFindUniqueOrThrowArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OrganizationFindUniqueOrThrowArgs>(args: SelectSubset<T, OrganizationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Organization that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationFindFirstArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OrganizationFindFirstArgs>(args?: SelectSubset<T, OrganizationFindFirstArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Organization that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationFindFirstOrThrowArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OrganizationFindFirstOrThrowArgs>(args?: SelectSubset<T, OrganizationFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Organizations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Organizations
+     * const organizations = await prisma.organization.findMany()
+     * 
+     * // Get first 10 Organizations
+     * const organizations = await prisma.organization.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const organizationWithIdOnly = await prisma.organization.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OrganizationFindManyArgs>(args?: SelectSubset<T, OrganizationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Organization.
+     * @param {OrganizationCreateArgs} args - Arguments to create a Organization.
+     * @example
+     * // Create one Organization
+     * const Organization = await prisma.organization.create({
+     *   data: {
+     *     // ... data to create a Organization
+     *   }
+     * })
+     * 
+     */
+    create<T extends OrganizationCreateArgs>(args: SelectSubset<T, OrganizationCreateArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Organizations.
+     * @param {OrganizationCreateManyArgs} args - Arguments to create many Organizations.
+     * @example
+     * // Create many Organizations
+     * const organization = await prisma.organization.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OrganizationCreateManyArgs>(args?: SelectSubset<T, OrganizationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Organizations and returns the data saved in the database.
+     * @param {OrganizationCreateManyAndReturnArgs} args - Arguments to create many Organizations.
+     * @example
+     * // Create many Organizations
+     * const organization = await prisma.organization.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Organizations and only return the `id`
+     * const organizationWithIdOnly = await prisma.organization.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OrganizationCreateManyAndReturnArgs>(args?: SelectSubset<T, OrganizationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Organization.
+     * @param {OrganizationDeleteArgs} args - Arguments to delete one Organization.
+     * @example
+     * // Delete one Organization
+     * const Organization = await prisma.organization.delete({
+     *   where: {
+     *     // ... filter to delete one Organization
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OrganizationDeleteArgs>(args: SelectSubset<T, OrganizationDeleteArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Organization.
+     * @param {OrganizationUpdateArgs} args - Arguments to update one Organization.
+     * @example
+     * // Update one Organization
+     * const organization = await prisma.organization.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OrganizationUpdateArgs>(args: SelectSubset<T, OrganizationUpdateArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Organizations.
+     * @param {OrganizationDeleteManyArgs} args - Arguments to filter Organizations to delete.
+     * @example
+     * // Delete a few Organizations
+     * const { count } = await prisma.organization.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OrganizationDeleteManyArgs>(args?: SelectSubset<T, OrganizationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Organizations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Organizations
+     * const organization = await prisma.organization.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OrganizationUpdateManyArgs>(args: SelectSubset<T, OrganizationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Organizations and returns the data updated in the database.
+     * @param {OrganizationUpdateManyAndReturnArgs} args - Arguments to update many Organizations.
+     * @example
+     * // Update many Organizations
+     * const organization = await prisma.organization.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Organizations and only return the `id`
+     * const organizationWithIdOnly = await prisma.organization.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OrganizationUpdateManyAndReturnArgs>(args: SelectSubset<T, OrganizationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Organization.
+     * @param {OrganizationUpsertArgs} args - Arguments to update or create a Organization.
+     * @example
+     * // Update or create a Organization
+     * const organization = await prisma.organization.upsert({
+     *   create: {
+     *     // ... data to create a Organization
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Organization we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OrganizationUpsertArgs>(args: SelectSubset<T, OrganizationUpsertArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Organizations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationCountArgs} args - Arguments to filter Organizations to count.
+     * @example
+     * // Count the number of Organizations
+     * const count = await prisma.organization.count({
+     *   where: {
+     *     // ... the filter for the Organizations we want to count
+     *   }
+     * })
+    **/
+    count<T extends OrganizationCountArgs>(
+      args?: Subset<T, OrganizationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OrganizationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Organization.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OrganizationAggregateArgs>(args: Subset<T, OrganizationAggregateArgs>): Prisma.PrismaPromise<GetOrganizationAggregateType<T>>
+
+    /**
+     * Group by Organization.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OrganizationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OrganizationGroupByArgs['orderBy'] }
+        : { orderBy?: OrganizationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OrganizationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrganizationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Organization model
+   */
+  readonly fields: OrganizationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Organization.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    businessCustomers<T extends Organization$businessCustomersArgs<ExtArgs> = {}>(args?: Subset<T, Organization$businessCustomersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    subscription<T extends SubscriptionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubscriptionDefaultArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    Business<T extends Organization$BusinessArgs<ExtArgs> = {}>(args?: Subset<T, Organization$BusinessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Organization model
+   */
+  interface OrganizationFieldRefs {
+    readonly id: FieldRef<"Organization", 'Int'>
+    readonly createdAt: FieldRef<"Organization", 'DateTime'>
+    readonly updatedAt: FieldRef<"Organization", 'DateTime'>
+    readonly legalName: FieldRef<"Organization", 'String'>
+    readonly subscriptionId: FieldRef<"Organization", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Organization findUnique
+   */
+  export type OrganizationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization findUniqueOrThrow
+   */
+  export type OrganizationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization findFirst
+   */
+  export type OrganizationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Organizations.
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Organizations.
+     */
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization findFirstOrThrow
+   */
+  export type OrganizationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Organizations.
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Organizations.
+     */
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization findMany
+   */
+  export type OrganizationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organizations to fetch.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Organizations.
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization create
+   */
+  export type OrganizationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Organization.
+     */
+    data: XOR<OrganizationCreateInput, OrganizationUncheckedCreateInput>
+  }
+
+  /**
+   * Organization createMany
+   */
+  export type OrganizationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Organizations.
+     */
+    data: OrganizationCreateManyInput | OrganizationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Organization createManyAndReturn
+   */
+  export type OrganizationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Organizations.
+     */
+    data: OrganizationCreateManyInput | OrganizationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Organization update
+   */
+  export type OrganizationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Organization.
+     */
+    data: XOR<OrganizationUpdateInput, OrganizationUncheckedUpdateInput>
+    /**
+     * Choose, which Organization to update.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization updateMany
+   */
+  export type OrganizationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Organizations.
+     */
+    data: XOR<OrganizationUpdateManyMutationInput, OrganizationUncheckedUpdateManyInput>
+    /**
+     * Filter which Organizations to update
+     */
+    where?: OrganizationWhereInput
+    /**
+     * Limit how many Organizations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Organization updateManyAndReturn
+   */
+  export type OrganizationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * The data used to update Organizations.
+     */
+    data: XOR<OrganizationUpdateManyMutationInput, OrganizationUncheckedUpdateManyInput>
+    /**
+     * Filter which Organizations to update
+     */
+    where?: OrganizationWhereInput
+    /**
+     * Limit how many Organizations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Organization upsert
+   */
+  export type OrganizationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Organization to update in case it exists.
+     */
+    where: OrganizationWhereUniqueInput
+    /**
+     * In case the Organization found by the `where` argument doesn't exist, create a new Organization with this data.
+     */
+    create: XOR<OrganizationCreateInput, OrganizationUncheckedCreateInput>
+    /**
+     * In case the Organization was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OrganizationUpdateInput, OrganizationUncheckedUpdateInput>
+  }
+
+  /**
+   * Organization delete
+   */
+  export type OrganizationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter which Organization to delete.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization deleteMany
+   */
+  export type OrganizationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Organizations to delete
+     */
+    where?: OrganizationWhereInput
+    /**
+     * Limit how many Organizations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Organization.businessCustomers
+   */
+  export type Organization$businessCustomersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    where?: OrganizationOnBusinessCustomerWhereInput
+    orderBy?: OrganizationOnBusinessCustomerOrderByWithRelationInput | OrganizationOnBusinessCustomerOrderByWithRelationInput[]
+    cursor?: OrganizationOnBusinessCustomerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrganizationOnBusinessCustomerScalarFieldEnum | OrganizationOnBusinessCustomerScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.Business
+   */
+  export type Organization$BusinessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Business
+     */
+    select?: BusinessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Business
+     */
+    omit?: BusinessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessInclude<ExtArgs> | null
+    where?: BusinessWhereInput
+    orderBy?: BusinessOrderByWithRelationInput | BusinessOrderByWithRelationInput[]
+    cursor?: BusinessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BusinessScalarFieldEnum | BusinessScalarFieldEnum[]
+  }
+
+  /**
+   * Organization without action
+   */
+  export type OrganizationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OrganizationOnBusinessCustomer
+   */
+
+  export type AggregateOrganizationOnBusinessCustomer = {
+    _count: OrganizationOnBusinessCustomerCountAggregateOutputType | null
+    _avg: OrganizationOnBusinessCustomerAvgAggregateOutputType | null
+    _sum: OrganizationOnBusinessCustomerSumAggregateOutputType | null
+    _min: OrganizationOnBusinessCustomerMinAggregateOutputType | null
+    _max: OrganizationOnBusinessCustomerMaxAggregateOutputType | null
+  }
+
+  export type OrganizationOnBusinessCustomerAvgAggregateOutputType = {
+    organizationId: number | null
+    businessCustomerId: number | null
+  }
+
+  export type OrganizationOnBusinessCustomerSumAggregateOutputType = {
+    organizationId: number | null
+    businessCustomerId: number | null
+  }
+
+  export type OrganizationOnBusinessCustomerMinAggregateOutputType = {
+    organizationId: number | null
+    businessCustomerId: number | null
+    role: $Enums.OrganizationRole | null
+  }
+
+  export type OrganizationOnBusinessCustomerMaxAggregateOutputType = {
+    organizationId: number | null
+    businessCustomerId: number | null
+    role: $Enums.OrganizationRole | null
+  }
+
+  export type OrganizationOnBusinessCustomerCountAggregateOutputType = {
+    organizationId: number
+    businessCustomerId: number
+    role: number
+    _all: number
+  }
+
+
+  export type OrganizationOnBusinessCustomerAvgAggregateInputType = {
+    organizationId?: true
+    businessCustomerId?: true
+  }
+
+  export type OrganizationOnBusinessCustomerSumAggregateInputType = {
+    organizationId?: true
+    businessCustomerId?: true
+  }
+
+  export type OrganizationOnBusinessCustomerMinAggregateInputType = {
+    organizationId?: true
+    businessCustomerId?: true
+    role?: true
+  }
+
+  export type OrganizationOnBusinessCustomerMaxAggregateInputType = {
+    organizationId?: true
+    businessCustomerId?: true
+    role?: true
+  }
+
+  export type OrganizationOnBusinessCustomerCountAggregateInputType = {
+    organizationId?: true
+    businessCustomerId?: true
+    role?: true
+    _all?: true
+  }
+
+  export type OrganizationOnBusinessCustomerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrganizationOnBusinessCustomer to aggregate.
+     */
+    where?: OrganizationOnBusinessCustomerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationOnBusinessCustomers to fetch.
+     */
+    orderBy?: OrganizationOnBusinessCustomerOrderByWithRelationInput | OrganizationOnBusinessCustomerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OrganizationOnBusinessCustomerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationOnBusinessCustomers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationOnBusinessCustomers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OrganizationOnBusinessCustomers
+    **/
+    _count?: true | OrganizationOnBusinessCustomerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OrganizationOnBusinessCustomerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OrganizationOnBusinessCustomerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OrganizationOnBusinessCustomerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OrganizationOnBusinessCustomerMaxAggregateInputType
+  }
+
+  export type GetOrganizationOnBusinessCustomerAggregateType<T extends OrganizationOnBusinessCustomerAggregateArgs> = {
+        [P in keyof T & keyof AggregateOrganizationOnBusinessCustomer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOrganizationOnBusinessCustomer[P]>
+      : GetScalarType<T[P], AggregateOrganizationOnBusinessCustomer[P]>
+  }
+
+
+
+
+  export type OrganizationOnBusinessCustomerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationOnBusinessCustomerWhereInput
+    orderBy?: OrganizationOnBusinessCustomerOrderByWithAggregationInput | OrganizationOnBusinessCustomerOrderByWithAggregationInput[]
+    by: OrganizationOnBusinessCustomerScalarFieldEnum[] | OrganizationOnBusinessCustomerScalarFieldEnum
+    having?: OrganizationOnBusinessCustomerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OrganizationOnBusinessCustomerCountAggregateInputType | true
+    _avg?: OrganizationOnBusinessCustomerAvgAggregateInputType
+    _sum?: OrganizationOnBusinessCustomerSumAggregateInputType
+    _min?: OrganizationOnBusinessCustomerMinAggregateInputType
+    _max?: OrganizationOnBusinessCustomerMaxAggregateInputType
+  }
+
+  export type OrganizationOnBusinessCustomerGroupByOutputType = {
+    organizationId: number
+    businessCustomerId: number
+    role: $Enums.OrganizationRole
+    _count: OrganizationOnBusinessCustomerCountAggregateOutputType | null
+    _avg: OrganizationOnBusinessCustomerAvgAggregateOutputType | null
+    _sum: OrganizationOnBusinessCustomerSumAggregateOutputType | null
+    _min: OrganizationOnBusinessCustomerMinAggregateOutputType | null
+    _max: OrganizationOnBusinessCustomerMaxAggregateOutputType | null
+  }
+
+  type GetOrganizationOnBusinessCustomerGroupByPayload<T extends OrganizationOnBusinessCustomerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OrganizationOnBusinessCustomerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OrganizationOnBusinessCustomerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OrganizationOnBusinessCustomerGroupByOutputType[P]>
+            : GetScalarType<T[P], OrganizationOnBusinessCustomerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OrganizationOnBusinessCustomerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    organizationId?: boolean
+    businessCustomerId?: boolean
+    role?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    businessCustomer?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organizationOnBusinessCustomer"]>
+
+  export type OrganizationOnBusinessCustomerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    organizationId?: boolean
+    businessCustomerId?: boolean
+    role?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    businessCustomer?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organizationOnBusinessCustomer"]>
+
+  export type OrganizationOnBusinessCustomerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    organizationId?: boolean
+    businessCustomerId?: boolean
+    role?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    businessCustomer?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organizationOnBusinessCustomer"]>
+
+  export type OrganizationOnBusinessCustomerSelectScalar = {
+    organizationId?: boolean
+    businessCustomerId?: boolean
+    role?: boolean
+  }
+
+  export type OrganizationOnBusinessCustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"organizationId" | "businessCustomerId" | "role", ExtArgs["result"]["organizationOnBusinessCustomer"]>
+  export type OrganizationOnBusinessCustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    businessCustomer?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
+  }
+  export type OrganizationOnBusinessCustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    businessCustomer?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
+  }
+  export type OrganizationOnBusinessCustomerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    businessCustomer?: boolean | BusinessCustomerDefaultArgs<ExtArgs>
+  }
+
+  export type $OrganizationOnBusinessCustomerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OrganizationOnBusinessCustomer"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      businessCustomer: Prisma.$BusinessCustomerPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      organizationId: number
+      businessCustomerId: number
+      role: $Enums.OrganizationRole
+    }, ExtArgs["result"]["organizationOnBusinessCustomer"]>
+    composites: {}
+  }
+
+  type OrganizationOnBusinessCustomerGetPayload<S extends boolean | null | undefined | OrganizationOnBusinessCustomerDefaultArgs> = $Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload, S>
+
+  type OrganizationOnBusinessCustomerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OrganizationOnBusinessCustomerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OrganizationOnBusinessCustomerCountAggregateInputType | true
+    }
+
+  export interface OrganizationOnBusinessCustomerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OrganizationOnBusinessCustomer'], meta: { name: 'OrganizationOnBusinessCustomer' } }
+    /**
+     * Find zero or one OrganizationOnBusinessCustomer that matches the filter.
+     * @param {OrganizationOnBusinessCustomerFindUniqueArgs} args - Arguments to find a OrganizationOnBusinessCustomer
+     * @example
+     * // Get one OrganizationOnBusinessCustomer
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OrganizationOnBusinessCustomerFindUniqueArgs>(args: SelectSubset<T, OrganizationOnBusinessCustomerFindUniqueArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OrganizationOnBusinessCustomer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OrganizationOnBusinessCustomerFindUniqueOrThrowArgs} args - Arguments to find a OrganizationOnBusinessCustomer
+     * @example
+     * // Get one OrganizationOnBusinessCustomer
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OrganizationOnBusinessCustomerFindUniqueOrThrowArgs>(args: SelectSubset<T, OrganizationOnBusinessCustomerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OrganizationOnBusinessCustomer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationOnBusinessCustomerFindFirstArgs} args - Arguments to find a OrganizationOnBusinessCustomer
+     * @example
+     * // Get one OrganizationOnBusinessCustomer
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OrganizationOnBusinessCustomerFindFirstArgs>(args?: SelectSubset<T, OrganizationOnBusinessCustomerFindFirstArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OrganizationOnBusinessCustomer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationOnBusinessCustomerFindFirstOrThrowArgs} args - Arguments to find a OrganizationOnBusinessCustomer
+     * @example
+     * // Get one OrganizationOnBusinessCustomer
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OrganizationOnBusinessCustomerFindFirstOrThrowArgs>(args?: SelectSubset<T, OrganizationOnBusinessCustomerFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OrganizationOnBusinessCustomers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationOnBusinessCustomerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OrganizationOnBusinessCustomers
+     * const organizationOnBusinessCustomers = await prisma.organizationOnBusinessCustomer.findMany()
+     * 
+     * // Get first 10 OrganizationOnBusinessCustomers
+     * const organizationOnBusinessCustomers = await prisma.organizationOnBusinessCustomer.findMany({ take: 10 })
+     * 
+     * // Only select the `organizationId`
+     * const organizationOnBusinessCustomerWithOrganizationIdOnly = await prisma.organizationOnBusinessCustomer.findMany({ select: { organizationId: true } })
+     * 
+     */
+    findMany<T extends OrganizationOnBusinessCustomerFindManyArgs>(args?: SelectSubset<T, OrganizationOnBusinessCustomerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OrganizationOnBusinessCustomer.
+     * @param {OrganizationOnBusinessCustomerCreateArgs} args - Arguments to create a OrganizationOnBusinessCustomer.
+     * @example
+     * // Create one OrganizationOnBusinessCustomer
+     * const OrganizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.create({
+     *   data: {
+     *     // ... data to create a OrganizationOnBusinessCustomer
+     *   }
+     * })
+     * 
+     */
+    create<T extends OrganizationOnBusinessCustomerCreateArgs>(args: SelectSubset<T, OrganizationOnBusinessCustomerCreateArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OrganizationOnBusinessCustomers.
+     * @param {OrganizationOnBusinessCustomerCreateManyArgs} args - Arguments to create many OrganizationOnBusinessCustomers.
+     * @example
+     * // Create many OrganizationOnBusinessCustomers
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OrganizationOnBusinessCustomerCreateManyArgs>(args?: SelectSubset<T, OrganizationOnBusinessCustomerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OrganizationOnBusinessCustomers and returns the data saved in the database.
+     * @param {OrganizationOnBusinessCustomerCreateManyAndReturnArgs} args - Arguments to create many OrganizationOnBusinessCustomers.
+     * @example
+     * // Create many OrganizationOnBusinessCustomers
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OrganizationOnBusinessCustomers and only return the `organizationId`
+     * const organizationOnBusinessCustomerWithOrganizationIdOnly = await prisma.organizationOnBusinessCustomer.createManyAndReturn({
+     *   select: { organizationId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OrganizationOnBusinessCustomerCreateManyAndReturnArgs>(args?: SelectSubset<T, OrganizationOnBusinessCustomerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OrganizationOnBusinessCustomer.
+     * @param {OrganizationOnBusinessCustomerDeleteArgs} args - Arguments to delete one OrganizationOnBusinessCustomer.
+     * @example
+     * // Delete one OrganizationOnBusinessCustomer
+     * const OrganizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.delete({
+     *   where: {
+     *     // ... filter to delete one OrganizationOnBusinessCustomer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OrganizationOnBusinessCustomerDeleteArgs>(args: SelectSubset<T, OrganizationOnBusinessCustomerDeleteArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OrganizationOnBusinessCustomer.
+     * @param {OrganizationOnBusinessCustomerUpdateArgs} args - Arguments to update one OrganizationOnBusinessCustomer.
+     * @example
+     * // Update one OrganizationOnBusinessCustomer
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OrganizationOnBusinessCustomerUpdateArgs>(args: SelectSubset<T, OrganizationOnBusinessCustomerUpdateArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OrganizationOnBusinessCustomers.
+     * @param {OrganizationOnBusinessCustomerDeleteManyArgs} args - Arguments to filter OrganizationOnBusinessCustomers to delete.
+     * @example
+     * // Delete a few OrganizationOnBusinessCustomers
+     * const { count } = await prisma.organizationOnBusinessCustomer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OrganizationOnBusinessCustomerDeleteManyArgs>(args?: SelectSubset<T, OrganizationOnBusinessCustomerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OrganizationOnBusinessCustomers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationOnBusinessCustomerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OrganizationOnBusinessCustomers
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OrganizationOnBusinessCustomerUpdateManyArgs>(args: SelectSubset<T, OrganizationOnBusinessCustomerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OrganizationOnBusinessCustomers and returns the data updated in the database.
+     * @param {OrganizationOnBusinessCustomerUpdateManyAndReturnArgs} args - Arguments to update many OrganizationOnBusinessCustomers.
+     * @example
+     * // Update many OrganizationOnBusinessCustomers
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OrganizationOnBusinessCustomers and only return the `organizationId`
+     * const organizationOnBusinessCustomerWithOrganizationIdOnly = await prisma.organizationOnBusinessCustomer.updateManyAndReturn({
+     *   select: { organizationId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OrganizationOnBusinessCustomerUpdateManyAndReturnArgs>(args: SelectSubset<T, OrganizationOnBusinessCustomerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OrganizationOnBusinessCustomer.
+     * @param {OrganizationOnBusinessCustomerUpsertArgs} args - Arguments to update or create a OrganizationOnBusinessCustomer.
+     * @example
+     * // Update or create a OrganizationOnBusinessCustomer
+     * const organizationOnBusinessCustomer = await prisma.organizationOnBusinessCustomer.upsert({
+     *   create: {
+     *     // ... data to create a OrganizationOnBusinessCustomer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OrganizationOnBusinessCustomer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OrganizationOnBusinessCustomerUpsertArgs>(args: SelectSubset<T, OrganizationOnBusinessCustomerUpsertArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OrganizationOnBusinessCustomers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationOnBusinessCustomerCountArgs} args - Arguments to filter OrganizationOnBusinessCustomers to count.
+     * @example
+     * // Count the number of OrganizationOnBusinessCustomers
+     * const count = await prisma.organizationOnBusinessCustomer.count({
+     *   where: {
+     *     // ... the filter for the OrganizationOnBusinessCustomers we want to count
+     *   }
+     * })
+    **/
+    count<T extends OrganizationOnBusinessCustomerCountArgs>(
+      args?: Subset<T, OrganizationOnBusinessCustomerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OrganizationOnBusinessCustomerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OrganizationOnBusinessCustomer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationOnBusinessCustomerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OrganizationOnBusinessCustomerAggregateArgs>(args: Subset<T, OrganizationOnBusinessCustomerAggregateArgs>): Prisma.PrismaPromise<GetOrganizationOnBusinessCustomerAggregateType<T>>
+
+    /**
+     * Group by OrganizationOnBusinessCustomer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationOnBusinessCustomerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OrganizationOnBusinessCustomerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OrganizationOnBusinessCustomerGroupByArgs['orderBy'] }
+        : { orderBy?: OrganizationOnBusinessCustomerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OrganizationOnBusinessCustomerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrganizationOnBusinessCustomerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OrganizationOnBusinessCustomer model
+   */
+  readonly fields: OrganizationOnBusinessCustomerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OrganizationOnBusinessCustomer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OrganizationOnBusinessCustomerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    businessCustomer<T extends BusinessCustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BusinessCustomerDefaultArgs<ExtArgs>>): Prisma__BusinessCustomerClient<$Result.GetResult<Prisma.$BusinessCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OrganizationOnBusinessCustomer model
+   */
+  interface OrganizationOnBusinessCustomerFieldRefs {
+    readonly organizationId: FieldRef<"OrganizationOnBusinessCustomer", 'Int'>
+    readonly businessCustomerId: FieldRef<"OrganizationOnBusinessCustomer", 'Int'>
+    readonly role: FieldRef<"OrganizationOnBusinessCustomer", 'OrganizationRole'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OrganizationOnBusinessCustomer findUnique
+   */
+  export type OrganizationOnBusinessCustomerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationOnBusinessCustomer to fetch.
+     */
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer findUniqueOrThrow
+   */
+  export type OrganizationOnBusinessCustomerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationOnBusinessCustomer to fetch.
+     */
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer findFirst
+   */
+  export type OrganizationOnBusinessCustomerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationOnBusinessCustomer to fetch.
+     */
+    where?: OrganizationOnBusinessCustomerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationOnBusinessCustomers to fetch.
+     */
+    orderBy?: OrganizationOnBusinessCustomerOrderByWithRelationInput | OrganizationOnBusinessCustomerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrganizationOnBusinessCustomers.
+     */
+    cursor?: OrganizationOnBusinessCustomerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationOnBusinessCustomers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationOnBusinessCustomers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrganizationOnBusinessCustomers.
+     */
+    distinct?: OrganizationOnBusinessCustomerScalarFieldEnum | OrganizationOnBusinessCustomerScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer findFirstOrThrow
+   */
+  export type OrganizationOnBusinessCustomerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationOnBusinessCustomer to fetch.
+     */
+    where?: OrganizationOnBusinessCustomerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationOnBusinessCustomers to fetch.
+     */
+    orderBy?: OrganizationOnBusinessCustomerOrderByWithRelationInput | OrganizationOnBusinessCustomerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrganizationOnBusinessCustomers.
+     */
+    cursor?: OrganizationOnBusinessCustomerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationOnBusinessCustomers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationOnBusinessCustomers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrganizationOnBusinessCustomers.
+     */
+    distinct?: OrganizationOnBusinessCustomerScalarFieldEnum | OrganizationOnBusinessCustomerScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer findMany
+   */
+  export type OrganizationOnBusinessCustomerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationOnBusinessCustomers to fetch.
+     */
+    where?: OrganizationOnBusinessCustomerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationOnBusinessCustomers to fetch.
+     */
+    orderBy?: OrganizationOnBusinessCustomerOrderByWithRelationInput | OrganizationOnBusinessCustomerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OrganizationOnBusinessCustomers.
+     */
+    cursor?: OrganizationOnBusinessCustomerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationOnBusinessCustomers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationOnBusinessCustomers.
+     */
+    skip?: number
+    distinct?: OrganizationOnBusinessCustomerScalarFieldEnum | OrganizationOnBusinessCustomerScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer create
+   */
+  export type OrganizationOnBusinessCustomerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OrganizationOnBusinessCustomer.
+     */
+    data: XOR<OrganizationOnBusinessCustomerCreateInput, OrganizationOnBusinessCustomerUncheckedCreateInput>
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer createMany
+   */
+  export type OrganizationOnBusinessCustomerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OrganizationOnBusinessCustomers.
+     */
+    data: OrganizationOnBusinessCustomerCreateManyInput | OrganizationOnBusinessCustomerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer createManyAndReturn
+   */
+  export type OrganizationOnBusinessCustomerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * The data used to create many OrganizationOnBusinessCustomers.
+     */
+    data: OrganizationOnBusinessCustomerCreateManyInput | OrganizationOnBusinessCustomerCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer update
+   */
+  export type OrganizationOnBusinessCustomerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OrganizationOnBusinessCustomer.
+     */
+    data: XOR<OrganizationOnBusinessCustomerUpdateInput, OrganizationOnBusinessCustomerUncheckedUpdateInput>
+    /**
+     * Choose, which OrganizationOnBusinessCustomer to update.
+     */
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer updateMany
+   */
+  export type OrganizationOnBusinessCustomerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OrganizationOnBusinessCustomers.
+     */
+    data: XOR<OrganizationOnBusinessCustomerUpdateManyMutationInput, OrganizationOnBusinessCustomerUncheckedUpdateManyInput>
+    /**
+     * Filter which OrganizationOnBusinessCustomers to update
+     */
+    where?: OrganizationOnBusinessCustomerWhereInput
+    /**
+     * Limit how many OrganizationOnBusinessCustomers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer updateManyAndReturn
+   */
+  export type OrganizationOnBusinessCustomerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * The data used to update OrganizationOnBusinessCustomers.
+     */
+    data: XOR<OrganizationOnBusinessCustomerUpdateManyMutationInput, OrganizationOnBusinessCustomerUncheckedUpdateManyInput>
+    /**
+     * Filter which OrganizationOnBusinessCustomers to update
+     */
+    where?: OrganizationOnBusinessCustomerWhereInput
+    /**
+     * Limit how many OrganizationOnBusinessCustomers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer upsert
+   */
+  export type OrganizationOnBusinessCustomerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OrganizationOnBusinessCustomer to update in case it exists.
+     */
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+    /**
+     * In case the OrganizationOnBusinessCustomer found by the `where` argument doesn't exist, create a new OrganizationOnBusinessCustomer with this data.
+     */
+    create: XOR<OrganizationOnBusinessCustomerCreateInput, OrganizationOnBusinessCustomerUncheckedCreateInput>
+    /**
+     * In case the OrganizationOnBusinessCustomer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OrganizationOnBusinessCustomerUpdateInput, OrganizationOnBusinessCustomerUncheckedUpdateInput>
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer delete
+   */
+  export type OrganizationOnBusinessCustomerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+    /**
+     * Filter which OrganizationOnBusinessCustomer to delete.
+     */
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer deleteMany
+   */
+  export type OrganizationOnBusinessCustomerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrganizationOnBusinessCustomers to delete
+     */
+    where?: OrganizationOnBusinessCustomerWhereInput
+    /**
+     * Limit how many OrganizationOnBusinessCustomers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OrganizationOnBusinessCustomer without action
+   */
+  export type OrganizationOnBusinessCustomerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationOnBusinessCustomer
+     */
+    select?: OrganizationOnBusinessCustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrganizationOnBusinessCustomer
+     */
+    omit?: OrganizationOnBusinessCustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Subscription
+   */
+
+  export type AggregateSubscription = {
+    _count: SubscriptionCountAggregateOutputType | null
+    _avg: SubscriptionAvgAggregateOutputType | null
+    _sum: SubscriptionSumAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  export type SubscriptionAvgAggregateOutputType = {
+    id: number | null
+    price: Decimal | null
+  }
+
+  export type SubscriptionSumAggregateOutputType = {
+    id: number | null
+    price: Decimal | null
+  }
+
+  export type SubscriptionMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    level: $Enums.SubscriptionLevel | null
+    price: Decimal | null
+    status: $Enums.SubscriptionStatus | null
+    stripeCustomerId: string | null
+    stripeSubscriptionId: string | null
+    trialEndsAt: Date | null
+  }
+
+  export type SubscriptionMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    level: $Enums.SubscriptionLevel | null
+    price: Decimal | null
+    status: $Enums.SubscriptionStatus | null
+    stripeCustomerId: string | null
+    stripeSubscriptionId: string | null
+    trialEndsAt: Date | null
+  }
+
+  export type SubscriptionCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    level: number
+    price: number
+    status: number
+    stripeCustomerId: number
+    stripeSubscriptionId: number
+    trialEndsAt: number
+    _all: number
+  }
+
+
+  export type SubscriptionAvgAggregateInputType = {
+    id?: true
+    price?: true
+  }
+
+  export type SubscriptionSumAggregateInputType = {
+    id?: true
+    price?: true
+  }
+
+  export type SubscriptionMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    level?: true
+    price?: true
+    status?: true
+    stripeCustomerId?: true
+    stripeSubscriptionId?: true
+    trialEndsAt?: true
+  }
+
+  export type SubscriptionMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    level?: true
+    price?: true
+    status?: true
+    stripeCustomerId?: true
+    stripeSubscriptionId?: true
+    trialEndsAt?: true
+  }
+
+  export type SubscriptionCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    level?: true
+    price?: true
+    status?: true
+    stripeCustomerId?: true
+    stripeSubscriptionId?: true
+    trialEndsAt?: true
+    _all?: true
+  }
+
+  export type SubscriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscription to aggregate.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Subscriptions
+    **/
+    _count?: true | SubscriptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SubscriptionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SubscriptionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubscriptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type GetSubscriptionAggregateType<T extends SubscriptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubscription]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubscription[P]>
+      : GetScalarType<T[P], AggregateSubscription[P]>
+  }
+
+
+
+
+  export type SubscriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionWhereInput
+    orderBy?: SubscriptionOrderByWithAggregationInput | SubscriptionOrderByWithAggregationInput[]
+    by: SubscriptionScalarFieldEnum[] | SubscriptionScalarFieldEnum
+    having?: SubscriptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubscriptionCountAggregateInputType | true
+    _avg?: SubscriptionAvgAggregateInputType
+    _sum?: SubscriptionSumAggregateInputType
+    _min?: SubscriptionMinAggregateInputType
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type SubscriptionGroupByOutputType = {
+    id: number
+    createdAt: Date
+    level: $Enums.SubscriptionLevel
+    price: Decimal
+    status: $Enums.SubscriptionStatus
+    stripeCustomerId: string | null
+    stripeSubscriptionId: string | null
+    trialEndsAt: Date | null
+    _count: SubscriptionCountAggregateOutputType | null
+    _avg: SubscriptionAvgAggregateOutputType | null
+    _sum: SubscriptionSumAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  type GetSubscriptionGroupByPayload<T extends SubscriptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubscriptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubscriptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+            : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    level?: boolean
+    price?: boolean
+    status?: boolean
+    stripeCustomerId?: boolean
+    stripeSubscriptionId?: boolean
+    trialEndsAt?: boolean
+    organization?: boolean | Subscription$organizationArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    level?: boolean
+    price?: boolean
+    status?: boolean
+    stripeCustomerId?: boolean
+    stripeSubscriptionId?: boolean
+    trialEndsAt?: boolean
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    level?: boolean
+    price?: boolean
+    status?: boolean
+    stripeCustomerId?: boolean
+    stripeSubscriptionId?: boolean
+    trialEndsAt?: boolean
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    level?: boolean
+    price?: boolean
+    status?: boolean
+    stripeCustomerId?: boolean
+    stripeSubscriptionId?: boolean
+    trialEndsAt?: boolean
+  }
+
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "level" | "price" | "status" | "stripeCustomerId" | "stripeSubscriptionId" | "trialEndsAt", ExtArgs["result"]["subscription"]>
+  export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | Subscription$organizationArgs<ExtArgs>
+  }
+  export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SubscriptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Subscription"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+      level: $Enums.SubscriptionLevel
+      price: Prisma.Decimal
+      status: $Enums.SubscriptionStatus
+      stripeCustomerId: string | null
+      stripeSubscriptionId: string | null
+      trialEndsAt: Date | null
+    }, ExtArgs["result"]["subscription"]>
+    composites: {}
+  }
+
+  type SubscriptionGetPayload<S extends boolean | null | undefined | SubscriptionDefaultArgs> = $Result.GetResult<Prisma.$SubscriptionPayload, S>
+
+  type SubscriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubscriptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubscriptionCountAggregateInputType | true
+    }
+
+  export interface SubscriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subscription'], meta: { name: 'Subscription' } }
+    /**
+     * Find zero or one Subscription that matches the filter.
+     * @param {SubscriptionFindUniqueArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubscriptionFindUniqueArgs>(args: SelectSubset<T, SubscriptionFindUniqueArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Subscription that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubscriptionFindUniqueOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubscriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, SubscriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubscriptionFindFirstArgs>(args?: SelectSubset<T, SubscriptionFindFirstArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubscriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, SubscriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Subscriptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Subscriptions
+     * const subscriptions = await prisma.subscription.findMany()
+     * 
+     * // Get first 10 Subscriptions
+     * const subscriptions = await prisma.subscription.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubscriptionFindManyArgs>(args?: SelectSubset<T, SubscriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Subscription.
+     * @param {SubscriptionCreateArgs} args - Arguments to create a Subscription.
+     * @example
+     * // Create one Subscription
+     * const Subscription = await prisma.subscription.create({
+     *   data: {
+     *     // ... data to create a Subscription
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubscriptionCreateArgs>(args: SelectSubset<T, SubscriptionCreateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Subscriptions.
+     * @param {SubscriptionCreateManyArgs} args - Arguments to create many Subscriptions.
+     * @example
+     * // Create many Subscriptions
+     * const subscription = await prisma.subscription.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubscriptionCreateManyArgs>(args?: SelectSubset<T, SubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Subscriptions and returns the data saved in the database.
+     * @param {SubscriptionCreateManyAndReturnArgs} args - Arguments to create many Subscriptions.
+     * @example
+     * // Create many Subscriptions
+     * const subscription = await prisma.subscription.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Subscriptions and only return the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubscriptionCreateManyAndReturnArgs>(args?: SelectSubset<T, SubscriptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Subscription.
+     * @param {SubscriptionDeleteArgs} args - Arguments to delete one Subscription.
+     * @example
+     * // Delete one Subscription
+     * const Subscription = await prisma.subscription.delete({
+     *   where: {
+     *     // ... filter to delete one Subscription
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubscriptionDeleteArgs>(args: SelectSubset<T, SubscriptionDeleteArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Subscription.
+     * @param {SubscriptionUpdateArgs} args - Arguments to update one Subscription.
+     * @example
+     * // Update one Subscription
+     * const subscription = await prisma.subscription.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubscriptionUpdateArgs>(args: SelectSubset<T, SubscriptionUpdateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Subscriptions.
+     * @param {SubscriptionDeleteManyArgs} args - Arguments to filter Subscriptions to delete.
+     * @example
+     * // Delete a few Subscriptions
+     * const { count } = await prisma.subscription.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubscriptionDeleteManyArgs>(args?: SelectSubset<T, SubscriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Subscriptions
+     * const subscription = await prisma.subscription.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubscriptionUpdateManyArgs>(args: SelectSubset<T, SubscriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subscriptions and returns the data updated in the database.
+     * @param {SubscriptionUpdateManyAndReturnArgs} args - Arguments to update many Subscriptions.
+     * @example
+     * // Update many Subscriptions
+     * const subscription = await prisma.subscription.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Subscriptions and only return the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SubscriptionUpdateManyAndReturnArgs>(args: SelectSubset<T, SubscriptionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Subscription.
+     * @param {SubscriptionUpsertArgs} args - Arguments to update or create a Subscription.
+     * @example
+     * // Update or create a Subscription
+     * const subscription = await prisma.subscription.upsert({
+     *   create: {
+     *     // ... data to create a Subscription
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Subscription we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubscriptionUpsertArgs>(args: SelectSubset<T, SubscriptionUpsertArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionCountArgs} args - Arguments to filter Subscriptions to count.
+     * @example
+     * // Count the number of Subscriptions
+     * const count = await prisma.subscription.count({
+     *   where: {
+     *     // ... the filter for the Subscriptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubscriptionCountArgs>(
+      args?: Subset<T, SubscriptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubscriptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubscriptionAggregateArgs>(args: Subset<T, SubscriptionAggregateArgs>): Prisma.PrismaPromise<GetSubscriptionAggregateType<T>>
+
+    /**
+     * Group by Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubscriptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubscriptionGroupByArgs['orderBy'] }
+        : { orderBy?: SubscriptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubscriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubscriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Subscription model
+   */
+  readonly fields: SubscriptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Subscription.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends Subscription$organizationArgs<ExtArgs> = {}>(args?: Subset<T, Subscription$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Subscription model
+   */
+  interface SubscriptionFieldRefs {
+    readonly id: FieldRef<"Subscription", 'Int'>
+    readonly createdAt: FieldRef<"Subscription", 'DateTime'>
+    readonly level: FieldRef<"Subscription", 'SubscriptionLevel'>
+    readonly price: FieldRef<"Subscription", 'Decimal'>
+    readonly status: FieldRef<"Subscription", 'SubscriptionStatus'>
+    readonly stripeCustomerId: FieldRef<"Subscription", 'String'>
+    readonly stripeSubscriptionId: FieldRef<"Subscription", 'String'>
+    readonly trialEndsAt: FieldRef<"Subscription", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Subscription findUnique
+   */
+  export type SubscriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findUniqueOrThrow
+   */
+  export type SubscriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findFirst
+   */
+  export type SubscriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findFirstOrThrow
+   */
+  export type SubscriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findMany
+   */
+  export type SubscriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscriptions to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription create
+   */
+  export type SubscriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Subscription.
+     */
+    data: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+  }
+
+  /**
+   * Subscription createMany
+   */
+  export type SubscriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Subscriptions.
+     */
+    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Subscription createManyAndReturn
+   */
+  export type SubscriptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Subscriptions.
+     */
+    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Subscription update
+   */
+  export type SubscriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Subscription.
+     */
+    data: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+    /**
+     * Choose, which Subscription to update.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription updateMany
+   */
+  export type SubscriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Subscriptions.
+     */
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Subscriptions to update
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription updateManyAndReturn
+   */
+  export type SubscriptionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * The data used to update Subscriptions.
+     */
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Subscriptions to update
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription upsert
+   */
+  export type SubscriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Subscription to update in case it exists.
+     */
+    where: SubscriptionWhereUniqueInput
+    /**
+     * In case the Subscription found by the `where` argument doesn't exist, create a new Subscription with this data.
+     */
+    create: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+    /**
+     * In case the Subscription was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+  }
+
+  /**
+   * Subscription delete
+   */
+  export type SubscriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter which Subscription to delete.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription deleteMany
+   */
+  export type SubscriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscriptions to delete
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription.organization
+   */
+  export type Subscription$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * Subscription without action
+   */
+  export type SubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
   }
 
 
@@ -12178,7 +14664,6 @@ export namespace Prisma {
     updatedAt: Date | null
     startTime: Date | null
     endTime: Date | null
-    isBooked: boolean | null
     availabilityGroupId: number | null
   }
 
@@ -12188,7 +14673,6 @@ export namespace Prisma {
     updatedAt: Date | null
     startTime: Date | null
     endTime: Date | null
-    isBooked: boolean | null
     availabilityGroupId: number | null
   }
 
@@ -12198,7 +14682,6 @@ export namespace Prisma {
     updatedAt: number
     startTime: number
     endTime: number
-    isBooked: number
     availabilityGroupId: number
     _all: number
   }
@@ -12220,7 +14703,6 @@ export namespace Prisma {
     updatedAt?: true
     startTime?: true
     endTime?: true
-    isBooked?: true
     availabilityGroupId?: true
   }
 
@@ -12230,7 +14712,6 @@ export namespace Prisma {
     updatedAt?: true
     startTime?: true
     endTime?: true
-    isBooked?: true
     availabilityGroupId?: true
   }
 
@@ -12240,7 +14721,6 @@ export namespace Prisma {
     updatedAt?: true
     startTime?: true
     endTime?: true
-    isBooked?: true
     availabilityGroupId?: true
     _all?: true
   }
@@ -12337,7 +14817,6 @@ export namespace Prisma {
     updatedAt: Date
     startTime: Date
     endTime: Date
-    isBooked: boolean
     availabilityGroupId: number | null
     _count: BookableSlotCountAggregateOutputType | null
     _avg: BookableSlotAvgAggregateOutputType | null
@@ -12366,7 +14845,6 @@ export namespace Prisma {
     updatedAt?: boolean
     startTime?: boolean
     endTime?: boolean
-    isBooked?: boolean
     availabilityGroupId?: boolean
     Appointment?: boolean | BookableSlot$AppointmentArgs<ExtArgs>
     AvailabilityGroup?: boolean | BookableSlot$AvailabilityGroupArgs<ExtArgs>
@@ -12379,7 +14857,6 @@ export namespace Prisma {
     updatedAt?: boolean
     startTime?: boolean
     endTime?: boolean
-    isBooked?: boolean
     availabilityGroupId?: boolean
     AvailabilityGroup?: boolean | BookableSlot$AvailabilityGroupArgs<ExtArgs>
   }, ExtArgs["result"]["bookableSlot"]>
@@ -12390,7 +14867,6 @@ export namespace Prisma {
     updatedAt?: boolean
     startTime?: boolean
     endTime?: boolean
-    isBooked?: boolean
     availabilityGroupId?: boolean
     AvailabilityGroup?: boolean | BookableSlot$AvailabilityGroupArgs<ExtArgs>
   }, ExtArgs["result"]["bookableSlot"]>
@@ -12401,11 +14877,10 @@ export namespace Prisma {
     updatedAt?: boolean
     startTime?: boolean
     endTime?: boolean
-    isBooked?: boolean
     availabilityGroupId?: boolean
   }
 
-  export type BookableSlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "startTime" | "endTime" | "isBooked" | "availabilityGroupId", ExtArgs["result"]["bookableSlot"]>
+  export type BookableSlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "startTime" | "endTime" | "availabilityGroupId", ExtArgs["result"]["bookableSlot"]>
   export type BookableSlotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Appointment?: boolean | BookableSlot$AppointmentArgs<ExtArgs>
     AvailabilityGroup?: boolean | BookableSlot$AvailabilityGroupArgs<ExtArgs>
@@ -12430,7 +14905,6 @@ export namespace Prisma {
       updatedAt: Date
       startTime: Date
       endTime: Date
-      isBooked: boolean
       availabilityGroupId: number | null
     }, ExtArgs["result"]["bookableSlot"]>
     composites: {}
@@ -12862,7 +15336,6 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"BookableSlot", 'DateTime'>
     readonly startTime: FieldRef<"BookableSlot", 'DateTime'>
     readonly endTime: FieldRef<"BookableSlot", 'DateTime'>
-    readonly isBooked: FieldRef<"BookableSlot", 'Boolean'>
     readonly availabilityGroupId: FieldRef<"BookableSlot", 'Int'>
   }
     
@@ -13342,11 +15815,22 @@ export namespace Prisma {
     customerId: 'customerId',
     serviceId: 'serviceId',
     slotId: 'slotId',
-    status: 'status',
-    isCancelled: 'isCancelled'
+    status: 'status'
   };
 
   export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
+  export const BusinessScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    contactNumber: 'contactNumber',
+    businessName: 'businessName',
+    organizationId: 'organizationId'
+  };
+
+  export type BusinessScalarFieldEnum = (typeof BusinessScalarFieldEnum)[keyof typeof BusinessScalarFieldEnum]
 
 
   export const BusinessCustomerScalarFieldEnum: {
@@ -13362,27 +15846,6 @@ export namespace Prisma {
   export type BusinessCustomerScalarFieldEnum = (typeof BusinessCustomerScalarFieldEnum)[keyof typeof BusinessCustomerScalarFieldEnum]
 
 
-  export const BusinessScalarFieldEnum: {
-    id: 'id',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    contactNumber: 'contactNumber',
-    businessName: 'businessName',
-    type: 'type'
-  };
-
-  export type BusinessScalarFieldEnum = (typeof BusinessScalarFieldEnum)[keyof typeof BusinessScalarFieldEnum]
-
-
-  export const BusinessCustomerOnBusinessScalarFieldEnum: {
-    businessId: 'businessId',
-    userId: 'userId',
-    role: 'role'
-  };
-
-  export type BusinessCustomerOnBusinessScalarFieldEnum = (typeof BusinessCustomerOnBusinessScalarFieldEnum)[keyof typeof BusinessCustomerOnBusinessScalarFieldEnum]
-
-
   export const CustomerScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
@@ -13390,11 +15853,44 @@ export namespace Prisma {
     email: 'email',
     mobile: 'mobile',
     firstName: 'firstName',
-    lastName: 'lastName',
-    type: 'type'
+    lastName: 'lastName'
   };
 
   export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+  export const OrganizationScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    legalName: 'legalName',
+    subscriptionId: 'subscriptionId'
+  };
+
+  export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[keyof typeof OrganizationScalarFieldEnum]
+
+
+  export const OrganizationOnBusinessCustomerScalarFieldEnum: {
+    organizationId: 'organizationId',
+    businessCustomerId: 'businessCustomerId',
+    role: 'role'
+  };
+
+  export type OrganizationOnBusinessCustomerScalarFieldEnum = (typeof OrganizationOnBusinessCustomerScalarFieldEnum)[keyof typeof OrganizationOnBusinessCustomerScalarFieldEnum]
+
+
+  export const SubscriptionScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    level: 'level',
+    price: 'price',
+    status: 'status',
+    stripeCustomerId: 'stripeCustomerId',
+    stripeSubscriptionId: 'stripeSubscriptionId',
+    trialEndsAt: 'trialEndsAt'
+  };
+
+  export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
 
 
   export const ServiceScalarFieldEnum: {
@@ -13443,7 +15939,6 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     startTime: 'startTime',
     endTime: 'endTime',
-    isBooked: 'isBooked',
     availabilityGroupId: 'availabilityGroupId'
   };
 
@@ -13536,51 +16031,65 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'OrganizationRole'
+   */
+  export type EnumOrganizationRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrganizationRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'OrganizationRole[]'
+   */
+  export type ListEnumOrganizationRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrganizationRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubscriptionLevel'
+   */
+  export type EnumSubscriptionLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionLevel'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubscriptionLevel[]'
+   */
+  export type ListEnumSubscriptionLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionLevel[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubscriptionStatus'
+   */
+  export type EnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubscriptionStatus[]'
+   */
+  export type ListEnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
-   * Reference to a field of type 'BusinessType[]'
-   */
-  export type ListEnumBusinessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessType[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'BusinessType'
-   */
-  export type EnumBusinessTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessType'>
-    
-
-
-  /**
-   * Reference to a field of type 'BusinessRole'
-   */
-  export type EnumBusinessRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessRole'>
-    
-
-
-  /**
-   * Reference to a field of type 'BusinessRole[]'
-   */
-  export type ListEnumBusinessRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessRole[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'CustomerType'
-   */
-  export type EnumCustomerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerType'>
-    
-
-
-  /**
-   * Reference to a field of type 'CustomerType[]'
-   */
-  export type ListEnumCustomerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerType[]'>
     
 
 
@@ -13626,7 +16135,6 @@ export namespace Prisma {
     serviceId?: IntFilter<"Appointment"> | number
     slotId?: IntFilter<"Appointment"> | number
     status?: EnumStatusFilter<"Appointment"> | $Enums.Status
-    isCancelled?: BoolFilter<"Appointment"> | boolean
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
     slot?: XOR<BookableSlotScalarRelationFilter, BookableSlotWhereInput>
@@ -13640,7 +16148,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     slotId?: SortOrder
     status?: SortOrder
-    isCancelled?: SortOrder
     customer?: CustomerOrderByWithRelationInput
     service?: ServiceOrderByWithRelationInput
     slot?: BookableSlotOrderByWithRelationInput
@@ -13657,7 +16164,6 @@ export namespace Prisma {
     serviceId?: IntFilter<"Appointment"> | number
     slotId?: IntFilter<"Appointment"> | number
     status?: EnumStatusFilter<"Appointment"> | $Enums.Status
-    isCancelled?: BoolFilter<"Appointment"> | boolean
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
     slot?: XOR<BookableSlotScalarRelationFilter, BookableSlotWhereInput>
@@ -13671,7 +16177,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     slotId?: SortOrder
     status?: SortOrder
-    isCancelled?: SortOrder
     _count?: AppointmentCountOrderByAggregateInput
     _avg?: AppointmentAvgOrderByAggregateInput
     _max?: AppointmentMaxOrderByAggregateInput
@@ -13690,7 +16195,71 @@ export namespace Prisma {
     serviceId?: IntWithAggregatesFilter<"Appointment"> | number
     slotId?: IntWithAggregatesFilter<"Appointment"> | number
     status?: EnumStatusWithAggregatesFilter<"Appointment"> | $Enums.Status
-    isCancelled?: BoolWithAggregatesFilter<"Appointment"> | boolean
+  }
+
+  export type BusinessWhereInput = {
+    AND?: BusinessWhereInput | BusinessWhereInput[]
+    OR?: BusinessWhereInput[]
+    NOT?: BusinessWhereInput | BusinessWhereInput[]
+    id?: IntFilter<"Business"> | number
+    createdAt?: DateTimeFilter<"Business"> | Date | string
+    updatedAt?: DateTimeFilter<"Business"> | Date | string
+    contactNumber?: StringFilter<"Business"> | string
+    businessName?: StringFilter<"Business"> | string
+    organizationId?: IntFilter<"Business"> | number
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    services?: ServiceListRelationFilter
+  }
+
+  export type BusinessOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    contactNumber?: SortOrder
+    businessName?: SortOrder
+    organizationId?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    services?: ServiceOrderByRelationAggregateInput
+  }
+
+  export type BusinessWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: BusinessWhereInput | BusinessWhereInput[]
+    OR?: BusinessWhereInput[]
+    NOT?: BusinessWhereInput | BusinessWhereInput[]
+    createdAt?: DateTimeFilter<"Business"> | Date | string
+    updatedAt?: DateTimeFilter<"Business"> | Date | string
+    contactNumber?: StringFilter<"Business"> | string
+    businessName?: StringFilter<"Business"> | string
+    organizationId?: IntFilter<"Business"> | number
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    services?: ServiceListRelationFilter
+  }, "id">
+
+  export type BusinessOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    contactNumber?: SortOrder
+    businessName?: SortOrder
+    organizationId?: SortOrder
+    _count?: BusinessCountOrderByAggregateInput
+    _avg?: BusinessAvgOrderByAggregateInput
+    _max?: BusinessMaxOrderByAggregateInput
+    _min?: BusinessMinOrderByAggregateInput
+    _sum?: BusinessSumOrderByAggregateInput
+  }
+
+  export type BusinessScalarWhereWithAggregatesInput = {
+    AND?: BusinessScalarWhereWithAggregatesInput | BusinessScalarWhereWithAggregatesInput[]
+    OR?: BusinessScalarWhereWithAggregatesInput[]
+    NOT?: BusinessScalarWhereWithAggregatesInput | BusinessScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Business"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Business"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Business"> | Date | string
+    contactNumber?: StringWithAggregatesFilter<"Business"> | string
+    businessName?: StringWithAggregatesFilter<"Business"> | string
+    organizationId?: IntWithAggregatesFilter<"Business"> | number
   }
 
   export type BusinessCustomerWhereInput = {
@@ -13704,7 +16273,7 @@ export namespace Prisma {
     mobile?: StringNullableFilter<"BusinessCustomer"> | string | null
     firstName?: StringFilter<"BusinessCustomer"> | string
     lastName?: StringFilter<"BusinessCustomer"> | string
-    businesses?: BusinessCustomerOnBusinessListRelationFilter
+    organization?: OrganizationOnBusinessCustomerListRelationFilter
   }
 
   export type BusinessCustomerOrderByWithRelationInput = {
@@ -13715,7 +16284,7 @@ export namespace Prisma {
     mobile?: SortOrderInput | SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
-    businesses?: BusinessCustomerOnBusinessOrderByRelationAggregateInput
+    organization?: OrganizationOnBusinessCustomerOrderByRelationAggregateInput
   }
 
   export type BusinessCustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -13729,7 +16298,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BusinessCustomer"> | Date | string
     firstName?: StringFilter<"BusinessCustomer"> | string
     lastName?: StringFilter<"BusinessCustomer"> | string
-    businesses?: BusinessCustomerOnBusinessListRelationFilter
+    organization?: OrganizationOnBusinessCustomerListRelationFilter
   }, "id" | "email" | "mobile">
 
   export type BusinessCustomerOrderByWithAggregationInput = {
@@ -13760,122 +16329,6 @@ export namespace Prisma {
     lastName?: StringWithAggregatesFilter<"BusinessCustomer"> | string
   }
 
-  export type BusinessWhereInput = {
-    AND?: BusinessWhereInput | BusinessWhereInput[]
-    OR?: BusinessWhereInput[]
-    NOT?: BusinessWhereInput | BusinessWhereInput[]
-    id?: IntFilter<"Business"> | number
-    createdAt?: DateTimeFilter<"Business"> | Date | string
-    updatedAt?: DateTimeFilter<"Business"> | Date | string
-    contactNumber?: StringFilter<"Business"> | string
-    businessName?: StringFilter<"Business"> | string
-    type?: EnumBusinessTypeNullableListFilter<"Business">
-    BusinessCustomers?: BusinessCustomerOnBusinessListRelationFilter
-    services?: ServiceListRelationFilter
-  }
-
-  export type BusinessOrderByWithRelationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    contactNumber?: SortOrder
-    businessName?: SortOrder
-    type?: SortOrder
-    BusinessCustomers?: BusinessCustomerOnBusinessOrderByRelationAggregateInput
-    services?: ServiceOrderByRelationAggregateInput
-  }
-
-  export type BusinessWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: BusinessWhereInput | BusinessWhereInput[]
-    OR?: BusinessWhereInput[]
-    NOT?: BusinessWhereInput | BusinessWhereInput[]
-    createdAt?: DateTimeFilter<"Business"> | Date | string
-    updatedAt?: DateTimeFilter<"Business"> | Date | string
-    contactNumber?: StringFilter<"Business"> | string
-    businessName?: StringFilter<"Business"> | string
-    type?: EnumBusinessTypeNullableListFilter<"Business">
-    BusinessCustomers?: BusinessCustomerOnBusinessListRelationFilter
-    services?: ServiceListRelationFilter
-  }, "id">
-
-  export type BusinessOrderByWithAggregationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    contactNumber?: SortOrder
-    businessName?: SortOrder
-    type?: SortOrder
-    _count?: BusinessCountOrderByAggregateInput
-    _avg?: BusinessAvgOrderByAggregateInput
-    _max?: BusinessMaxOrderByAggregateInput
-    _min?: BusinessMinOrderByAggregateInput
-    _sum?: BusinessSumOrderByAggregateInput
-  }
-
-  export type BusinessScalarWhereWithAggregatesInput = {
-    AND?: BusinessScalarWhereWithAggregatesInput | BusinessScalarWhereWithAggregatesInput[]
-    OR?: BusinessScalarWhereWithAggregatesInput[]
-    NOT?: BusinessScalarWhereWithAggregatesInput | BusinessScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Business"> | number
-    createdAt?: DateTimeWithAggregatesFilter<"Business"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Business"> | Date | string
-    contactNumber?: StringWithAggregatesFilter<"Business"> | string
-    businessName?: StringWithAggregatesFilter<"Business"> | string
-    type?: EnumBusinessTypeNullableListFilter<"Business">
-  }
-
-  export type BusinessCustomerOnBusinessWhereInput = {
-    AND?: BusinessCustomerOnBusinessWhereInput | BusinessCustomerOnBusinessWhereInput[]
-    OR?: BusinessCustomerOnBusinessWhereInput[]
-    NOT?: BusinessCustomerOnBusinessWhereInput | BusinessCustomerOnBusinessWhereInput[]
-    businessId?: IntFilter<"BusinessCustomerOnBusiness"> | number
-    userId?: IntFilter<"BusinessCustomerOnBusiness"> | number
-    role?: EnumBusinessRoleFilter<"BusinessCustomerOnBusiness"> | $Enums.BusinessRole
-    business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
-    user?: XOR<BusinessCustomerScalarRelationFilter, BusinessCustomerWhereInput>
-  }
-
-  export type BusinessCustomerOnBusinessOrderByWithRelationInput = {
-    businessId?: SortOrder
-    userId?: SortOrder
-    role?: SortOrder
-    business?: BusinessOrderByWithRelationInput
-    user?: BusinessCustomerOrderByWithRelationInput
-  }
-
-  export type BusinessCustomerOnBusinessWhereUniqueInput = Prisma.AtLeast<{
-    businessId_userId?: BusinessCustomerOnBusinessBusinessIdUserIdCompoundUniqueInput
-    AND?: BusinessCustomerOnBusinessWhereInput | BusinessCustomerOnBusinessWhereInput[]
-    OR?: BusinessCustomerOnBusinessWhereInput[]
-    NOT?: BusinessCustomerOnBusinessWhereInput | BusinessCustomerOnBusinessWhereInput[]
-    businessId?: IntFilter<"BusinessCustomerOnBusiness"> | number
-    userId?: IntFilter<"BusinessCustomerOnBusiness"> | number
-    role?: EnumBusinessRoleFilter<"BusinessCustomerOnBusiness"> | $Enums.BusinessRole
-    business?: XOR<BusinessScalarRelationFilter, BusinessWhereInput>
-    user?: XOR<BusinessCustomerScalarRelationFilter, BusinessCustomerWhereInput>
-  }, "businessId_userId">
-
-  export type BusinessCustomerOnBusinessOrderByWithAggregationInput = {
-    businessId?: SortOrder
-    userId?: SortOrder
-    role?: SortOrder
-    _count?: BusinessCustomerOnBusinessCountOrderByAggregateInput
-    _avg?: BusinessCustomerOnBusinessAvgOrderByAggregateInput
-    _max?: BusinessCustomerOnBusinessMaxOrderByAggregateInput
-    _min?: BusinessCustomerOnBusinessMinOrderByAggregateInput
-    _sum?: BusinessCustomerOnBusinessSumOrderByAggregateInput
-  }
-
-  export type BusinessCustomerOnBusinessScalarWhereWithAggregatesInput = {
-    AND?: BusinessCustomerOnBusinessScalarWhereWithAggregatesInput | BusinessCustomerOnBusinessScalarWhereWithAggregatesInput[]
-    OR?: BusinessCustomerOnBusinessScalarWhereWithAggregatesInput[]
-    NOT?: BusinessCustomerOnBusinessScalarWhereWithAggregatesInput | BusinessCustomerOnBusinessScalarWhereWithAggregatesInput[]
-    businessId?: IntWithAggregatesFilter<"BusinessCustomerOnBusiness"> | number
-    userId?: IntWithAggregatesFilter<"BusinessCustomerOnBusiness"> | number
-    role?: EnumBusinessRoleWithAggregatesFilter<"BusinessCustomerOnBusiness"> | $Enums.BusinessRole
-  }
-
   export type CustomerWhereInput = {
     AND?: CustomerWhereInput | CustomerWhereInput[]
     OR?: CustomerWhereInput[]
@@ -13887,7 +16340,6 @@ export namespace Prisma {
     mobile?: StringNullableFilter<"Customer"> | string | null
     firstName?: StringNullableFilter<"Customer"> | string | null
     lastName?: StringNullableFilter<"Customer"> | string | null
-    type?: EnumCustomerTypeFilter<"Customer"> | $Enums.CustomerType
     appointments?: AppointmentListRelationFilter
   }
 
@@ -13899,7 +16351,6 @@ export namespace Prisma {
     mobile?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
-    type?: SortOrder
     appointments?: AppointmentOrderByRelationAggregateInput
   }
 
@@ -13914,7 +16365,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
     firstName?: StringNullableFilter<"Customer"> | string | null
     lastName?: StringNullableFilter<"Customer"> | string | null
-    type?: EnumCustomerTypeFilter<"Customer"> | $Enums.CustomerType
     appointments?: AppointmentListRelationFilter
   }, "id" | "email" | "mobile">
 
@@ -13926,7 +16376,6 @@ export namespace Prisma {
     mobile?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
-    type?: SortOrder
     _count?: CustomerCountOrderByAggregateInput
     _avg?: CustomerAvgOrderByAggregateInput
     _max?: CustomerMaxOrderByAggregateInput
@@ -13945,7 +16394,192 @@ export namespace Prisma {
     mobile?: StringNullableWithAggregatesFilter<"Customer"> | string | null
     firstName?: StringNullableWithAggregatesFilter<"Customer"> | string | null
     lastName?: StringNullableWithAggregatesFilter<"Customer"> | string | null
-    type?: EnumCustomerTypeWithAggregatesFilter<"Customer"> | $Enums.CustomerType
+  }
+
+  export type OrganizationWhereInput = {
+    AND?: OrganizationWhereInput | OrganizationWhereInput[]
+    OR?: OrganizationWhereInput[]
+    NOT?: OrganizationWhereInput | OrganizationWhereInput[]
+    id?: IntFilter<"Organization"> | number
+    createdAt?: DateTimeFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeFilter<"Organization"> | Date | string
+    legalName?: StringFilter<"Organization"> | string
+    subscriptionId?: IntFilter<"Organization"> | number
+    businessCustomers?: OrganizationOnBusinessCustomerListRelationFilter
+    subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
+    Business?: BusinessListRelationFilter
+  }
+
+  export type OrganizationOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    legalName?: SortOrder
+    subscriptionId?: SortOrder
+    businessCustomers?: OrganizationOnBusinessCustomerOrderByRelationAggregateInput
+    subscription?: SubscriptionOrderByWithRelationInput
+    Business?: BusinessOrderByRelationAggregateInput
+  }
+
+  export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    subscriptionId?: number
+    AND?: OrganizationWhereInput | OrganizationWhereInput[]
+    OR?: OrganizationWhereInput[]
+    NOT?: OrganizationWhereInput | OrganizationWhereInput[]
+    createdAt?: DateTimeFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeFilter<"Organization"> | Date | string
+    legalName?: StringFilter<"Organization"> | string
+    businessCustomers?: OrganizationOnBusinessCustomerListRelationFilter
+    subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
+    Business?: BusinessListRelationFilter
+  }, "id" | "subscriptionId">
+
+  export type OrganizationOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    legalName?: SortOrder
+    subscriptionId?: SortOrder
+    _count?: OrganizationCountOrderByAggregateInput
+    _avg?: OrganizationAvgOrderByAggregateInput
+    _max?: OrganizationMaxOrderByAggregateInput
+    _min?: OrganizationMinOrderByAggregateInput
+    _sum?: OrganizationSumOrderByAggregateInput
+  }
+
+  export type OrganizationScalarWhereWithAggregatesInput = {
+    AND?: OrganizationScalarWhereWithAggregatesInput | OrganizationScalarWhereWithAggregatesInput[]
+    OR?: OrganizationScalarWhereWithAggregatesInput[]
+    NOT?: OrganizationScalarWhereWithAggregatesInput | OrganizationScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Organization"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
+    legalName?: StringWithAggregatesFilter<"Organization"> | string
+    subscriptionId?: IntWithAggregatesFilter<"Organization"> | number
+  }
+
+  export type OrganizationOnBusinessCustomerWhereInput = {
+    AND?: OrganizationOnBusinessCustomerWhereInput | OrganizationOnBusinessCustomerWhereInput[]
+    OR?: OrganizationOnBusinessCustomerWhereInput[]
+    NOT?: OrganizationOnBusinessCustomerWhereInput | OrganizationOnBusinessCustomerWhereInput[]
+    organizationId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
+    businessCustomerId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
+    role?: EnumOrganizationRoleFilter<"OrganizationOnBusinessCustomer"> | $Enums.OrganizationRole
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    businessCustomer?: XOR<BusinessCustomerScalarRelationFilter, BusinessCustomerWhereInput>
+  }
+
+  export type OrganizationOnBusinessCustomerOrderByWithRelationInput = {
+    organizationId?: SortOrder
+    businessCustomerId?: SortOrder
+    role?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    businessCustomer?: BusinessCustomerOrderByWithRelationInput
+  }
+
+  export type OrganizationOnBusinessCustomerWhereUniqueInput = Prisma.AtLeast<{
+    organizationId_businessCustomerId?: OrganizationOnBusinessCustomerOrganizationIdBusinessCustomerIdCompoundUniqueInput
+    AND?: OrganizationOnBusinessCustomerWhereInput | OrganizationOnBusinessCustomerWhereInput[]
+    OR?: OrganizationOnBusinessCustomerWhereInput[]
+    NOT?: OrganizationOnBusinessCustomerWhereInput | OrganizationOnBusinessCustomerWhereInput[]
+    organizationId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
+    businessCustomerId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
+    role?: EnumOrganizationRoleFilter<"OrganizationOnBusinessCustomer"> | $Enums.OrganizationRole
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    businessCustomer?: XOR<BusinessCustomerScalarRelationFilter, BusinessCustomerWhereInput>
+  }, "organizationId_businessCustomerId">
+
+  export type OrganizationOnBusinessCustomerOrderByWithAggregationInput = {
+    organizationId?: SortOrder
+    businessCustomerId?: SortOrder
+    role?: SortOrder
+    _count?: OrganizationOnBusinessCustomerCountOrderByAggregateInput
+    _avg?: OrganizationOnBusinessCustomerAvgOrderByAggregateInput
+    _max?: OrganizationOnBusinessCustomerMaxOrderByAggregateInput
+    _min?: OrganizationOnBusinessCustomerMinOrderByAggregateInput
+    _sum?: OrganizationOnBusinessCustomerSumOrderByAggregateInput
+  }
+
+  export type OrganizationOnBusinessCustomerScalarWhereWithAggregatesInput = {
+    AND?: OrganizationOnBusinessCustomerScalarWhereWithAggregatesInput | OrganizationOnBusinessCustomerScalarWhereWithAggregatesInput[]
+    OR?: OrganizationOnBusinessCustomerScalarWhereWithAggregatesInput[]
+    NOT?: OrganizationOnBusinessCustomerScalarWhereWithAggregatesInput | OrganizationOnBusinessCustomerScalarWhereWithAggregatesInput[]
+    organizationId?: IntWithAggregatesFilter<"OrganizationOnBusinessCustomer"> | number
+    businessCustomerId?: IntWithAggregatesFilter<"OrganizationOnBusinessCustomer"> | number
+    role?: EnumOrganizationRoleWithAggregatesFilter<"OrganizationOnBusinessCustomer"> | $Enums.OrganizationRole
+  }
+
+  export type SubscriptionWhereInput = {
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    id?: IntFilter<"Subscription"> | number
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    level?: EnumSubscriptionLevelFilter<"Subscription"> | $Enums.SubscriptionLevel
+    price?: DecimalFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
+    status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
+    stripeCustomerId?: StringNullableFilter<"Subscription"> | string | null
+    stripeSubscriptionId?: StringNullableFilter<"Subscription"> | string | null
+    trialEndsAt?: DateTimeNullableFilter<"Subscription"> | Date | string | null
+    organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
+  }
+
+  export type SubscriptionOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    level?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
+    stripeSubscriptionId?: SortOrderInput | SortOrder
+    trialEndsAt?: SortOrderInput | SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    level?: EnumSubscriptionLevelFilter<"Subscription"> | $Enums.SubscriptionLevel
+    price?: DecimalFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
+    status?: EnumSubscriptionStatusFilter<"Subscription"> | $Enums.SubscriptionStatus
+    stripeCustomerId?: StringNullableFilter<"Subscription"> | string | null
+    stripeSubscriptionId?: StringNullableFilter<"Subscription"> | string | null
+    trialEndsAt?: DateTimeNullableFilter<"Subscription"> | Date | string | null
+    organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
+  }, "id">
+
+  export type SubscriptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    level?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
+    stripeSubscriptionId?: SortOrderInput | SortOrder
+    trialEndsAt?: SortOrderInput | SortOrder
+    _count?: SubscriptionCountOrderByAggregateInput
+    _avg?: SubscriptionAvgOrderByAggregateInput
+    _max?: SubscriptionMaxOrderByAggregateInput
+    _min?: SubscriptionMinOrderByAggregateInput
+    _sum?: SubscriptionSumOrderByAggregateInput
+  }
+
+  export type SubscriptionScalarWhereWithAggregatesInput = {
+    AND?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    OR?: SubscriptionScalarWhereWithAggregatesInput[]
+    NOT?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Subscription"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    level?: EnumSubscriptionLevelWithAggregatesFilter<"Subscription"> | $Enums.SubscriptionLevel
+    price?: DecimalWithAggregatesFilter<"Subscription"> | Decimal | DecimalJsLike | number | string
+    status?: EnumSubscriptionStatusWithAggregatesFilter<"Subscription"> | $Enums.SubscriptionStatus
+    stripeCustomerId?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
+    stripeSubscriptionId?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
+    trialEndsAt?: DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
   }
 
   export type ServiceWhereInput = {
@@ -14181,7 +16815,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BookableSlot"> | Date | string
     startTime?: DateTimeFilter<"BookableSlot"> | Date | string
     endTime?: DateTimeFilter<"BookableSlot"> | Date | string
-    isBooked?: BoolFilter<"BookableSlot"> | boolean
     availabilityGroupId?: IntNullableFilter<"BookableSlot"> | number | null
     Appointment?: AppointmentListRelationFilter
     AvailabilityGroup?: XOR<AvailabilityGroupNullableScalarRelationFilter, AvailabilityGroupWhereInput> | null
@@ -14193,7 +16826,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
-    isBooked?: SortOrder
     availabilityGroupId?: SortOrderInput | SortOrder
     Appointment?: AppointmentOrderByRelationAggregateInput
     AvailabilityGroup?: AvailabilityGroupOrderByWithRelationInput
@@ -14208,7 +16840,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BookableSlot"> | Date | string
     startTime?: DateTimeFilter<"BookableSlot"> | Date | string
     endTime?: DateTimeFilter<"BookableSlot"> | Date | string
-    isBooked?: BoolFilter<"BookableSlot"> | boolean
     availabilityGroupId?: IntNullableFilter<"BookableSlot"> | number | null
     Appointment?: AppointmentListRelationFilter
     AvailabilityGroup?: XOR<AvailabilityGroupNullableScalarRelationFilter, AvailabilityGroupWhereInput> | null
@@ -14220,7 +16851,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
-    isBooked?: SortOrder
     availabilityGroupId?: SortOrderInput | SortOrder
     _count?: BookableSlotCountOrderByAggregateInput
     _avg?: BookableSlotAvgOrderByAggregateInput
@@ -14238,7 +16868,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"BookableSlot"> | Date | string
     startTime?: DateTimeWithAggregatesFilter<"BookableSlot"> | Date | string
     endTime?: DateTimeWithAggregatesFilter<"BookableSlot"> | Date | string
-    isBooked?: BoolWithAggregatesFilter<"BookableSlot"> | boolean
     availabilityGroupId?: IntNullableWithAggregatesFilter<"BookableSlot"> | number | null
   }
 
@@ -14247,7 +16876,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status: $Enums.Status
-    isCancelled?: boolean
     customer: CustomerCreateNestedOneWithoutAppointmentsInput
     service: ServiceCreateNestedOneWithoutAppointmentsInput
     slot: BookableSlotCreateNestedOneWithoutAppointmentInput
@@ -14261,7 +16889,6 @@ export namespace Prisma {
     serviceId: number
     slotId: number
     status: $Enums.Status
-    isCancelled?: boolean
   }
 
   export type AppointmentUpdateInput = {
@@ -14269,7 +16896,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     customer?: CustomerUpdateOneRequiredWithoutAppointmentsNestedInput
     service?: ServiceUpdateOneRequiredWithoutAppointmentsNestedInput
     slot?: BookableSlotUpdateOneRequiredWithoutAppointmentNestedInput
@@ -14283,7 +16909,6 @@ export namespace Prisma {
     serviceId?: IntFieldUpdateOperationsInput | number
     slotId?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AppointmentCreateManyInput = {
@@ -14294,7 +16919,6 @@ export namespace Prisma {
     serviceId: number
     slotId: number
     status: $Enums.Status
-    isCancelled?: boolean
   }
 
   export type AppointmentUpdateManyMutationInput = {
@@ -14302,7 +16926,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AppointmentUncheckedUpdateManyInput = {
@@ -14313,7 +16936,69 @@ export namespace Prisma {
     serviceId?: IntFieldUpdateOperationsInput | number
     slotId?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type BusinessCreateInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contactNumber: string
+    businessName: string
+    organization: OrganizationCreateNestedOneWithoutBusinessInput
+    services?: ServiceCreateNestedManyWithoutBusinessInput
+  }
+
+  export type BusinessUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contactNumber: string
+    businessName: string
+    organizationId: number
+    services?: ServiceUncheckedCreateNestedManyWithoutBusinessInput
+  }
+
+  export type BusinessUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    organization?: OrganizationUpdateOneRequiredWithoutBusinessNestedInput
+    services?: ServiceUpdateManyWithoutBusinessNestedInput
+  }
+
+  export type BusinessUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
+    services?: ServiceUncheckedUpdateManyWithoutBusinessNestedInput
+  }
+
+  export type BusinessCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contactNumber: string
+    businessName: string
+    organizationId: number
+  }
+
+  export type BusinessUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BusinessUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
   }
 
   export type BusinessCustomerCreateInput = {
@@ -14323,7 +17008,7 @@ export namespace Prisma {
     mobile?: string | null
     firstName: string
     lastName: string
-    businesses?: BusinessCustomerOnBusinessCreateNestedManyWithoutUserInput
+    organization?: OrganizationOnBusinessCustomerCreateNestedManyWithoutBusinessCustomerInput
   }
 
   export type BusinessCustomerUncheckedCreateInput = {
@@ -14334,7 +17019,7 @@ export namespace Prisma {
     mobile?: string | null
     firstName: string
     lastName: string
-    businesses?: BusinessCustomerOnBusinessUncheckedCreateNestedManyWithoutUserInput
+    organization?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutBusinessCustomerInput
   }
 
   export type BusinessCustomerUpdateInput = {
@@ -14344,7 +17029,7 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
-    businesses?: BusinessCustomerOnBusinessUpdateManyWithoutUserNestedInput
+    organization?: OrganizationOnBusinessCustomerUpdateManyWithoutBusinessCustomerNestedInput
   }
 
   export type BusinessCustomerUncheckedUpdateInput = {
@@ -14355,7 +17040,7 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
-    businesses?: BusinessCustomerOnBusinessUncheckedUpdateManyWithoutUserNestedInput
+    organization?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutBusinessCustomerNestedInput
   }
 
   export type BusinessCustomerCreateManyInput = {
@@ -14387,114 +17072,6 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
   }
 
-  export type BusinessCreateInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    contactNumber: string
-    businessName: string
-    type?: BusinessCreatetypeInput | $Enums.BusinessType[]
-    BusinessCustomers?: BusinessCustomerOnBusinessCreateNestedManyWithoutBusinessInput
-    services?: ServiceCreateNestedManyWithoutBusinessInput
-  }
-
-  export type BusinessUncheckedCreateInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    contactNumber: string
-    businessName: string
-    type?: BusinessCreatetypeInput | $Enums.BusinessType[]
-    BusinessCustomers?: BusinessCustomerOnBusinessUncheckedCreateNestedManyWithoutBusinessInput
-    services?: ServiceUncheckedCreateNestedManyWithoutBusinessInput
-  }
-
-  export type BusinessUpdateInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
-    businessName?: StringFieldUpdateOperationsInput | string
-    type?: BusinessUpdatetypeInput | $Enums.BusinessType[]
-    BusinessCustomers?: BusinessCustomerOnBusinessUpdateManyWithoutBusinessNestedInput
-    services?: ServiceUpdateManyWithoutBusinessNestedInput
-  }
-
-  export type BusinessUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
-    businessName?: StringFieldUpdateOperationsInput | string
-    type?: BusinessUpdatetypeInput | $Enums.BusinessType[]
-    BusinessCustomers?: BusinessCustomerOnBusinessUncheckedUpdateManyWithoutBusinessNestedInput
-    services?: ServiceUncheckedUpdateManyWithoutBusinessNestedInput
-  }
-
-  export type BusinessCreateManyInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    contactNumber: string
-    businessName: string
-    type?: BusinessCreatetypeInput | $Enums.BusinessType[]
-  }
-
-  export type BusinessUpdateManyMutationInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
-    businessName?: StringFieldUpdateOperationsInput | string
-    type?: BusinessUpdatetypeInput | $Enums.BusinessType[]
-  }
-
-  export type BusinessUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
-    businessName?: StringFieldUpdateOperationsInput | string
-    type?: BusinessUpdatetypeInput | $Enums.BusinessType[]
-  }
-
-  export type BusinessCustomerOnBusinessCreateInput = {
-    role: $Enums.BusinessRole
-    business: BusinessCreateNestedOneWithoutBusinessCustomersInput
-    user: BusinessCustomerCreateNestedOneWithoutBusinessesInput
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedCreateInput = {
-    businessId: number
-    userId: number
-    role: $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessUpdateInput = {
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
-    business?: BusinessUpdateOneRequiredWithoutBusinessCustomersNestedInput
-    user?: BusinessCustomerUpdateOneRequiredWithoutBusinessesNestedInput
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedUpdateInput = {
-    businessId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessCreateManyInput = {
-    businessId: number
-    userId: number
-    role: $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessUpdateManyMutationInput = {
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedUpdateManyInput = {
-    businessId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
-  }
-
   export type CustomerCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14502,7 +17079,6 @@ export namespace Prisma {
     mobile?: string | null
     firstName?: string | null
     lastName?: string | null
-    type?: $Enums.CustomerType
     appointments?: AppointmentCreateNestedManyWithoutCustomerInput
   }
 
@@ -14514,7 +17090,6 @@ export namespace Prisma {
     mobile?: string | null
     firstName?: string | null
     lastName?: string | null
-    type?: $Enums.CustomerType
     appointments?: AppointmentUncheckedCreateNestedManyWithoutCustomerInput
   }
 
@@ -14525,7 +17100,6 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
     appointments?: AppointmentUpdateManyWithoutCustomerNestedInput
   }
 
@@ -14537,7 +17111,6 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
     appointments?: AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
@@ -14549,7 +17122,6 @@ export namespace Prisma {
     mobile?: string | null
     firstName?: string | null
     lastName?: string | null
-    type?: $Enums.CustomerType
   }
 
   export type CustomerUpdateManyMutationInput = {
@@ -14559,7 +17131,6 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
   }
 
   export type CustomerUncheckedUpdateManyInput = {
@@ -14570,7 +17141,184 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
+  }
+
+  export type OrganizationCreateInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalName: string
+    businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
+    subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
+    Business?: BusinessCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalName: string
+    subscriptionId: number
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
+    Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+    businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
+    subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
+    Business?: BusinessUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+    subscriptionId?: IntFieldUpdateOperationsInput | number
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
+    Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalName: string
+    subscriptionId: number
+  }
+
+  export type OrganizationUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrganizationUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+    subscriptionId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OrganizationOnBusinessCustomerCreateInput = {
+    role: $Enums.OrganizationRole
+    organization: OrganizationCreateNestedOneWithoutBusinessCustomersInput
+    businessCustomer: BusinessCustomerCreateNestedOneWithoutOrganizationInput
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedCreateInput = {
+    organizationId: number
+    businessCustomerId: number
+    role: $Enums.OrganizationRole
+  }
+
+  export type OrganizationOnBusinessCustomerUpdateInput = {
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    organization?: OrganizationUpdateOneRequiredWithoutBusinessCustomersNestedInput
+    businessCustomer?: BusinessCustomerUpdateOneRequiredWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedUpdateInput = {
+    organizationId?: IntFieldUpdateOperationsInput | number
+    businessCustomerId?: IntFieldUpdateOperationsInput | number
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+  }
+
+  export type OrganizationOnBusinessCustomerCreateManyInput = {
+    organizationId: number
+    businessCustomerId: number
+    role: $Enums.OrganizationRole
+  }
+
+  export type OrganizationOnBusinessCustomerUpdateManyMutationInput = {
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedUpdateManyInput = {
+    organizationId?: IntFieldUpdateOperationsInput | number
+    businessCustomerId?: IntFieldUpdateOperationsInput | number
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+  }
+
+  export type SubscriptionCreateInput = {
+    createdAt?: Date | string
+    level: $Enums.SubscriptionLevel
+    price: Decimal | DecimalJsLike | number | string
+    status?: $Enums.SubscriptionStatus
+    stripeCustomerId?: string | null
+    stripeSubscriptionId?: string | null
+    trialEndsAt?: Date | string | null
+    organization?: OrganizationCreateNestedOneWithoutSubscriptionInput
+  }
+
+  export type SubscriptionUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    level: $Enums.SubscriptionLevel
+    price: Decimal | DecimalJsLike | number | string
+    status?: $Enums.SubscriptionStatus
+    stripeCustomerId?: string | null
+    stripeSubscriptionId?: string | null
+    trialEndsAt?: Date | string | null
+    organization?: OrganizationUncheckedCreateNestedOneWithoutSubscriptionInput
+  }
+
+  export type SubscriptionUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: EnumSubscriptionLevelFieldUpdateOperationsInput | $Enums.SubscriptionLevel
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneWithoutSubscriptionNestedInput
+  }
+
+  export type SubscriptionUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: EnumSubscriptionLevelFieldUpdateOperationsInput | $Enums.SubscriptionLevel
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUncheckedUpdateOneWithoutSubscriptionNestedInput
+  }
+
+  export type SubscriptionCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+    level: $Enums.SubscriptionLevel
+    price: Decimal | DecimalJsLike | number | string
+    status?: $Enums.SubscriptionStatus
+    stripeCustomerId?: string | null
+    stripeSubscriptionId?: string | null
+    trialEndsAt?: Date | string | null
+  }
+
+  export type SubscriptionUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: EnumSubscriptionLevelFieldUpdateOperationsInput | $Enums.SubscriptionLevel
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SubscriptionUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: EnumSubscriptionLevelFieldUpdateOperationsInput | $Enums.SubscriptionLevel
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceCreateInput = {
@@ -14778,7 +17526,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     startTime: Date | string
     endTime: Date | string
-    isBooked?: boolean
     Appointment?: AppointmentCreateNestedManyWithoutSlotInput
     AvailabilityGroup?: AvailabilityGroupCreateNestedOneWithoutBookableSlotInput
   }
@@ -14789,7 +17536,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     startTime: Date | string
     endTime: Date | string
-    isBooked?: boolean
     availabilityGroupId?: number | null
     Appointment?: AppointmentUncheckedCreateNestedManyWithoutSlotInput
   }
@@ -14799,7 +17545,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBooked?: BoolFieldUpdateOperationsInput | boolean
     Appointment?: AppointmentUpdateManyWithoutSlotNestedInput
     AvailabilityGroup?: AvailabilityGroupUpdateOneWithoutBookableSlotNestedInput
   }
@@ -14810,7 +17555,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBooked?: BoolFieldUpdateOperationsInput | boolean
     availabilityGroupId?: NullableIntFieldUpdateOperationsInput | number | null
     Appointment?: AppointmentUncheckedUpdateManyWithoutSlotNestedInput
   }
@@ -14821,7 +17565,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     startTime: Date | string
     endTime: Date | string
-    isBooked?: boolean
     availabilityGroupId?: number | null
   }
 
@@ -14830,7 +17573,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBooked?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type BookableSlotUncheckedUpdateManyInput = {
@@ -14839,7 +17581,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBooked?: BoolFieldUpdateOperationsInput | boolean
     availabilityGroupId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -14887,11 +17628,6 @@ export namespace Prisma {
     not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type CustomerScalarRelationFilter = {
     is?: CustomerWhereInput
     isNot?: CustomerWhereInput
@@ -14915,7 +17651,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     slotId?: SortOrder
     status?: SortOrder
-    isCancelled?: SortOrder
   }
 
   export type AppointmentAvgOrderByAggregateInput = {
@@ -14932,7 +17667,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     slotId?: SortOrder
     status?: SortOrder
-    isCancelled?: SortOrder
   }
 
   export type AppointmentMinOrderByAggregateInput = {
@@ -14943,7 +17677,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     slotId?: SortOrder
     status?: SortOrder
-    isCancelled?: SortOrder
   }
 
   export type AppointmentSumOrderByAggregateInput = {
@@ -15010,12 +17743,56 @@ export namespace Prisma {
     _max?: NestedEnumStatusFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type OrganizationScalarRelationFilter = {
+    is?: OrganizationWhereInput
+    isNot?: OrganizationWhereInput
+  }
+
+  export type ServiceListRelationFilter = {
+    every?: ServiceWhereInput
+    some?: ServiceWhereInput
+    none?: ServiceWhereInput
+  }
+
+  export type ServiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BusinessCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    contactNumber?: SortOrder
+    businessName?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type BusinessAvgOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type BusinessMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    contactNumber?: SortOrder
+    businessName?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type BusinessMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    contactNumber?: SortOrder
+    businessName?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type BusinessSumOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -15033,10 +17810,10 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type BusinessCustomerOnBusinessListRelationFilter = {
-    every?: BusinessCustomerOnBusinessWhereInput
-    some?: BusinessCustomerOnBusinessWhereInput
-    none?: BusinessCustomerOnBusinessWhereInput
+  export type OrganizationOnBusinessCustomerListRelationFilter = {
+    every?: OrganizationOnBusinessCustomerWhereInput
+    some?: OrganizationOnBusinessCustomerWhereInput
+    none?: OrganizationOnBusinessCustomerWhereInput
   }
 
   export type SortOrderInput = {
@@ -15044,7 +17821,7 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type BusinessCustomerOnBusinessOrderByRelationAggregateInput = {
+  export type OrganizationOnBusinessCustomerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15104,124 +17881,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type EnumBusinessTypeNullableListFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessType[] | ListEnumBusinessTypeFieldRefInput<$PrismaModel> | null
-    has?: $Enums.BusinessType | EnumBusinessTypeFieldRefInput<$PrismaModel> | null
-    hasEvery?: $Enums.BusinessType[] | ListEnumBusinessTypeFieldRefInput<$PrismaModel>
-    hasSome?: $Enums.BusinessType[] | ListEnumBusinessTypeFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
-  export type ServiceListRelationFilter = {
-    every?: ServiceWhereInput
-    some?: ServiceWhereInput
-    none?: ServiceWhereInput
-  }
-
-  export type ServiceOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type BusinessCountOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    contactNumber?: SortOrder
-    businessName?: SortOrder
-    type?: SortOrder
-  }
-
-  export type BusinessAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type BusinessMaxOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    contactNumber?: SortOrder
-    businessName?: SortOrder
-  }
-
-  export type BusinessMinOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    contactNumber?: SortOrder
-    businessName?: SortOrder
-  }
-
-  export type BusinessSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type EnumBusinessRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessRole | EnumBusinessRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.BusinessRole[] | ListEnumBusinessRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BusinessRole[] | ListEnumBusinessRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumBusinessRoleFilter<$PrismaModel> | $Enums.BusinessRole
-  }
-
-  export type BusinessScalarRelationFilter = {
-    is?: BusinessWhereInput
-    isNot?: BusinessWhereInput
-  }
-
-  export type BusinessCustomerScalarRelationFilter = {
-    is?: BusinessCustomerWhereInput
-    isNot?: BusinessCustomerWhereInput
-  }
-
-  export type BusinessCustomerOnBusinessBusinessIdUserIdCompoundUniqueInput = {
-    businessId: number
-    userId: number
-  }
-
-  export type BusinessCustomerOnBusinessCountOrderByAggregateInput = {
-    businessId?: SortOrder
-    userId?: SortOrder
-    role?: SortOrder
-  }
-
-  export type BusinessCustomerOnBusinessAvgOrderByAggregateInput = {
-    businessId?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type BusinessCustomerOnBusinessMaxOrderByAggregateInput = {
-    businessId?: SortOrder
-    userId?: SortOrder
-    role?: SortOrder
-  }
-
-  export type BusinessCustomerOnBusinessMinOrderByAggregateInput = {
-    businessId?: SortOrder
-    userId?: SortOrder
-    role?: SortOrder
-  }
-
-  export type BusinessCustomerOnBusinessSumOrderByAggregateInput = {
-    businessId?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type EnumBusinessRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessRole | EnumBusinessRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.BusinessRole[] | ListEnumBusinessRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BusinessRole[] | ListEnumBusinessRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumBusinessRoleWithAggregatesFilter<$PrismaModel> | $Enums.BusinessRole
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBusinessRoleFilter<$PrismaModel>
-    _max?: NestedEnumBusinessRoleFilter<$PrismaModel>
-  }
-
-  export type EnumCustomerTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.CustomerType | EnumCustomerTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.CustomerType[] | ListEnumCustomerTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CustomerType[] | ListEnumCustomerTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumCustomerTypeFilter<$PrismaModel> | $Enums.CustomerType
-  }
-
   export type AppointmentListRelationFilter = {
     every?: AppointmentWhereInput
     some?: AppointmentWhereInput
@@ -15240,7 +17899,6 @@ export namespace Prisma {
     mobile?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
-    type?: SortOrder
   }
 
   export type CustomerAvgOrderByAggregateInput = {
@@ -15255,7 +17913,6 @@ export namespace Prisma {
     mobile?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
-    type?: SortOrder
   }
 
   export type CustomerMinOrderByAggregateInput = {
@@ -15266,21 +17923,253 @@ export namespace Prisma {
     mobile?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
-    type?: SortOrder
   }
 
   export type CustomerSumOrderByAggregateInput = {
     id?: SortOrder
   }
 
-  export type EnumCustomerTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CustomerType | EnumCustomerTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.CustomerType[] | ListEnumCustomerTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CustomerType[] | ListEnumCustomerTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumCustomerTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomerType
+  export type SubscriptionScalarRelationFilter = {
+    is?: SubscriptionWhereInput
+    isNot?: SubscriptionWhereInput
+  }
+
+  export type BusinessListRelationFilter = {
+    every?: BusinessWhereInput
+    some?: BusinessWhereInput
+    none?: BusinessWhereInput
+  }
+
+  export type BusinessOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OrganizationCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    legalName?: SortOrder
+    subscriptionId?: SortOrder
+  }
+
+  export type OrganizationAvgOrderByAggregateInput = {
+    id?: SortOrder
+    subscriptionId?: SortOrder
+  }
+
+  export type OrganizationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    legalName?: SortOrder
+    subscriptionId?: SortOrder
+  }
+
+  export type OrganizationMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    legalName?: SortOrder
+    subscriptionId?: SortOrder
+  }
+
+  export type OrganizationSumOrderByAggregateInput = {
+    id?: SortOrder
+    subscriptionId?: SortOrder
+  }
+
+  export type EnumOrganizationRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationRole | EnumOrganizationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumOrganizationRoleFilter<$PrismaModel> | $Enums.OrganizationRole
+  }
+
+  export type BusinessCustomerScalarRelationFilter = {
+    is?: BusinessCustomerWhereInput
+    isNot?: BusinessCustomerWhereInput
+  }
+
+  export type OrganizationOnBusinessCustomerOrganizationIdBusinessCustomerIdCompoundUniqueInput = {
+    organizationId: number
+    businessCustomerId: number
+  }
+
+  export type OrganizationOnBusinessCustomerCountOrderByAggregateInput = {
+    organizationId?: SortOrder
+    businessCustomerId?: SortOrder
+    role?: SortOrder
+  }
+
+  export type OrganizationOnBusinessCustomerAvgOrderByAggregateInput = {
+    organizationId?: SortOrder
+    businessCustomerId?: SortOrder
+  }
+
+  export type OrganizationOnBusinessCustomerMaxOrderByAggregateInput = {
+    organizationId?: SortOrder
+    businessCustomerId?: SortOrder
+    role?: SortOrder
+  }
+
+  export type OrganizationOnBusinessCustomerMinOrderByAggregateInput = {
+    organizationId?: SortOrder
+    businessCustomerId?: SortOrder
+    role?: SortOrder
+  }
+
+  export type OrganizationOnBusinessCustomerSumOrderByAggregateInput = {
+    organizationId?: SortOrder
+    businessCustomerId?: SortOrder
+  }
+
+  export type EnumOrganizationRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationRole | EnumOrganizationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumOrganizationRoleWithAggregatesFilter<$PrismaModel> | $Enums.OrganizationRole
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCustomerTypeFilter<$PrismaModel>
-    _max?: NestedEnumCustomerTypeFilter<$PrismaModel>
+    _min?: NestedEnumOrganizationRoleFilter<$PrismaModel>
+    _max?: NestedEnumOrganizationRoleFilter<$PrismaModel>
+  }
+
+  export type EnumSubscriptionLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionLevel | EnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionLevel[] | ListEnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionLevel[] | ListEnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionLevelFilter<$PrismaModel> | $Enums.SubscriptionLevel
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumSubscriptionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionStatusFilter<$PrismaModel> | $Enums.SubscriptionStatus
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type OrganizationNullableScalarRelationFilter = {
+    is?: OrganizationWhereInput | null
+    isNot?: OrganizationWhereInput | null
+  }
+
+  export type SubscriptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    level?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    stripeCustomerId?: SortOrder
+    stripeSubscriptionId?: SortOrder
+    trialEndsAt?: SortOrder
+  }
+
+  export type SubscriptionAvgOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+  }
+
+  export type SubscriptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    level?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    stripeCustomerId?: SortOrder
+    stripeSubscriptionId?: SortOrder
+    trialEndsAt?: SortOrder
+  }
+
+  export type SubscriptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    level?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    stripeCustomerId?: SortOrder
+    stripeSubscriptionId?: SortOrder
+    trialEndsAt?: SortOrder
+  }
+
+  export type SubscriptionSumOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+  }
+
+  export type EnumSubscriptionLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionLevel | EnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionLevel[] | ListEnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionLevel[] | ListEnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionLevelWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionLevelFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionLevelFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type EnumSubscriptionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionStatusFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -15341,6 +18230,14 @@ export namespace Prisma {
     id?: SortOrder
     businessId?: SortOrder
     availibilityGroupId?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15512,7 +18409,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
-    isBooked?: SortOrder
     availabilityGroupId?: SortOrder
   }
 
@@ -15527,7 +18423,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
-    isBooked?: SortOrder
     availabilityGroupId?: SortOrder
   }
 
@@ -15537,7 +18432,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
-    isBooked?: SortOrder
     availabilityGroupId?: SortOrder
   }
 
@@ -15576,10 +18470,6 @@ export namespace Prisma {
     set?: $Enums.Status
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type CustomerUpdateOneRequiredWithoutAppointmentsNestedInput = {
     create?: XOR<CustomerCreateWithoutAppointmentsInput, CustomerUncheckedCreateWithoutAppointmentsInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutAppointmentsInput
@@ -15612,61 +18502,10 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type BusinessCustomerOnBusinessCreateNestedManyWithoutUserInput = {
-    create?: XOR<BusinessCustomerOnBusinessCreateWithoutUserInput, BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput> | BusinessCustomerOnBusinessCreateWithoutUserInput[] | BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BusinessCustomerOnBusinessCreateOrConnectWithoutUserInput | BusinessCustomerOnBusinessCreateOrConnectWithoutUserInput[]
-    createMany?: BusinessCustomerOnBusinessCreateManyUserInputEnvelope
-    connect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<BusinessCustomerOnBusinessCreateWithoutUserInput, BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput> | BusinessCustomerOnBusinessCreateWithoutUserInput[] | BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BusinessCustomerOnBusinessCreateOrConnectWithoutUserInput | BusinessCustomerOnBusinessCreateOrConnectWithoutUserInput[]
-    createMany?: BusinessCustomerOnBusinessCreateManyUserInputEnvelope
-    connect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
-  export type BusinessCustomerOnBusinessUpdateManyWithoutUserNestedInput = {
-    create?: XOR<BusinessCustomerOnBusinessCreateWithoutUserInput, BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput> | BusinessCustomerOnBusinessCreateWithoutUserInput[] | BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BusinessCustomerOnBusinessCreateOrConnectWithoutUserInput | BusinessCustomerOnBusinessCreateOrConnectWithoutUserInput[]
-    upsert?: BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutUserInput | BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: BusinessCustomerOnBusinessCreateManyUserInputEnvelope
-    set?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    disconnect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    delete?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    connect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    update?: BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutUserInput | BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: BusinessCustomerOnBusinessUpdateManyWithWhereWithoutUserInput | BusinessCustomerOnBusinessUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: BusinessCustomerOnBusinessScalarWhereInput | BusinessCustomerOnBusinessScalarWhereInput[]
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<BusinessCustomerOnBusinessCreateWithoutUserInput, BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput> | BusinessCustomerOnBusinessCreateWithoutUserInput[] | BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BusinessCustomerOnBusinessCreateOrConnectWithoutUserInput | BusinessCustomerOnBusinessCreateOrConnectWithoutUserInput[]
-    upsert?: BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutUserInput | BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: BusinessCustomerOnBusinessCreateManyUserInputEnvelope
-    set?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    disconnect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    delete?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    connect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    update?: BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutUserInput | BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: BusinessCustomerOnBusinessUpdateManyWithWhereWithoutUserInput | BusinessCustomerOnBusinessUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: BusinessCustomerOnBusinessScalarWhereInput | BusinessCustomerOnBusinessScalarWhereInput[]
-  }
-
-  export type BusinessCreatetypeInput = {
-    set: $Enums.BusinessType[]
-  }
-
-  export type BusinessCustomerOnBusinessCreateNestedManyWithoutBusinessInput = {
-    create?: XOR<BusinessCustomerOnBusinessCreateWithoutBusinessInput, BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput> | BusinessCustomerOnBusinessCreateWithoutBusinessInput[] | BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput[]
-    connectOrCreate?: BusinessCustomerOnBusinessCreateOrConnectWithoutBusinessInput | BusinessCustomerOnBusinessCreateOrConnectWithoutBusinessInput[]
-    createMany?: BusinessCustomerOnBusinessCreateManyBusinessInputEnvelope
-    connect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
+  export type OrganizationCreateNestedOneWithoutBusinessInput = {
+    create?: XOR<OrganizationCreateWithoutBusinessInput, OrganizationUncheckedCreateWithoutBusinessInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutBusinessInput
+    connect?: OrganizationWhereUniqueInput
   }
 
   export type ServiceCreateNestedManyWithoutBusinessInput = {
@@ -15676,13 +18515,6 @@ export namespace Prisma {
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
-  export type BusinessCustomerOnBusinessUncheckedCreateNestedManyWithoutBusinessInput = {
-    create?: XOR<BusinessCustomerOnBusinessCreateWithoutBusinessInput, BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput> | BusinessCustomerOnBusinessCreateWithoutBusinessInput[] | BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput[]
-    connectOrCreate?: BusinessCustomerOnBusinessCreateOrConnectWithoutBusinessInput | BusinessCustomerOnBusinessCreateOrConnectWithoutBusinessInput[]
-    createMany?: BusinessCustomerOnBusinessCreateManyBusinessInputEnvelope
-    connect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-  }
-
   export type ServiceUncheckedCreateNestedManyWithoutBusinessInput = {
     create?: XOR<ServiceCreateWithoutBusinessInput, ServiceUncheckedCreateWithoutBusinessInput> | ServiceCreateWithoutBusinessInput[] | ServiceUncheckedCreateWithoutBusinessInput[]
     connectOrCreate?: ServiceCreateOrConnectWithoutBusinessInput | ServiceCreateOrConnectWithoutBusinessInput[]
@@ -15690,23 +18522,12 @@ export namespace Prisma {
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
-  export type BusinessUpdatetypeInput = {
-    set?: $Enums.BusinessType[]
-    push?: $Enums.BusinessType | $Enums.BusinessType[]
-  }
-
-  export type BusinessCustomerOnBusinessUpdateManyWithoutBusinessNestedInput = {
-    create?: XOR<BusinessCustomerOnBusinessCreateWithoutBusinessInput, BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput> | BusinessCustomerOnBusinessCreateWithoutBusinessInput[] | BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput[]
-    connectOrCreate?: BusinessCustomerOnBusinessCreateOrConnectWithoutBusinessInput | BusinessCustomerOnBusinessCreateOrConnectWithoutBusinessInput[]
-    upsert?: BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutBusinessInput | BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutBusinessInput[]
-    createMany?: BusinessCustomerOnBusinessCreateManyBusinessInputEnvelope
-    set?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    disconnect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    delete?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    connect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    update?: BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutBusinessInput | BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutBusinessInput[]
-    updateMany?: BusinessCustomerOnBusinessUpdateManyWithWhereWithoutBusinessInput | BusinessCustomerOnBusinessUpdateManyWithWhereWithoutBusinessInput[]
-    deleteMany?: BusinessCustomerOnBusinessScalarWhereInput | BusinessCustomerOnBusinessScalarWhereInput[]
+  export type OrganizationUpdateOneRequiredWithoutBusinessNestedInput = {
+    create?: XOR<OrganizationCreateWithoutBusinessInput, OrganizationUncheckedCreateWithoutBusinessInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutBusinessInput
+    upsert?: OrganizationUpsertWithoutBusinessInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutBusinessInput, OrganizationUpdateWithoutBusinessInput>, OrganizationUncheckedUpdateWithoutBusinessInput>
   }
 
   export type ServiceUpdateManyWithoutBusinessNestedInput = {
@@ -15723,20 +18544,6 @@ export namespace Prisma {
     deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
-  export type BusinessCustomerOnBusinessUncheckedUpdateManyWithoutBusinessNestedInput = {
-    create?: XOR<BusinessCustomerOnBusinessCreateWithoutBusinessInput, BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput> | BusinessCustomerOnBusinessCreateWithoutBusinessInput[] | BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput[]
-    connectOrCreate?: BusinessCustomerOnBusinessCreateOrConnectWithoutBusinessInput | BusinessCustomerOnBusinessCreateOrConnectWithoutBusinessInput[]
-    upsert?: BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutBusinessInput | BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutBusinessInput[]
-    createMany?: BusinessCustomerOnBusinessCreateManyBusinessInputEnvelope
-    set?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    disconnect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    delete?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    connect?: BusinessCustomerOnBusinessWhereUniqueInput | BusinessCustomerOnBusinessWhereUniqueInput[]
-    update?: BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutBusinessInput | BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutBusinessInput[]
-    updateMany?: BusinessCustomerOnBusinessUpdateManyWithWhereWithoutBusinessInput | BusinessCustomerOnBusinessUpdateManyWithWhereWithoutBusinessInput[]
-    deleteMany?: BusinessCustomerOnBusinessScalarWhereInput | BusinessCustomerOnBusinessScalarWhereInput[]
-  }
-
   export type ServiceUncheckedUpdateManyWithoutBusinessNestedInput = {
     create?: XOR<ServiceCreateWithoutBusinessInput, ServiceUncheckedCreateWithoutBusinessInput> | ServiceCreateWithoutBusinessInput[] | ServiceUncheckedCreateWithoutBusinessInput[]
     connectOrCreate?: ServiceCreateOrConnectWithoutBusinessInput | ServiceCreateOrConnectWithoutBusinessInput[]
@@ -15751,36 +18558,50 @@ export namespace Prisma {
     deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
-  export type BusinessCreateNestedOneWithoutBusinessCustomersInput = {
-    create?: XOR<BusinessCreateWithoutBusinessCustomersInput, BusinessUncheckedCreateWithoutBusinessCustomersInput>
-    connectOrCreate?: BusinessCreateOrConnectWithoutBusinessCustomersInput
-    connect?: BusinessWhereUniqueInput
+  export type OrganizationOnBusinessCustomerCreateNestedManyWithoutBusinessCustomerInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput> | OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput[]
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput[]
+    createMany?: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
   }
 
-  export type BusinessCustomerCreateNestedOneWithoutBusinessesInput = {
-    create?: XOR<BusinessCustomerCreateWithoutBusinessesInput, BusinessCustomerUncheckedCreateWithoutBusinessesInput>
-    connectOrCreate?: BusinessCustomerCreateOrConnectWithoutBusinessesInput
-    connect?: BusinessCustomerWhereUniqueInput
+  export type OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutBusinessCustomerInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput> | OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput[]
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput[]
+    createMany?: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
   }
 
-  export type EnumBusinessRoleFieldUpdateOperationsInput = {
-    set?: $Enums.BusinessRole
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
-  export type BusinessUpdateOneRequiredWithoutBusinessCustomersNestedInput = {
-    create?: XOR<BusinessCreateWithoutBusinessCustomersInput, BusinessUncheckedCreateWithoutBusinessCustomersInput>
-    connectOrCreate?: BusinessCreateOrConnectWithoutBusinessCustomersInput
-    upsert?: BusinessUpsertWithoutBusinessCustomersInput
-    connect?: BusinessWhereUniqueInput
-    update?: XOR<XOR<BusinessUpdateToOneWithWhereWithoutBusinessCustomersInput, BusinessUpdateWithoutBusinessCustomersInput>, BusinessUncheckedUpdateWithoutBusinessCustomersInput>
+  export type OrganizationOnBusinessCustomerUpdateManyWithoutBusinessCustomerNestedInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput> | OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput[]
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput[]
+    upsert?: OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput[]
+    createMany?: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope
+    set?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    disconnect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    delete?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    update?: OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput[]
+    updateMany?: OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput[]
+    deleteMany?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
   }
 
-  export type BusinessCustomerUpdateOneRequiredWithoutBusinessesNestedInput = {
-    create?: XOR<BusinessCustomerCreateWithoutBusinessesInput, BusinessCustomerUncheckedCreateWithoutBusinessesInput>
-    connectOrCreate?: BusinessCustomerCreateOrConnectWithoutBusinessesInput
-    upsert?: BusinessCustomerUpsertWithoutBusinessesInput
-    connect?: BusinessCustomerWhereUniqueInput
-    update?: XOR<XOR<BusinessCustomerUpdateToOneWithWhereWithoutBusinessesInput, BusinessCustomerUpdateWithoutBusinessesInput>, BusinessCustomerUncheckedUpdateWithoutBusinessesInput>
+  export type OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutBusinessCustomerNestedInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput> | OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput[]
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput[]
+    upsert?: OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput[]
+    createMany?: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope
+    set?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    disconnect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    delete?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    update?: OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput[]
+    updateMany?: OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput[]
+    deleteMany?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
   }
 
   export type AppointmentCreateNestedManyWithoutCustomerInput = {
@@ -15795,10 +18616,6 @@ export namespace Prisma {
     connectOrCreate?: AppointmentCreateOrConnectWithoutCustomerInput | AppointmentCreateOrConnectWithoutCustomerInput[]
     createMany?: AppointmentCreateManyCustomerInputEnvelope
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
-  }
-
-  export type EnumCustomerTypeFieldUpdateOperationsInput = {
-    set?: $Enums.CustomerType
   }
 
   export type AppointmentUpdateManyWithoutCustomerNestedInput = {
@@ -15829,6 +18646,188 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
+  export type OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput> | OrganizationOnBusinessCustomerCreateWithoutOrganizationInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput[]
+    createMany?: OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+  }
+
+  export type SubscriptionCreateNestedOneWithoutOrganizationInput = {
+    create?: XOR<SubscriptionCreateWithoutOrganizationInput, SubscriptionUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutOrganizationInput
+    connect?: SubscriptionWhereUniqueInput
+  }
+
+  export type BusinessCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<BusinessCreateWithoutOrganizationInput, BusinessUncheckedCreateWithoutOrganizationInput> | BusinessCreateWithoutOrganizationInput[] | BusinessUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: BusinessCreateOrConnectWithoutOrganizationInput | BusinessCreateOrConnectWithoutOrganizationInput[]
+    createMany?: BusinessCreateManyOrganizationInputEnvelope
+    connect?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput> | OrganizationOnBusinessCustomerCreateWithoutOrganizationInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput[]
+    createMany?: OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+  }
+
+  export type BusinessUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<BusinessCreateWithoutOrganizationInput, BusinessUncheckedCreateWithoutOrganizationInput> | BusinessCreateWithoutOrganizationInput[] | BusinessUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: BusinessCreateOrConnectWithoutOrganizationInput | BusinessCreateOrConnectWithoutOrganizationInput[]
+    createMany?: BusinessCreateManyOrganizationInputEnvelope
+    connect?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+  }
+
+  export type OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput> | OrganizationOnBusinessCustomerCreateWithoutOrganizationInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput[]
+    upsert?: OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput | OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope
+    set?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    disconnect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    delete?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    update?: OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput | OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput | OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
+  }
+
+  export type SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput = {
+    create?: XOR<SubscriptionCreateWithoutOrganizationInput, SubscriptionUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: SubscriptionCreateOrConnectWithoutOrganizationInput
+    upsert?: SubscriptionUpsertWithoutOrganizationInput
+    connect?: SubscriptionWhereUniqueInput
+    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutOrganizationInput, SubscriptionUpdateWithoutOrganizationInput>, SubscriptionUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type BusinessUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<BusinessCreateWithoutOrganizationInput, BusinessUncheckedCreateWithoutOrganizationInput> | BusinessCreateWithoutOrganizationInput[] | BusinessUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: BusinessCreateOrConnectWithoutOrganizationInput | BusinessCreateOrConnectWithoutOrganizationInput[]
+    upsert?: BusinessUpsertWithWhereUniqueWithoutOrganizationInput | BusinessUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: BusinessCreateManyOrganizationInputEnvelope
+    set?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+    disconnect?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+    delete?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+    connect?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+    update?: BusinessUpdateWithWhereUniqueWithoutOrganizationInput | BusinessUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: BusinessUpdateManyWithWhereWithoutOrganizationInput | BusinessUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: BusinessScalarWhereInput | BusinessScalarWhereInput[]
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput> | OrganizationOnBusinessCustomerCreateWithoutOrganizationInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput[]
+    upsert?: OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput | OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope
+    set?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    disconnect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    delete?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+    update?: OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput | OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput | OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
+  }
+
+  export type BusinessUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<BusinessCreateWithoutOrganizationInput, BusinessUncheckedCreateWithoutOrganizationInput> | BusinessCreateWithoutOrganizationInput[] | BusinessUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: BusinessCreateOrConnectWithoutOrganizationInput | BusinessCreateOrConnectWithoutOrganizationInput[]
+    upsert?: BusinessUpsertWithWhereUniqueWithoutOrganizationInput | BusinessUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: BusinessCreateManyOrganizationInputEnvelope
+    set?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+    disconnect?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+    delete?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+    connect?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
+    update?: BusinessUpdateWithWhereUniqueWithoutOrganizationInput | BusinessUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: BusinessUpdateManyWithWhereWithoutOrganizationInput | BusinessUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: BusinessScalarWhereInput | BusinessScalarWhereInput[]
+  }
+
+  export type OrganizationCreateNestedOneWithoutBusinessCustomersInput = {
+    create?: XOR<OrganizationCreateWithoutBusinessCustomersInput, OrganizationUncheckedCreateWithoutBusinessCustomersInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutBusinessCustomersInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type BusinessCustomerCreateNestedOneWithoutOrganizationInput = {
+    create?: XOR<BusinessCustomerCreateWithoutOrganizationInput, BusinessCustomerUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: BusinessCustomerCreateOrConnectWithoutOrganizationInput
+    connect?: BusinessCustomerWhereUniqueInput
+  }
+
+  export type EnumOrganizationRoleFieldUpdateOperationsInput = {
+    set?: $Enums.OrganizationRole
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutBusinessCustomersNestedInput = {
+    create?: XOR<OrganizationCreateWithoutBusinessCustomersInput, OrganizationUncheckedCreateWithoutBusinessCustomersInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutBusinessCustomersInput
+    upsert?: OrganizationUpsertWithoutBusinessCustomersInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutBusinessCustomersInput, OrganizationUpdateWithoutBusinessCustomersInput>, OrganizationUncheckedUpdateWithoutBusinessCustomersInput>
+  }
+
+  export type BusinessCustomerUpdateOneRequiredWithoutOrganizationNestedInput = {
+    create?: XOR<BusinessCustomerCreateWithoutOrganizationInput, BusinessCustomerUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: BusinessCustomerCreateOrConnectWithoutOrganizationInput
+    upsert?: BusinessCustomerUpsertWithoutOrganizationInput
+    connect?: BusinessCustomerWhereUniqueInput
+    update?: XOR<XOR<BusinessCustomerUpdateToOneWithWhereWithoutOrganizationInput, BusinessCustomerUpdateWithoutOrganizationInput>, BusinessCustomerUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type OrganizationCreateNestedOneWithoutSubscriptionInput = {
+    create?: XOR<OrganizationCreateWithoutSubscriptionInput, OrganizationUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutSubscriptionInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type OrganizationUncheckedCreateNestedOneWithoutSubscriptionInput = {
+    create?: XOR<OrganizationCreateWithoutSubscriptionInput, OrganizationUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutSubscriptionInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type EnumSubscriptionLevelFieldUpdateOperationsInput = {
+    set?: $Enums.SubscriptionLevel
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumSubscriptionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SubscriptionStatus
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type OrganizationUpdateOneWithoutSubscriptionNestedInput = {
+    create?: XOR<OrganizationCreateWithoutSubscriptionInput, OrganizationUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutSubscriptionInput
+    upsert?: OrganizationUpsertWithoutSubscriptionInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutSubscriptionInput, OrganizationUpdateWithoutSubscriptionInput>, OrganizationUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type OrganizationUncheckedUpdateOneWithoutSubscriptionNestedInput = {
+    create?: XOR<OrganizationCreateWithoutSubscriptionInput, OrganizationUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutSubscriptionInput
+    upsert?: OrganizationUpsertWithoutSubscriptionInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutSubscriptionInput, OrganizationUpdateWithoutSubscriptionInput>, OrganizationUncheckedUpdateWithoutSubscriptionInput>
+  }
+
   export type BusinessCreateNestedOneWithoutServicesInput = {
     create?: XOR<BusinessCreateWithoutServicesInput, BusinessUncheckedCreateWithoutServicesInput>
     connectOrCreate?: BusinessCreateOrConnectWithoutServicesInput
@@ -15853,6 +18852,10 @@ export namespace Prisma {
     connectOrCreate?: AppointmentCreateOrConnectWithoutServiceInput | AppointmentCreateOrConnectWithoutServiceInput[]
     createMany?: AppointmentCreateManyServiceInputEnvelope
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type BusinessUpdateOneWithoutServicesNestedInput = {
@@ -16210,11 +19213,6 @@ export namespace Prisma {
     not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -16283,14 +19281,6 @@ export namespace Prisma {
     _max?: NestedEnumStatusFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16333,38 +19323,120 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedEnumBusinessRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessRole | EnumBusinessRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.BusinessRole[] | ListEnumBusinessRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BusinessRole[] | ListEnumBusinessRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumBusinessRoleFilter<$PrismaModel> | $Enums.BusinessRole
+  export type NestedEnumOrganizationRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationRole | EnumOrganizationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumOrganizationRoleFilter<$PrismaModel> | $Enums.OrganizationRole
   }
 
-  export type NestedEnumBusinessRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessRole | EnumBusinessRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.BusinessRole[] | ListEnumBusinessRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BusinessRole[] | ListEnumBusinessRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumBusinessRoleWithAggregatesFilter<$PrismaModel> | $Enums.BusinessRole
+  export type NestedEnumOrganizationRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationRole | EnumOrganizationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumOrganizationRoleWithAggregatesFilter<$PrismaModel> | $Enums.OrganizationRole
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBusinessRoleFilter<$PrismaModel>
-    _max?: NestedEnumBusinessRoleFilter<$PrismaModel>
+    _min?: NestedEnumOrganizationRoleFilter<$PrismaModel>
+    _max?: NestedEnumOrganizationRoleFilter<$PrismaModel>
   }
 
-  export type NestedEnumCustomerTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.CustomerType | EnumCustomerTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.CustomerType[] | ListEnumCustomerTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CustomerType[] | ListEnumCustomerTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumCustomerTypeFilter<$PrismaModel> | $Enums.CustomerType
+  export type NestedEnumSubscriptionLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionLevel | EnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionLevel[] | ListEnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionLevel[] | ListEnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionLevelFilter<$PrismaModel> | $Enums.SubscriptionLevel
   }
 
-  export type NestedEnumCustomerTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CustomerType | EnumCustomerTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.CustomerType[] | ListEnumCustomerTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.CustomerType[] | ListEnumCustomerTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumCustomerTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomerType
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedEnumSubscriptionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionStatusFilter<$PrismaModel> | $Enums.SubscriptionStatus
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedEnumSubscriptionLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionLevel | EnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionLevel[] | ListEnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionLevel[] | ListEnumSubscriptionLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionLevelWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionLevel
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumCustomerTypeFilter<$PrismaModel>
-    _max?: NestedEnumCustomerTypeFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionLevelFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionLevelFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSubscriptionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubscriptionStatus | EnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubscriptionStatus[] | ListEnumSubscriptionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubscriptionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SubscriptionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubscriptionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSubscriptionStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16418,7 +19490,6 @@ export namespace Prisma {
     mobile?: string | null
     firstName?: string | null
     lastName?: string | null
-    type?: $Enums.CustomerType
   }
 
   export type CustomerUncheckedCreateWithoutAppointmentsInput = {
@@ -16429,7 +19500,6 @@ export namespace Prisma {
     mobile?: string | null
     firstName?: string | null
     lastName?: string | null
-    type?: $Enums.CustomerType
   }
 
   export type CustomerCreateOrConnectWithoutAppointmentsInput = {
@@ -16464,7 +19534,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     startTime: Date | string
     endTime: Date | string
-    isBooked?: boolean
     AvailabilityGroup?: AvailabilityGroupCreateNestedOneWithoutBookableSlotInput
   }
 
@@ -16474,7 +19543,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     startTime: Date | string
     endTime: Date | string
-    isBooked?: boolean
     availabilityGroupId?: number | null
   }
 
@@ -16501,7 +19569,6 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
   }
 
   export type CustomerUncheckedUpdateWithoutAppointmentsInput = {
@@ -16512,7 +19579,6 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: EnumCustomerTypeFieldUpdateOperationsInput | $Enums.CustomerType
   }
 
   export type ServiceUpsertWithoutAppointmentsInput = {
@@ -16559,7 +19625,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBooked?: BoolFieldUpdateOperationsInput | boolean
     AvailabilityGroup?: AvailabilityGroupUpdateOneWithoutBookableSlotNestedInput
   }
 
@@ -16569,73 +19634,29 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBooked?: BoolFieldUpdateOperationsInput | boolean
     availabilityGroupId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type BusinessCustomerOnBusinessCreateWithoutUserInput = {
-    role: $Enums.BusinessRole
-    business: BusinessCreateNestedOneWithoutBusinessCustomersInput
+  export type OrganizationCreateWithoutBusinessInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalName: string
+    businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
+    subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
   }
 
-  export type BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput = {
-    businessId: number
-    role: $Enums.BusinessRole
+  export type OrganizationUncheckedCreateWithoutBusinessInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalName: string
+    subscriptionId: number
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
-  export type BusinessCustomerOnBusinessCreateOrConnectWithoutUserInput = {
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-    create: XOR<BusinessCustomerOnBusinessCreateWithoutUserInput, BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput>
-  }
-
-  export type BusinessCustomerOnBusinessCreateManyUserInputEnvelope = {
-    data: BusinessCustomerOnBusinessCreateManyUserInput | BusinessCustomerOnBusinessCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutUserInput = {
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-    update: XOR<BusinessCustomerOnBusinessUpdateWithoutUserInput, BusinessCustomerOnBusinessUncheckedUpdateWithoutUserInput>
-    create: XOR<BusinessCustomerOnBusinessCreateWithoutUserInput, BusinessCustomerOnBusinessUncheckedCreateWithoutUserInput>
-  }
-
-  export type BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutUserInput = {
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-    data: XOR<BusinessCustomerOnBusinessUpdateWithoutUserInput, BusinessCustomerOnBusinessUncheckedUpdateWithoutUserInput>
-  }
-
-  export type BusinessCustomerOnBusinessUpdateManyWithWhereWithoutUserInput = {
-    where: BusinessCustomerOnBusinessScalarWhereInput
-    data: XOR<BusinessCustomerOnBusinessUpdateManyMutationInput, BusinessCustomerOnBusinessUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type BusinessCustomerOnBusinessScalarWhereInput = {
-    AND?: BusinessCustomerOnBusinessScalarWhereInput | BusinessCustomerOnBusinessScalarWhereInput[]
-    OR?: BusinessCustomerOnBusinessScalarWhereInput[]
-    NOT?: BusinessCustomerOnBusinessScalarWhereInput | BusinessCustomerOnBusinessScalarWhereInput[]
-    businessId?: IntFilter<"BusinessCustomerOnBusiness"> | number
-    userId?: IntFilter<"BusinessCustomerOnBusiness"> | number
-    role?: EnumBusinessRoleFilter<"BusinessCustomerOnBusiness"> | $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessCreateWithoutBusinessInput = {
-    role: $Enums.BusinessRole
-    user: BusinessCustomerCreateNestedOneWithoutBusinessesInput
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput = {
-    userId: number
-    role: $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessCreateOrConnectWithoutBusinessInput = {
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-    create: XOR<BusinessCustomerOnBusinessCreateWithoutBusinessInput, BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput>
-  }
-
-  export type BusinessCustomerOnBusinessCreateManyBusinessInputEnvelope = {
-    data: BusinessCustomerOnBusinessCreateManyBusinessInput | BusinessCustomerOnBusinessCreateManyBusinessInput[]
-    skipDuplicates?: boolean
+  export type OrganizationCreateOrConnectWithoutBusinessInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutBusinessInput, OrganizationUncheckedCreateWithoutBusinessInput>
   }
 
   export type ServiceCreateWithoutBusinessInput = {
@@ -16665,20 +19686,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type BusinessCustomerOnBusinessUpsertWithWhereUniqueWithoutBusinessInput = {
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-    update: XOR<BusinessCustomerOnBusinessUpdateWithoutBusinessInput, BusinessCustomerOnBusinessUncheckedUpdateWithoutBusinessInput>
-    create: XOR<BusinessCustomerOnBusinessCreateWithoutBusinessInput, BusinessCustomerOnBusinessUncheckedCreateWithoutBusinessInput>
+  export type OrganizationUpsertWithoutBusinessInput = {
+    update: XOR<OrganizationUpdateWithoutBusinessInput, OrganizationUncheckedUpdateWithoutBusinessInput>
+    create: XOR<OrganizationCreateWithoutBusinessInput, OrganizationUncheckedCreateWithoutBusinessInput>
+    where?: OrganizationWhereInput
   }
 
-  export type BusinessCustomerOnBusinessUpdateWithWhereUniqueWithoutBusinessInput = {
-    where: BusinessCustomerOnBusinessWhereUniqueInput
-    data: XOR<BusinessCustomerOnBusinessUpdateWithoutBusinessInput, BusinessCustomerOnBusinessUncheckedUpdateWithoutBusinessInput>
+  export type OrganizationUpdateToOneWithWhereWithoutBusinessInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutBusinessInput, OrganizationUncheckedUpdateWithoutBusinessInput>
   }
 
-  export type BusinessCustomerOnBusinessUpdateManyWithWhereWithoutBusinessInput = {
-    where: BusinessCustomerOnBusinessScalarWhereInput
-    data: XOR<BusinessCustomerOnBusinessUpdateManyMutationInput, BusinessCustomerOnBusinessUncheckedUpdateManyWithoutBusinessInput>
+  export type OrganizationUpdateWithoutBusinessInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+    businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
+    subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutBusinessInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+    subscriptionId?: IntFieldUpdateOperationsInput | number
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type ServiceUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -16709,112 +19742,49 @@ export namespace Prisma {
     availibilityGroupId?: IntFilter<"Service"> | number
   }
 
-  export type BusinessCreateWithoutBusinessCustomersInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    contactNumber: string
-    businessName: string
-    type?: BusinessCreatetypeInput | $Enums.BusinessType[]
-    services?: ServiceCreateNestedManyWithoutBusinessInput
+  export type OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput = {
+    role: $Enums.OrganizationRole
+    organization: OrganizationCreateNestedOneWithoutBusinessCustomersInput
   }
 
-  export type BusinessUncheckedCreateWithoutBusinessCustomersInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    contactNumber: string
-    businessName: string
-    type?: BusinessCreatetypeInput | $Enums.BusinessType[]
-    services?: ServiceUncheckedCreateNestedManyWithoutBusinessInput
+  export type OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput = {
+    organizationId: number
+    role: $Enums.OrganizationRole
   }
 
-  export type BusinessCreateOrConnectWithoutBusinessCustomersInput = {
-    where: BusinessWhereUniqueInput
-    create: XOR<BusinessCreateWithoutBusinessCustomersInput, BusinessUncheckedCreateWithoutBusinessCustomersInput>
+  export type OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput = {
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+    create: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput>
   }
 
-  export type BusinessCustomerCreateWithoutBusinessesInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    email: string
-    mobile?: string | null
-    firstName: string
-    lastName: string
+  export type OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope = {
+    data: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInput | OrganizationOnBusinessCustomerCreateManyBusinessCustomerInput[]
+    skipDuplicates?: boolean
   }
 
-  export type BusinessCustomerUncheckedCreateWithoutBusinessesInput = {
-    id?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    email: string
-    mobile?: string | null
-    firstName: string
-    lastName: string
+  export type OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput = {
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+    update: XOR<OrganizationOnBusinessCustomerUpdateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedUpdateWithoutBusinessCustomerInput>
+    create: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput>
   }
 
-  export type BusinessCustomerCreateOrConnectWithoutBusinessesInput = {
-    where: BusinessCustomerWhereUniqueInput
-    create: XOR<BusinessCustomerCreateWithoutBusinessesInput, BusinessCustomerUncheckedCreateWithoutBusinessesInput>
+  export type OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput = {
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+    data: XOR<OrganizationOnBusinessCustomerUpdateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedUpdateWithoutBusinessCustomerInput>
   }
 
-  export type BusinessUpsertWithoutBusinessCustomersInput = {
-    update: XOR<BusinessUpdateWithoutBusinessCustomersInput, BusinessUncheckedUpdateWithoutBusinessCustomersInput>
-    create: XOR<BusinessCreateWithoutBusinessCustomersInput, BusinessUncheckedCreateWithoutBusinessCustomersInput>
-    where?: BusinessWhereInput
+  export type OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput = {
+    where: OrganizationOnBusinessCustomerScalarWhereInput
+    data: XOR<OrganizationOnBusinessCustomerUpdateManyMutationInput, OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutBusinessCustomerInput>
   }
 
-  export type BusinessUpdateToOneWithWhereWithoutBusinessCustomersInput = {
-    where?: BusinessWhereInput
-    data: XOR<BusinessUpdateWithoutBusinessCustomersInput, BusinessUncheckedUpdateWithoutBusinessCustomersInput>
-  }
-
-  export type BusinessUpdateWithoutBusinessCustomersInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
-    businessName?: StringFieldUpdateOperationsInput | string
-    type?: BusinessUpdatetypeInput | $Enums.BusinessType[]
-    services?: ServiceUpdateManyWithoutBusinessNestedInput
-  }
-
-  export type BusinessUncheckedUpdateWithoutBusinessCustomersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
-    businessName?: StringFieldUpdateOperationsInput | string
-    type?: BusinessUpdatetypeInput | $Enums.BusinessType[]
-    services?: ServiceUncheckedUpdateManyWithoutBusinessNestedInput
-  }
-
-  export type BusinessCustomerUpsertWithoutBusinessesInput = {
-    update: XOR<BusinessCustomerUpdateWithoutBusinessesInput, BusinessCustomerUncheckedUpdateWithoutBusinessesInput>
-    create: XOR<BusinessCustomerCreateWithoutBusinessesInput, BusinessCustomerUncheckedCreateWithoutBusinessesInput>
-    where?: BusinessCustomerWhereInput
-  }
-
-  export type BusinessCustomerUpdateToOneWithWhereWithoutBusinessesInput = {
-    where?: BusinessCustomerWhereInput
-    data: XOR<BusinessCustomerUpdateWithoutBusinessesInput, BusinessCustomerUncheckedUpdateWithoutBusinessesInput>
-  }
-
-  export type BusinessCustomerUpdateWithoutBusinessesInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    email?: StringFieldUpdateOperationsInput | string
-    mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type BusinessCustomerUncheckedUpdateWithoutBusinessesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    email?: StringFieldUpdateOperationsInput | string
-    mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
+  export type OrganizationOnBusinessCustomerScalarWhereInput = {
+    AND?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
+    OR?: OrganizationOnBusinessCustomerScalarWhereInput[]
+    NOT?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
+    organizationId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
+    businessCustomerId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
+    role?: EnumOrganizationRoleFilter<"OrganizationOnBusinessCustomer"> | $Enums.OrganizationRole
   }
 
   export type AppointmentCreateWithoutCustomerInput = {
@@ -16822,7 +19792,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status: $Enums.Status
-    isCancelled?: boolean
     service: ServiceCreateNestedOneWithoutAppointmentsInput
     slot: BookableSlotCreateNestedOneWithoutAppointmentInput
   }
@@ -16834,7 +19803,6 @@ export namespace Prisma {
     serviceId: number
     slotId: number
     status: $Enums.Status
-    isCancelled?: boolean
   }
 
   export type AppointmentCreateOrConnectWithoutCustomerInput = {
@@ -16874,7 +19842,309 @@ export namespace Prisma {
     serviceId?: IntFilter<"Appointment"> | number
     slotId?: IntFilter<"Appointment"> | number
     status?: EnumStatusFilter<"Appointment"> | $Enums.Status
-    isCancelled?: BoolFilter<"Appointment"> | boolean
+  }
+
+  export type OrganizationOnBusinessCustomerCreateWithoutOrganizationInput = {
+    role: $Enums.OrganizationRole
+    businessCustomer: BusinessCustomerCreateNestedOneWithoutOrganizationInput
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput = {
+    businessCustomerId: number
+    role: $Enums.OrganizationRole
+  }
+
+  export type OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput = {
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+    create: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope = {
+    data: OrganizationOnBusinessCustomerCreateManyOrganizationInput | OrganizationOnBusinessCustomerCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SubscriptionCreateWithoutOrganizationInput = {
+    createdAt?: Date | string
+    level: $Enums.SubscriptionLevel
+    price: Decimal | DecimalJsLike | number | string
+    status?: $Enums.SubscriptionStatus
+    stripeCustomerId?: string | null
+    stripeSubscriptionId?: string | null
+    trialEndsAt?: Date | string | null
+  }
+
+  export type SubscriptionUncheckedCreateWithoutOrganizationInput = {
+    id?: number
+    createdAt?: Date | string
+    level: $Enums.SubscriptionLevel
+    price: Decimal | DecimalJsLike | number | string
+    status?: $Enums.SubscriptionStatus
+    stripeCustomerId?: string | null
+    stripeSubscriptionId?: string | null
+    trialEndsAt?: Date | string | null
+  }
+
+  export type SubscriptionCreateOrConnectWithoutOrganizationInput = {
+    where: SubscriptionWhereUniqueInput
+    create: XOR<SubscriptionCreateWithoutOrganizationInput, SubscriptionUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type BusinessCreateWithoutOrganizationInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contactNumber: string
+    businessName: string
+    services?: ServiceCreateNestedManyWithoutBusinessInput
+  }
+
+  export type BusinessUncheckedCreateWithoutOrganizationInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contactNumber: string
+    businessName: string
+    services?: ServiceUncheckedCreateNestedManyWithoutBusinessInput
+  }
+
+  export type BusinessCreateOrConnectWithoutOrganizationInput = {
+    where: BusinessWhereUniqueInput
+    create: XOR<BusinessCreateWithoutOrganizationInput, BusinessUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type BusinessCreateManyOrganizationInputEnvelope = {
+    data: BusinessCreateManyOrganizationInput | BusinessCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+    update: XOR<OrganizationOnBusinessCustomerUpdateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: OrganizationOnBusinessCustomerWhereUniqueInput
+    data: XOR<OrganizationOnBusinessCustomerUpdateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput = {
+    where: OrganizationOnBusinessCustomerScalarWhereInput
+    data: XOR<OrganizationOnBusinessCustomerUpdateManyMutationInput, OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type SubscriptionUpsertWithoutOrganizationInput = {
+    update: XOR<SubscriptionUpdateWithoutOrganizationInput, SubscriptionUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<SubscriptionCreateWithoutOrganizationInput, SubscriptionUncheckedCreateWithoutOrganizationInput>
+    where?: SubscriptionWhereInput
+  }
+
+  export type SubscriptionUpdateToOneWithWhereWithoutOrganizationInput = {
+    where?: SubscriptionWhereInput
+    data: XOR<SubscriptionUpdateWithoutOrganizationInput, SubscriptionUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type SubscriptionUpdateWithoutOrganizationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: EnumSubscriptionLevelFieldUpdateOperationsInput | $Enums.SubscriptionLevel
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SubscriptionUncheckedUpdateWithoutOrganizationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: EnumSubscriptionLevelFieldUpdateOperationsInput | $Enums.SubscriptionLevel
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BusinessUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: BusinessWhereUniqueInput
+    update: XOR<BusinessUpdateWithoutOrganizationInput, BusinessUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<BusinessCreateWithoutOrganizationInput, BusinessUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type BusinessUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: BusinessWhereUniqueInput
+    data: XOR<BusinessUpdateWithoutOrganizationInput, BusinessUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type BusinessUpdateManyWithWhereWithoutOrganizationInput = {
+    where: BusinessScalarWhereInput
+    data: XOR<BusinessUpdateManyMutationInput, BusinessUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type BusinessScalarWhereInput = {
+    AND?: BusinessScalarWhereInput | BusinessScalarWhereInput[]
+    OR?: BusinessScalarWhereInput[]
+    NOT?: BusinessScalarWhereInput | BusinessScalarWhereInput[]
+    id?: IntFilter<"Business"> | number
+    createdAt?: DateTimeFilter<"Business"> | Date | string
+    updatedAt?: DateTimeFilter<"Business"> | Date | string
+    contactNumber?: StringFilter<"Business"> | string
+    businessName?: StringFilter<"Business"> | string
+    organizationId?: IntFilter<"Business"> | number
+  }
+
+  export type OrganizationCreateWithoutBusinessCustomersInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalName: string
+    subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
+    Business?: BusinessCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutBusinessCustomersInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalName: string
+    subscriptionId: number
+    Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutBusinessCustomersInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutBusinessCustomersInput, OrganizationUncheckedCreateWithoutBusinessCustomersInput>
+  }
+
+  export type BusinessCustomerCreateWithoutOrganizationInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    email: string
+    mobile?: string | null
+    firstName: string
+    lastName: string
+  }
+
+  export type BusinessCustomerUncheckedCreateWithoutOrganizationInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    email: string
+    mobile?: string | null
+    firstName: string
+    lastName: string
+  }
+
+  export type BusinessCustomerCreateOrConnectWithoutOrganizationInput = {
+    where: BusinessCustomerWhereUniqueInput
+    create: XOR<BusinessCustomerCreateWithoutOrganizationInput, BusinessCustomerUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type OrganizationUpsertWithoutBusinessCustomersInput = {
+    update: XOR<OrganizationUpdateWithoutBusinessCustomersInput, OrganizationUncheckedUpdateWithoutBusinessCustomersInput>
+    create: XOR<OrganizationCreateWithoutBusinessCustomersInput, OrganizationUncheckedCreateWithoutBusinessCustomersInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutBusinessCustomersInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutBusinessCustomersInput, OrganizationUncheckedUpdateWithoutBusinessCustomersInput>
+  }
+
+  export type OrganizationUpdateWithoutBusinessCustomersInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+    subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
+    Business?: BusinessUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutBusinessCustomersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+    subscriptionId?: IntFieldUpdateOperationsInput | number
+    Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type BusinessCustomerUpsertWithoutOrganizationInput = {
+    update: XOR<BusinessCustomerUpdateWithoutOrganizationInput, BusinessCustomerUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<BusinessCustomerCreateWithoutOrganizationInput, BusinessCustomerUncheckedCreateWithoutOrganizationInput>
+    where?: BusinessCustomerWhereInput
+  }
+
+  export type BusinessCustomerUpdateToOneWithWhereWithoutOrganizationInput = {
+    where?: BusinessCustomerWhereInput
+    data: XOR<BusinessCustomerUpdateWithoutOrganizationInput, BusinessCustomerUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type BusinessCustomerUpdateWithoutOrganizationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BusinessCustomerUncheckedUpdateWithoutOrganizationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrganizationCreateWithoutSubscriptionInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalName: string
+    businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
+    Business?: BusinessCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutSubscriptionInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalName: string
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
+    Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutSubscriptionInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutSubscriptionInput, OrganizationUncheckedCreateWithoutSubscriptionInput>
+  }
+
+  export type OrganizationUpsertWithoutSubscriptionInput = {
+    update: XOR<OrganizationUpdateWithoutSubscriptionInput, OrganizationUncheckedUpdateWithoutSubscriptionInput>
+    create: XOR<OrganizationCreateWithoutSubscriptionInput, OrganizationUncheckedCreateWithoutSubscriptionInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutSubscriptionInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutSubscriptionInput, OrganizationUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type OrganizationUpdateWithoutSubscriptionInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+    businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
+    Business?: BusinessUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutSubscriptionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalName?: StringFieldUpdateOperationsInput | string
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
+    Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type BusinessCreateWithoutServicesInput = {
@@ -16882,8 +20152,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     contactNumber: string
     businessName: string
-    type?: BusinessCreatetypeInput | $Enums.BusinessType[]
-    BusinessCustomers?: BusinessCustomerOnBusinessCreateNestedManyWithoutBusinessInput
+    organization: OrganizationCreateNestedOneWithoutBusinessInput
   }
 
   export type BusinessUncheckedCreateWithoutServicesInput = {
@@ -16892,8 +20161,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     contactNumber: string
     businessName: string
-    type?: BusinessCreatetypeInput | $Enums.BusinessType[]
-    BusinessCustomers?: BusinessCustomerOnBusinessUncheckedCreateNestedManyWithoutBusinessInput
+    organizationId: number
   }
 
   export type BusinessCreateOrConnectWithoutServicesInput = {
@@ -16906,7 +20174,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status: $Enums.Status
-    isCancelled?: boolean
     customer: CustomerCreateNestedOneWithoutAppointmentsInput
     slot: BookableSlotCreateNestedOneWithoutAppointmentInput
   }
@@ -16918,7 +20185,6 @@ export namespace Prisma {
     customerId: number
     slotId: number
     status: $Enums.Status
-    isCancelled?: boolean
   }
 
   export type AppointmentCreateOrConnectWithoutServiceInput = {
@@ -16967,8 +20233,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
-    type?: BusinessUpdatetypeInput | $Enums.BusinessType[]
-    BusinessCustomers?: BusinessCustomerOnBusinessUpdateManyWithoutBusinessNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutBusinessNestedInput
   }
 
   export type BusinessUncheckedUpdateWithoutServicesInput = {
@@ -16977,8 +20242,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
-    type?: BusinessUpdatetypeInput | $Enums.BusinessType[]
-    BusinessCustomers?: BusinessCustomerOnBusinessUncheckedUpdateManyWithoutBusinessNestedInput
+    organizationId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AppointmentUpsertWithWhereUniqueWithoutServiceInput = {
@@ -17076,7 +20340,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     startTime: Date | string
     endTime: Date | string
-    isBooked?: boolean
     Appointment?: AppointmentCreateNestedManyWithoutSlotInput
   }
 
@@ -17086,7 +20349,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     startTime: Date | string
     endTime: Date | string
-    isBooked?: boolean
     Appointment?: AppointmentUncheckedCreateNestedManyWithoutSlotInput
   }
 
@@ -17166,7 +20428,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BookableSlot"> | Date | string
     startTime?: DateTimeFilter<"BookableSlot"> | Date | string
     endTime?: DateTimeFilter<"BookableSlot"> | Date | string
-    isBooked?: BoolFilter<"BookableSlot"> | boolean
     availabilityGroupId?: IntNullableFilter<"BookableSlot"> | number | null
   }
 
@@ -17306,7 +20567,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     status: $Enums.Status
-    isCancelled?: boolean
     customer: CustomerCreateNestedOneWithoutAppointmentsInput
     service: ServiceCreateNestedOneWithoutAppointmentsInput
   }
@@ -17318,7 +20578,6 @@ export namespace Prisma {
     customerId: number
     serviceId: number
     status: $Enums.Status
-    isCancelled?: boolean
   }
 
   export type AppointmentCreateOrConnectWithoutSlotInput = {
@@ -17393,52 +20652,12 @@ export namespace Prisma {
     services?: ServiceUncheckedUpdateManyWithoutAvailibilityGroupNestedInput
   }
 
-  export type BusinessCustomerOnBusinessCreateManyUserInput = {
-    businessId: number
-    role: $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessUpdateWithoutUserInput = {
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
-    business?: BusinessUpdateOneRequiredWithoutBusinessCustomersNestedInput
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedUpdateWithoutUserInput = {
-    businessId?: IntFieldUpdateOperationsInput | number
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedUpdateManyWithoutUserInput = {
-    businessId?: IntFieldUpdateOperationsInput | number
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessCreateManyBusinessInput = {
-    userId: number
-    role: $Enums.BusinessRole
-  }
-
   export type ServiceCreateManyBusinessInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     active?: boolean
     availibilityGroupId: number
-  }
-
-  export type BusinessCustomerOnBusinessUpdateWithoutBusinessInput = {
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
-    user?: BusinessCustomerUpdateOneRequiredWithoutBusinessesNestedInput
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedUpdateWithoutBusinessInput = {
-    userId?: IntFieldUpdateOperationsInput | number
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
-  }
-
-  export type BusinessCustomerOnBusinessUncheckedUpdateManyWithoutBusinessInput = {
-    userId?: IntFieldUpdateOperationsInput | number
-    role?: EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
   }
 
   export type ServiceUpdateWithoutBusinessInput = {
@@ -17466,6 +20685,26 @@ export namespace Prisma {
     availibilityGroupId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type OrganizationOnBusinessCustomerCreateManyBusinessCustomerInput = {
+    organizationId: number
+    role: $Enums.OrganizationRole
+  }
+
+  export type OrganizationOnBusinessCustomerUpdateWithoutBusinessCustomerInput = {
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    organization?: OrganizationUpdateOneRequiredWithoutBusinessCustomersNestedInput
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedUpdateWithoutBusinessCustomerInput = {
+    organizationId?: IntFieldUpdateOperationsInput | number
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutBusinessCustomerInput = {
+    organizationId?: IntFieldUpdateOperationsInput | number
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+  }
+
   export type AppointmentCreateManyCustomerInput = {
     id?: string
     createdAt?: Date | string
@@ -17473,7 +20712,6 @@ export namespace Prisma {
     serviceId: number
     slotId: number
     status: $Enums.Status
-    isCancelled?: boolean
   }
 
   export type AppointmentUpdateWithoutCustomerInput = {
@@ -17481,7 +20719,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     service?: ServiceUpdateOneRequiredWithoutAppointmentsNestedInput
     slot?: BookableSlotUpdateOneRequiredWithoutAppointmentNestedInput
   }
@@ -17493,7 +20730,6 @@ export namespace Prisma {
     serviceId?: IntFieldUpdateOperationsInput | number
     slotId?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AppointmentUncheckedUpdateManyWithoutCustomerInput = {
@@ -17503,7 +20739,59 @@ export namespace Prisma {
     serviceId?: IntFieldUpdateOperationsInput | number
     slotId?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type OrganizationOnBusinessCustomerCreateManyOrganizationInput = {
+    businessCustomerId: number
+    role: $Enums.OrganizationRole
+  }
+
+  export type BusinessCreateManyOrganizationInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contactNumber: string
+    businessName: string
+  }
+
+  export type OrganizationOnBusinessCustomerUpdateWithoutOrganizationInput = {
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    businessCustomer?: BusinessCustomerUpdateOneRequiredWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedUpdateWithoutOrganizationInput = {
+    businessCustomerId?: IntFieldUpdateOperationsInput | number
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationInput = {
+    businessCustomerId?: IntFieldUpdateOperationsInput | number
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+  }
+
+  export type BusinessUpdateWithoutOrganizationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    services?: ServiceUpdateManyWithoutBusinessNestedInput
+  }
+
+  export type BusinessUncheckedUpdateWithoutOrganizationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    services?: ServiceUncheckedUpdateManyWithoutBusinessNestedInput
+  }
+
+  export type BusinessUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
   }
 
   export type AppointmentCreateManyServiceInput = {
@@ -17513,7 +20801,6 @@ export namespace Prisma {
     customerId: number
     slotId: number
     status: $Enums.Status
-    isCancelled?: boolean
   }
 
   export type AppointmentUpdateWithoutServiceInput = {
@@ -17521,7 +20808,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     customer?: CustomerUpdateOneRequiredWithoutAppointmentsNestedInput
     slot?: BookableSlotUpdateOneRequiredWithoutAppointmentNestedInput
   }
@@ -17533,7 +20819,6 @@ export namespace Prisma {
     customerId?: IntFieldUpdateOperationsInput | number
     slotId?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AppointmentUncheckedUpdateManyWithoutServiceInput = {
@@ -17543,7 +20828,6 @@ export namespace Prisma {
     customerId?: IntFieldUpdateOperationsInput | number
     slotId?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type DailyAvailabilityCreateManyAvailabilityGroupInput = {
@@ -17565,7 +20849,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     startTime: Date | string
     endTime: Date | string
-    isBooked?: boolean
   }
 
   export type DailyAvailabilityUpdateWithoutAvailabilityGroupInput = {
@@ -17614,7 +20897,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBooked?: BoolFieldUpdateOperationsInput | boolean
     Appointment?: AppointmentUpdateManyWithoutSlotNestedInput
   }
 
@@ -17624,7 +20906,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBooked?: BoolFieldUpdateOperationsInput | boolean
     Appointment?: AppointmentUncheckedUpdateManyWithoutSlotNestedInput
   }
 
@@ -17634,7 +20915,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    isBooked?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TimeBlockCreateManyDailyAvailabilityDayInput = {
@@ -17667,7 +20947,6 @@ export namespace Prisma {
     customerId: number
     serviceId: number
     status: $Enums.Status
-    isCancelled?: boolean
   }
 
   export type AppointmentUpdateWithoutSlotInput = {
@@ -17675,7 +20954,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
     customer?: CustomerUpdateOneRequiredWithoutAppointmentsNestedInput
     service?: ServiceUpdateOneRequiredWithoutAppointmentsNestedInput
   }
@@ -17687,7 +20965,6 @@ export namespace Prisma {
     customerId?: IntFieldUpdateOperationsInput | number
     serviceId?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AppointmentUncheckedUpdateManyWithoutSlotInput = {
@@ -17697,7 +20974,6 @@ export namespace Prisma {
     customerId?: IntFieldUpdateOperationsInput | number
     serviceId?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    isCancelled?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

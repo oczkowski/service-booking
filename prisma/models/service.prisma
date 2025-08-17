@@ -3,73 +3,72 @@
 
 // A service that can be booked by a customer
 model Service {
-    id        Int      @id @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    active Boolean @default(true)
+  active Boolean @default(true)
 
-    Business   Business? @relation(fields: [businessId], references: [id])
-    businessId Int?
+  Business   Business? @relation(fields: [businessId], references: [id])
+  businessId Int?
 
-    appointments        Appointment[]
-    availibilityGroup   AvailabilityGroup @relation(fields: [availibilityGroupId], references: [id])
-    availibilityGroupId Int
+  appointments        Appointment[]
+  availibilityGroup   AvailabilityGroup @relation(fields: [availibilityGroupId], references: [id])
+  availibilityGroupId Int
 }
 
 // Availability group which can be referenced by many services
 model AvailabilityGroup {
-    id                Int                 @id @default(autoincrement())
-    createdAt         DateTime            @default(now())
-    updatedAt         DateTime            @updatedAt
-    dailyAvailability DailyAvailability[]
-    services          Service[]
-    BookableSlot      BookableSlot[]
+  id                Int                 @id @default(autoincrement())
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  dailyAvailability DailyAvailability[]
+  services          Service[]
+  BookableSlot      BookableSlot[]
 }
 
 // Defines how time slots are generated for a day in a week
 model DailyAvailability {
-    id                  Int               @id @default(autoincrement())
-    availabilityGroup   AvailabilityGroup @relation(fields: [availabilityGroupId], references: [id])
-    availabilityGroupId Int
-    availabilityBlocks  TimeBlock[]
-    dayOfWeek           WeekDay
+  id                  Int               @id @default(autoincrement())
+  availabilityGroup   AvailabilityGroup @relation(fields: [availabilityGroupId], references: [id])
+  availabilityGroupId Int
+  availabilityBlocks  TimeBlock[]
+  dayOfWeek           WeekDay
 
-    @@unique([availabilityGroupId, dayOfWeek])
+  @@unique([availabilityGroupId, dayOfWeek])
 }
 
 // Time block for daily availability
 model TimeBlock {
-    id                     Int               @id @default(autoincrement())
-    dailyAvailabilityDay   DailyAvailability @relation(fields: [dailyAvailabilityDayId], references: [id])
-    dailyAvailabilityDayId Int
+  id                     Int               @id @default(autoincrement())
+  dailyAvailabilityDay   DailyAvailability @relation(fields: [dailyAvailabilityDayId], references: [id])
+  dailyAvailabilityDayId Int
 
-    startTime String // e.g. "09:00"
-    endTime   String // e.g. "12:00"
+  startTime String // e.g. "09:00"
+  endTime   String // e.g. "12:00"
 }
 
 // A generate bookable slot which is claimed by appointment
 model BookableSlot {
-    id        Int      @id @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    startTime DateTime
-    endTime   DateTime
+  startTime DateTime
+  endTime   DateTime
 
-    isBooked    Boolean       @default(false)
-    Appointment Appointment[]
+  Appointment Appointment[]
 
-    AvailabilityGroup   AvailabilityGroup? @relation(fields: [availabilityGroupId], references: [id])
-    availabilityGroupId Int?
+  AvailabilityGroup   AvailabilityGroup? @relation(fields: [availabilityGroupId], references: [id])
+  availabilityGroupId Int?
 }
 
 enum WeekDay {
-    SUNDAY
-    MONDAY
-    TUESDAY
-    WEDNESDAY
-    THURSDAY
-    FRIDAY
-    SATURDAY
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
 }

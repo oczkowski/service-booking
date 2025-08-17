@@ -127,8 +127,16 @@ exports.Prisma.AppointmentScalarFieldEnum = {
   customerId: 'customerId',
   serviceId: 'serviceId',
   slotId: 'slotId',
-  status: 'status',
-  isCancelled: 'isCancelled'
+  status: 'status'
+};
+
+exports.Prisma.BusinessScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  contactNumber: 'contactNumber',
+  businessName: 'businessName',
+  organizationId: 'organizationId'
 };
 
 exports.Prisma.BusinessCustomerScalarFieldEnum = {
@@ -141,21 +149,6 @@ exports.Prisma.BusinessCustomerScalarFieldEnum = {
   lastName: 'lastName'
 };
 
-exports.Prisma.BusinessScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  contactNumber: 'contactNumber',
-  businessName: 'businessName',
-  type: 'type'
-};
-
-exports.Prisma.BusinessCustomerOnBusinessScalarFieldEnum = {
-  businessId: 'businessId',
-  userId: 'userId',
-  role: 'role'
-};
-
 exports.Prisma.CustomerScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -163,8 +156,32 @@ exports.Prisma.CustomerScalarFieldEnum = {
   email: 'email',
   mobile: 'mobile',
   firstName: 'firstName',
-  lastName: 'lastName',
-  type: 'type'
+  lastName: 'lastName'
+};
+
+exports.Prisma.OrganizationScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  legalName: 'legalName',
+  subscriptionId: 'subscriptionId'
+};
+
+exports.Prisma.OrganizationOnBusinessCustomerScalarFieldEnum = {
+  organizationId: 'organizationId',
+  businessCustomerId: 'businessCustomerId',
+  role: 'role'
+};
+
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  level: 'level',
+  price: 'price',
+  status: 'status',
+  stripeCustomerId: 'stripeCustomerId',
+  stripeSubscriptionId: 'stripeSubscriptionId',
+  trialEndsAt: 'trialEndsAt'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -201,7 +218,6 @@ exports.Prisma.BookableSlotScalarFieldEnum = {
   updatedAt: 'updatedAt',
   startTime: 'startTime',
   endTime: 'endTime',
-  isBooked: 'isBooked',
   availabilityGroupId: 'availabilityGroupId'
 };
 
@@ -222,23 +238,30 @@ exports.Prisma.NullsOrder = {
 exports.Status = exports.$Enums.Status = {
   UPCOMING: 'UPCOMING',
   ATTENDED: 'ATTENDED',
-  MISSED: 'MISSED'
+  MISSED: 'MISSED',
+  CANCELLED: 'CANCELLED'
 };
 
-exports.BusinessType = exports.$Enums.BusinessType = {
-  SME: 'SME',
-  ENTERPRISE: 'ENTERPRISE'
-};
-
-exports.BusinessRole = exports.$Enums.BusinessRole = {
+exports.OrganizationRole = exports.$Enums.OrganizationRole = {
   OWNER: 'OWNER',
   ADMIN: 'ADMIN',
   MANAGER: 'MANAGER',
   STAFF: 'STAFF'
 };
 
-exports.CustomerType = exports.$Enums.CustomerType = {
-  GUEST: 'GUEST'
+exports.SubscriptionLevel = exports.$Enums.SubscriptionLevel = {
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE',
+  ENTERPRISE: 'ENTERPRISE'
+};
+
+exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
+  TRIAL: 'TRIAL',
+  ACTIVE: 'ACTIVE',
+  PAST_DUE: 'PAST_DUE',
+  CANCELED: 'CANCELED',
+  UNPAID: 'UNPAID'
 };
 
 exports.WeekDay = exports.$Enums.WeekDay = {
@@ -253,10 +276,12 @@ exports.WeekDay = exports.$Enums.WeekDay = {
 
 exports.Prisma.ModelName = {
   Appointment: 'Appointment',
-  BusinessCustomer: 'BusinessCustomer',
   Business: 'Business',
-  BusinessCustomerOnBusiness: 'BusinessCustomerOnBusiness',
+  BusinessCustomer: 'BusinessCustomer',
   Customer: 'Customer',
+  Organization: 'Organization',
+  OrganizationOnBusinessCustomer: 'OrganizationOnBusinessCustomer',
+  Subscription: 'Subscription',
   Service: 'Service',
   AvailabilityGroup: 'AvailabilityGroup',
   DailyAvailability: 'DailyAvailability',
