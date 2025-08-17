@@ -22,7 +22,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         color: 'hsl(var(--foreground)) !important',
         caretColor: 'hsl(var(--foreground))',
         ...props.style
-      } as React.CSSProperties & { [key: string]: any }}
+      } as React.CSSProperties & { [key: string]: string }}
       {...props}
     />
   )
