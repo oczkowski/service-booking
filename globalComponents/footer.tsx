@@ -26,7 +26,7 @@ const legalLinks: FooterLink[] = [
 
 const Footer = () => {
   return (
-    <div className="bg-black text-white p-3 grid grid-cols-2">
+    <div className="border-t-white border-2  p-3 grid grid-cols-2">
       {/* Links */}
       <div className="grid grid-cols-1  md:grid-cols-2 gap-0.5">
         {footerLinks.map((link) => {

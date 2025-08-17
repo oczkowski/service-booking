@@ -6,7 +6,6 @@ interface JourneyHeaderProps {
 }
 
 const JourneyHeader = ({ journeyName }: JourneyHeaderProps) => {
-
     return (
         <nav className="flex justify-between items-center px-5 p-3 border-b-black border-1">
             <Button asChild>

@@ -1,9 +1,9 @@
 import { auth0 } from "@/lib/auth0";
 import { PrismaClient, OrganizationRole, SubscriptionStatus } from '@/generated/prisma';
 import z from 'zod';
-import { organizationSchema } from './schema';
+import { createOrganizationPayloadSchema } from './schema';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 export async function POST(request: Request) {
     const session = await auth0.getSession();
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
         });
     }
 
-    const parsedBody = organizationSchema.safeParse(body);
+    const parsedBody = createOrganizationPayloadSchema.safeParse(body);
 
     if (!parsedBody.success) {
         return new Response(JSON.stringify({ error: z.flattenError(parsedBody.error) }), {
@@ -61,8 +61,9 @@ export async function POST(request: Request) {
             
             const subscription = await tx.subscription.create({
                 data: {
-                    level: parsedBody.data.subscriptionLevel,
+                    level: parsedBody.data.subscription.subscriptionLevel,
                     price: 0.00,
+                    paymentFrequency: parsedBody.data.subscription.paymentFrequency,
                     status: SubscriptionStatus.TRIAL,
                     trialEndsAt: trialEndsAt
                 }
@@ -72,6 +73,10 @@ export async function POST(request: Request) {
             const organization = await tx.organization.create({
                 data: {
                     legalName: parsedBody.data.legalName,
+                    firstLineOfAddress: parsedBody.data.firstLineOfAddress,
+                    secondLineOfAddress: parsedBody.data.secondLineOfAddress,
+                    city: parsedBody.data.city,
+                    postCode: parsedBody.data.postCode,
                     subscriptionId: subscription.id
                 }
             });

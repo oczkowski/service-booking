@@ -12,6 +12,7 @@ export async function middleware(request: NextRequest) {
 
     const session = await auth0.getSession(request);
 
+    // Not logged in
     if (!session) {
         // API Unauthorized
         if (request.nextUrl.pathname.startsWith("/api/management")) {
@@ -20,9 +21,9 @@ export async function middleware(request: NextRequest) {
                 headers: { 'Content-Type': 'application/json' },
             });
         }
-        // Web Unauthorized
+        // Web Unauthorized (With deep linking)
         return NextResponse.redirect(
-            new URL("/auth/login", request.nextUrl.origin)
+            new URL(`/auth/login?returnTo=${request.nextUrl}`, request.nextUrl.origin)
         );
     }
 
@@ -32,7 +33,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        "/business/:path*",
+        "/manage/:path*",
         "/auth/:path*",
         "/api/management/:path*",
     ],

@@ -88,6 +88,14 @@ export namespace $Enums {
 export type Status = (typeof Status)[keyof typeof Status]
 
 
+export const PaymentFrequency: {
+  MONTHLY: 'MONTHLY',
+  ANNUALY: 'ANNUALY'
+};
+
+export type PaymentFrequency = (typeof PaymentFrequency)[keyof typeof PaymentFrequency]
+
+
 export const SubscriptionLevel: {
   SMALL: 'SMALL',
   MEDIUM: 'MEDIUM',
@@ -136,6 +144,10 @@ export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay]
 export type Status = $Enums.Status
 
 export const Status: typeof $Enums.Status
+
+export type PaymentFrequency = $Enums.PaymentFrequency
+
+export const PaymentFrequency: typeof $Enums.PaymentFrequency
 
 export type SubscriptionLevel = $Enums.SubscriptionLevel
 
@@ -6804,6 +6816,10 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     legalName: string | null
+    firstLineOfAddress: string | null
+    secondLineOfAddress: string | null
+    city: string | null
+    postCode: string | null
     subscriptionId: number | null
   }
 
@@ -6812,6 +6828,10 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     legalName: string | null
+    firstLineOfAddress: string | null
+    secondLineOfAddress: string | null
+    city: string | null
+    postCode: string | null
     subscriptionId: number | null
   }
 
@@ -6820,6 +6840,10 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     legalName: number
+    firstLineOfAddress: number
+    secondLineOfAddress: number
+    city: number
+    postCode: number
     subscriptionId: number
     _all: number
   }
@@ -6840,6 +6864,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     legalName?: true
+    firstLineOfAddress?: true
+    secondLineOfAddress?: true
+    city?: true
+    postCode?: true
     subscriptionId?: true
   }
 
@@ -6848,6 +6876,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     legalName?: true
+    firstLineOfAddress?: true
+    secondLineOfAddress?: true
+    city?: true
+    postCode?: true
     subscriptionId?: true
   }
 
@@ -6856,6 +6888,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     legalName?: true
+    firstLineOfAddress?: true
+    secondLineOfAddress?: true
+    city?: true
+    postCode?: true
     subscriptionId?: true
     _all?: true
   }
@@ -6951,6 +6987,10 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress: string | null
+    city: string
+    postCode: string
     subscriptionId: number
     _count: OrganizationCountAggregateOutputType | null
     _avg: OrganizationAvgAggregateOutputType | null
@@ -6978,6 +7018,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     legalName?: boolean
+    firstLineOfAddress?: boolean
+    secondLineOfAddress?: boolean
+    city?: boolean
+    postCode?: boolean
     subscriptionId?: boolean
     businessCustomers?: boolean | Organization$businessCustomersArgs<ExtArgs>
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
@@ -6990,6 +7034,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     legalName?: boolean
+    firstLineOfAddress?: boolean
+    secondLineOfAddress?: boolean
+    city?: boolean
+    postCode?: boolean
     subscriptionId?: boolean
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
@@ -6999,6 +7047,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     legalName?: boolean
+    firstLineOfAddress?: boolean
+    secondLineOfAddress?: boolean
+    city?: boolean
+    postCode?: boolean
     subscriptionId?: boolean
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
@@ -7008,10 +7060,14 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     legalName?: boolean
+    firstLineOfAddress?: boolean
+    secondLineOfAddress?: boolean
+    city?: boolean
+    postCode?: boolean
     subscriptionId?: boolean
   }
 
-  export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "legalName" | "subscriptionId", ExtArgs["result"]["organization"]>
+  export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "legalName" | "firstLineOfAddress" | "secondLineOfAddress" | "city" | "postCode" | "subscriptionId", ExtArgs["result"]["organization"]>
   export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     businessCustomers?: boolean | Organization$businessCustomersArgs<ExtArgs>
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
@@ -7037,6 +7093,10 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       legalName: string
+      firstLineOfAddress: string
+      secondLineOfAddress: string | null
+      city: string
+      postCode: string
       subscriptionId: number
     }, ExtArgs["result"]["organization"]>
     composites: {}
@@ -7468,6 +7528,10 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Organization", 'DateTime'>
     readonly updatedAt: FieldRef<"Organization", 'DateTime'>
     readonly legalName: FieldRef<"Organization", 'String'>
+    readonly firstLineOfAddress: FieldRef<"Organization", 'String'>
+    readonly secondLineOfAddress: FieldRef<"Organization", 'String'>
+    readonly city: FieldRef<"Organization", 'String'>
+    readonly postCode: FieldRef<"Organization", 'String'>
     readonly subscriptionId: FieldRef<"Organization", 'Int'>
   }
     
@@ -9040,6 +9104,7 @@ export namespace Prisma {
     stripeCustomerId: string | null
     stripeSubscriptionId: string | null
     trialEndsAt: Date | null
+    paymentFrequency: $Enums.PaymentFrequency | null
   }
 
   export type SubscriptionMaxAggregateOutputType = {
@@ -9051,6 +9116,7 @@ export namespace Prisma {
     stripeCustomerId: string | null
     stripeSubscriptionId: string | null
     trialEndsAt: Date | null
+    paymentFrequency: $Enums.PaymentFrequency | null
   }
 
   export type SubscriptionCountAggregateOutputType = {
@@ -9062,6 +9128,7 @@ export namespace Prisma {
     stripeCustomerId: number
     stripeSubscriptionId: number
     trialEndsAt: number
+    paymentFrequency: number
     _all: number
   }
 
@@ -9085,6 +9152,7 @@ export namespace Prisma {
     stripeCustomerId?: true
     stripeSubscriptionId?: true
     trialEndsAt?: true
+    paymentFrequency?: true
   }
 
   export type SubscriptionMaxAggregateInputType = {
@@ -9096,6 +9164,7 @@ export namespace Prisma {
     stripeCustomerId?: true
     stripeSubscriptionId?: true
     trialEndsAt?: true
+    paymentFrequency?: true
   }
 
   export type SubscriptionCountAggregateInputType = {
@@ -9107,6 +9176,7 @@ export namespace Prisma {
     stripeCustomerId?: true
     stripeSubscriptionId?: true
     trialEndsAt?: true
+    paymentFrequency?: true
     _all?: true
   }
 
@@ -9205,6 +9275,7 @@ export namespace Prisma {
     stripeCustomerId: string | null
     stripeSubscriptionId: string | null
     trialEndsAt: Date | null
+    paymentFrequency: $Enums.PaymentFrequency
     _count: SubscriptionCountAggregateOutputType | null
     _avg: SubscriptionAvgAggregateOutputType | null
     _sum: SubscriptionSumAggregateOutputType | null
@@ -9235,6 +9306,7 @@ export namespace Prisma {
     stripeCustomerId?: boolean
     stripeSubscriptionId?: boolean
     trialEndsAt?: boolean
+    paymentFrequency?: boolean
     organization?: boolean | Subscription$organizationArgs<ExtArgs>
   }, ExtArgs["result"]["subscription"]>
 
@@ -9247,6 +9319,7 @@ export namespace Prisma {
     stripeCustomerId?: boolean
     stripeSubscriptionId?: boolean
     trialEndsAt?: boolean
+    paymentFrequency?: boolean
   }, ExtArgs["result"]["subscription"]>
 
   export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9258,6 +9331,7 @@ export namespace Prisma {
     stripeCustomerId?: boolean
     stripeSubscriptionId?: boolean
     trialEndsAt?: boolean
+    paymentFrequency?: boolean
   }, ExtArgs["result"]["subscription"]>
 
   export type SubscriptionSelectScalar = {
@@ -9269,9 +9343,10 @@ export namespace Prisma {
     stripeCustomerId?: boolean
     stripeSubscriptionId?: boolean
     trialEndsAt?: boolean
+    paymentFrequency?: boolean
   }
 
-  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "level" | "price" | "status" | "stripeCustomerId" | "stripeSubscriptionId" | "trialEndsAt", ExtArgs["result"]["subscription"]>
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "level" | "price" | "status" | "stripeCustomerId" | "stripeSubscriptionId" | "trialEndsAt" | "paymentFrequency", ExtArgs["result"]["subscription"]>
   export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | Subscription$organizationArgs<ExtArgs>
   }
@@ -9292,6 +9367,7 @@ export namespace Prisma {
       stripeCustomerId: string | null
       stripeSubscriptionId: string | null
       trialEndsAt: Date | null
+      paymentFrequency: $Enums.PaymentFrequency
     }, ExtArgs["result"]["subscription"]>
     composites: {}
   }
@@ -9724,6 +9800,7 @@ export namespace Prisma {
     readonly stripeCustomerId: FieldRef<"Subscription", 'String'>
     readonly stripeSubscriptionId: FieldRef<"Subscription", 'String'>
     readonly trialEndsAt: FieldRef<"Subscription", 'DateTime'>
+    readonly paymentFrequency: FieldRef<"Subscription", 'PaymentFrequency'>
   }
     
 
@@ -15864,6 +15941,10 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     legalName: 'legalName',
+    firstLineOfAddress: 'firstLineOfAddress',
+    secondLineOfAddress: 'secondLineOfAddress',
+    city: 'city',
+    postCode: 'postCode',
     subscriptionId: 'subscriptionId'
   };
 
@@ -15887,7 +15968,8 @@ export namespace Prisma {
     status: 'status',
     stripeCustomerId: 'stripeCustomerId',
     stripeSubscriptionId: 'stripeSubscriptionId',
-    trialEndsAt: 'trialEndsAt'
+    trialEndsAt: 'trialEndsAt',
+    paymentFrequency: 'paymentFrequency'
   };
 
   export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
@@ -16083,6 +16165,20 @@ export namespace Prisma {
    * Reference to a field of type 'SubscriptionStatus[]'
    */
   export type ListEnumSubscriptionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PaymentFrequency'
+   */
+  export type EnumPaymentFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentFrequency'>
+    
+
+
+  /**
+   * Reference to a field of type 'PaymentFrequency[]'
+   */
+  export type ListEnumPaymentFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentFrequency[]'>
     
 
 
@@ -16404,6 +16500,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Organization"> | Date | string
     updatedAt?: DateTimeFilter<"Organization"> | Date | string
     legalName?: StringFilter<"Organization"> | string
+    firstLineOfAddress?: StringFilter<"Organization"> | string
+    secondLineOfAddress?: StringNullableFilter<"Organization"> | string | null
+    city?: StringFilter<"Organization"> | string
+    postCode?: StringFilter<"Organization"> | string
     subscriptionId?: IntFilter<"Organization"> | number
     businessCustomers?: OrganizationOnBusinessCustomerListRelationFilter
     subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
@@ -16415,6 +16515,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     legalName?: SortOrder
+    firstLineOfAddress?: SortOrder
+    secondLineOfAddress?: SortOrderInput | SortOrder
+    city?: SortOrder
+    postCode?: SortOrder
     subscriptionId?: SortOrder
     businessCustomers?: OrganizationOnBusinessCustomerOrderByRelationAggregateInput
     subscription?: SubscriptionOrderByWithRelationInput
@@ -16430,6 +16534,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Organization"> | Date | string
     updatedAt?: DateTimeFilter<"Organization"> | Date | string
     legalName?: StringFilter<"Organization"> | string
+    firstLineOfAddress?: StringFilter<"Organization"> | string
+    secondLineOfAddress?: StringNullableFilter<"Organization"> | string | null
+    city?: StringFilter<"Organization"> | string
+    postCode?: StringFilter<"Organization"> | string
     businessCustomers?: OrganizationOnBusinessCustomerListRelationFilter
     subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
     Business?: BusinessListRelationFilter
@@ -16440,6 +16548,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     legalName?: SortOrder
+    firstLineOfAddress?: SortOrder
+    secondLineOfAddress?: SortOrderInput | SortOrder
+    city?: SortOrder
+    postCode?: SortOrder
     subscriptionId?: SortOrder
     _count?: OrganizationCountOrderByAggregateInput
     _avg?: OrganizationAvgOrderByAggregateInput
@@ -16456,6 +16568,10 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
     legalName?: StringWithAggregatesFilter<"Organization"> | string
+    firstLineOfAddress?: StringWithAggregatesFilter<"Organization"> | string
+    secondLineOfAddress?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    city?: StringWithAggregatesFilter<"Organization"> | string
+    postCode?: StringWithAggregatesFilter<"Organization"> | string
     subscriptionId?: IntWithAggregatesFilter<"Organization"> | number
   }
 
@@ -16522,6 +16638,7 @@ export namespace Prisma {
     stripeCustomerId?: StringNullableFilter<"Subscription"> | string | null
     stripeSubscriptionId?: StringNullableFilter<"Subscription"> | string | null
     trialEndsAt?: DateTimeNullableFilter<"Subscription"> | Date | string | null
+    paymentFrequency?: EnumPaymentFrequencyFilter<"Subscription"> | $Enums.PaymentFrequency
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
   }
 
@@ -16534,6 +16651,7 @@ export namespace Prisma {
     stripeCustomerId?: SortOrderInput | SortOrder
     stripeSubscriptionId?: SortOrderInput | SortOrder
     trialEndsAt?: SortOrderInput | SortOrder
+    paymentFrequency?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
   }
 
@@ -16549,6 +16667,7 @@ export namespace Prisma {
     stripeCustomerId?: StringNullableFilter<"Subscription"> | string | null
     stripeSubscriptionId?: StringNullableFilter<"Subscription"> | string | null
     trialEndsAt?: DateTimeNullableFilter<"Subscription"> | Date | string | null
+    paymentFrequency?: EnumPaymentFrequencyFilter<"Subscription"> | $Enums.PaymentFrequency
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
   }, "id">
 
@@ -16561,6 +16680,7 @@ export namespace Prisma {
     stripeCustomerId?: SortOrderInput | SortOrder
     stripeSubscriptionId?: SortOrderInput | SortOrder
     trialEndsAt?: SortOrderInput | SortOrder
+    paymentFrequency?: SortOrder
     _count?: SubscriptionCountOrderByAggregateInput
     _avg?: SubscriptionAvgOrderByAggregateInput
     _max?: SubscriptionMaxOrderByAggregateInput
@@ -16580,6 +16700,7 @@ export namespace Prisma {
     stripeCustomerId?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
     stripeSubscriptionId?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
     trialEndsAt?: DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
+    paymentFrequency?: EnumPaymentFrequencyWithAggregatesFilter<"Subscription"> | $Enums.PaymentFrequency
   }
 
   export type ServiceWhereInput = {
@@ -17147,6 +17268,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress?: string | null
+    city: string
+    postCode: string
     businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
     Business?: BusinessCreateNestedManyWithoutOrganizationInput
@@ -17157,6 +17282,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress?: string | null
+    city: string
+    postCode: string
     subscriptionId: number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
     Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
@@ -17166,6 +17295,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
     businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
     Business?: BusinessUpdateManyWithoutOrganizationNestedInput
@@ -17176,6 +17309,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
     subscriptionId?: IntFieldUpdateOperationsInput | number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
     Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -17186,6 +17323,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress?: string | null
+    city: string
+    postCode: string
     subscriptionId: number
   }
 
@@ -17193,6 +17334,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type OrganizationUncheckedUpdateManyInput = {
@@ -17200,6 +17345,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
     subscriptionId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -17251,6 +17400,7 @@ export namespace Prisma {
     stripeCustomerId?: string | null
     stripeSubscriptionId?: string | null
     trialEndsAt?: Date | string | null
+    paymentFrequency: $Enums.PaymentFrequency
     organization?: OrganizationCreateNestedOneWithoutSubscriptionInput
   }
 
@@ -17263,6 +17413,7 @@ export namespace Prisma {
     stripeCustomerId?: string | null
     stripeSubscriptionId?: string | null
     trialEndsAt?: Date | string | null
+    paymentFrequency: $Enums.PaymentFrequency
     organization?: OrganizationUncheckedCreateNestedOneWithoutSubscriptionInput
   }
 
@@ -17274,6 +17425,7 @@ export namespace Prisma {
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentFrequency?: EnumPaymentFrequencyFieldUpdateOperationsInput | $Enums.PaymentFrequency
     organization?: OrganizationUpdateOneWithoutSubscriptionNestedInput
   }
 
@@ -17286,6 +17438,7 @@ export namespace Prisma {
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentFrequency?: EnumPaymentFrequencyFieldUpdateOperationsInput | $Enums.PaymentFrequency
     organization?: OrganizationUncheckedUpdateOneWithoutSubscriptionNestedInput
   }
 
@@ -17298,6 +17451,7 @@ export namespace Prisma {
     stripeCustomerId?: string | null
     stripeSubscriptionId?: string | null
     trialEndsAt?: Date | string | null
+    paymentFrequency: $Enums.PaymentFrequency
   }
 
   export type SubscriptionUpdateManyMutationInput = {
@@ -17308,6 +17462,7 @@ export namespace Prisma {
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentFrequency?: EnumPaymentFrequencyFieldUpdateOperationsInput | $Enums.PaymentFrequency
   }
 
   export type SubscriptionUncheckedUpdateManyInput = {
@@ -17319,6 +17474,7 @@ export namespace Prisma {
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentFrequency?: EnumPaymentFrequencyFieldUpdateOperationsInput | $Enums.PaymentFrequency
   }
 
   export type ServiceCreateInput = {
@@ -17949,6 +18105,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     legalName?: SortOrder
+    firstLineOfAddress?: SortOrder
+    secondLineOfAddress?: SortOrder
+    city?: SortOrder
+    postCode?: SortOrder
     subscriptionId?: SortOrder
   }
 
@@ -17962,6 +18122,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     legalName?: SortOrder
+    firstLineOfAddress?: SortOrder
+    secondLineOfAddress?: SortOrder
+    city?: SortOrder
+    postCode?: SortOrder
     subscriptionId?: SortOrder
   }
 
@@ -17970,6 +18134,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     legalName?: SortOrder
+    firstLineOfAddress?: SortOrder
+    secondLineOfAddress?: SortOrder
+    city?: SortOrder
+    postCode?: SortOrder
     subscriptionId?: SortOrder
   }
 
@@ -18069,6 +18237,13 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type EnumPaymentFrequencyFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentFrequency | EnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    in?: $Enums.PaymentFrequency[] | ListEnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PaymentFrequency[] | ListEnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    not?: NestedEnumPaymentFrequencyFilter<$PrismaModel> | $Enums.PaymentFrequency
+  }
+
   export type OrganizationNullableScalarRelationFilter = {
     is?: OrganizationWhereInput | null
     isNot?: OrganizationWhereInput | null
@@ -18083,6 +18258,7 @@ export namespace Prisma {
     stripeCustomerId?: SortOrder
     stripeSubscriptionId?: SortOrder
     trialEndsAt?: SortOrder
+    paymentFrequency?: SortOrder
   }
 
   export type SubscriptionAvgOrderByAggregateInput = {
@@ -18099,6 +18275,7 @@ export namespace Prisma {
     stripeCustomerId?: SortOrder
     stripeSubscriptionId?: SortOrder
     trialEndsAt?: SortOrder
+    paymentFrequency?: SortOrder
   }
 
   export type SubscriptionMinOrderByAggregateInput = {
@@ -18110,6 +18287,7 @@ export namespace Prisma {
     stripeCustomerId?: SortOrder
     stripeSubscriptionId?: SortOrder
     trialEndsAt?: SortOrder
+    paymentFrequency?: SortOrder
   }
 
   export type SubscriptionSumOrderByAggregateInput = {
@@ -18165,6 +18343,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumPaymentFrequencyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentFrequency | EnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    in?: $Enums.PaymentFrequency[] | ListEnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PaymentFrequency[] | ListEnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    not?: NestedEnumPaymentFrequencyWithAggregatesFilter<$PrismaModel> | $Enums.PaymentFrequency
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPaymentFrequencyFilter<$PrismaModel>
+    _max?: NestedEnumPaymentFrequencyFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -18808,6 +18996,10 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type EnumPaymentFrequencyFieldUpdateOperationsInput = {
+    set?: $Enums.PaymentFrequency
+  }
+
   export type OrganizationUpdateOneWithoutSubscriptionNestedInput = {
     create?: XOR<OrganizationCreateWithoutSubscriptionInput, OrganizationUncheckedCreateWithoutSubscriptionInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutSubscriptionInput
@@ -19376,6 +19568,13 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedEnumPaymentFrequencyFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentFrequency | EnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    in?: $Enums.PaymentFrequency[] | ListEnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PaymentFrequency[] | ListEnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    not?: NestedEnumPaymentFrequencyFilter<$PrismaModel> | $Enums.PaymentFrequency
+  }
+
   export type NestedEnumSubscriptionLevelWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.SubscriptionLevel | EnumSubscriptionLevelFieldRefInput<$PrismaModel>
     in?: $Enums.SubscriptionLevel[] | ListEnumSubscriptionLevelFieldRefInput<$PrismaModel>
@@ -19424,6 +19623,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPaymentFrequencyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentFrequency | EnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    in?: $Enums.PaymentFrequency[] | ListEnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PaymentFrequency[] | ListEnumPaymentFrequencyFieldRefInput<$PrismaModel>
+    not?: NestedEnumPaymentFrequencyWithAggregatesFilter<$PrismaModel> | $Enums.PaymentFrequency
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPaymentFrequencyFilter<$PrismaModel>
+    _max?: NestedEnumPaymentFrequencyFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -19641,6 +19850,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress?: string | null
+    city: string
+    postCode: string
     businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
   }
@@ -19650,6 +19863,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress?: string | null
+    city: string
+    postCode: string
     subscriptionId: number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -19701,6 +19918,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
     businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
   }
@@ -19710,6 +19931,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
     subscriptionId?: IntFieldUpdateOperationsInput | number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
   }
@@ -19872,6 +20097,7 @@ export namespace Prisma {
     stripeCustomerId?: string | null
     stripeSubscriptionId?: string | null
     trialEndsAt?: Date | string | null
+    paymentFrequency: $Enums.PaymentFrequency
   }
 
   export type SubscriptionUncheckedCreateWithoutOrganizationInput = {
@@ -19883,6 +20109,7 @@ export namespace Prisma {
     stripeCustomerId?: string | null
     stripeSubscriptionId?: string | null
     trialEndsAt?: Date | string | null
+    paymentFrequency: $Enums.PaymentFrequency
   }
 
   export type SubscriptionCreateOrConnectWithoutOrganizationInput = {
@@ -19952,6 +20179,7 @@ export namespace Prisma {
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentFrequency?: EnumPaymentFrequencyFieldUpdateOperationsInput | $Enums.PaymentFrequency
   }
 
   export type SubscriptionUncheckedUpdateWithoutOrganizationInput = {
@@ -19963,6 +20191,7 @@ export namespace Prisma {
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     stripeSubscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
     trialEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    paymentFrequency?: EnumPaymentFrequencyFieldUpdateOperationsInput | $Enums.PaymentFrequency
   }
 
   export type BusinessUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -19997,6 +20226,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress?: string | null
+    city: string
+    postCode: string
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
     Business?: BusinessCreateNestedManyWithoutOrganizationInput
   }
@@ -20006,6 +20239,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress?: string | null
+    city: string
+    postCode: string
     subscriptionId: number
     Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -20054,6 +20291,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
     Business?: BusinessUpdateManyWithoutOrganizationNestedInput
   }
@@ -20063,6 +20304,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
     subscriptionId?: IntFieldUpdateOperationsInput | number
     Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }
@@ -20101,6 +20346,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress?: string | null
+    city: string
+    postCode: string
     businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
     Business?: BusinessCreateNestedManyWithoutOrganizationInput
   }
@@ -20110,6 +20359,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     legalName: string
+    firstLineOfAddress: string
+    secondLineOfAddress?: string | null
+    city: string
+    postCode: string
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
     Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -20134,6 +20387,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
     businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
     Business?: BusinessUpdateManyWithoutOrganizationNestedInput
   }
@@ -20143,6 +20400,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     legalName?: StringFieldUpdateOperationsInput | string
+    firstLineOfAddress?: StringFieldUpdateOperationsInput | string
+    secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    postCode?: StringFieldUpdateOperationsInput | string
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
     Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }

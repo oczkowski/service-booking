@@ -164,6 +164,10 @@ exports.Prisma.OrganizationScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   legalName: 'legalName',
+  firstLineOfAddress: 'firstLineOfAddress',
+  secondLineOfAddress: 'secondLineOfAddress',
+  city: 'city',
+  postCode: 'postCode',
   subscriptionId: 'subscriptionId'
 };
 
@@ -181,7 +185,8 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
   status: 'status',
   stripeCustomerId: 'stripeCustomerId',
   stripeSubscriptionId: 'stripeSubscriptionId',
-  trialEndsAt: 'trialEndsAt'
+  trialEndsAt: 'trialEndsAt',
+  paymentFrequency: 'paymentFrequency'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -262,6 +267,11 @@ exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
   PAST_DUE: 'PAST_DUE',
   CANCELED: 'CANCELED',
   UNPAID: 'UNPAID'
+};
+
+exports.PaymentFrequency = exports.$Enums.PaymentFrequency = {
+  MONTHLY: 'MONTHLY',
+  ANNUALY: 'ANNUALY'
 };
 
 exports.WeekDay = exports.$Enums.WeekDay = {
