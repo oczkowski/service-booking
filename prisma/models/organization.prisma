@@ -9,6 +9,8 @@ model Organization {
   city String
   postCode String
 
+  stripeCustomerId String?
+
   businessCustomers OrganizationOnBusinessCustomer[]
 
   subscription Subscription @relation(fields: [subscriptionId], references: [id])

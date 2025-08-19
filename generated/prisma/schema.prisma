@@ -65,7 +65,14 @@ model Organization {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  legalName String
+
+  legalName           String
+  firstLineOfAddress  String
+  secondLineOfAddress String?
+  city                String
+  postCode            String
+
+  stripeCustomerId String?
 
   businessCustomers OrganizationOnBusinessCustomer[]
 
@@ -96,15 +103,21 @@ model Subscription {
   stripeCustomerId     String?
   stripeSubscriptionId String?
   trialEndsAt          DateTime?
+  paymentFrequency     PaymentFrequency
 
   organization Organization?
 }
 
+enum PaymentFrequency {
+  MONTHLY
+  ANNUALY
+}
+
 enum SubscriptionLevel {
-  SMALL // 1 Business, 20 Services, 2,000 Appointments / Monthly
-  MEDIUM // 3 Businesses, 60 Services, 10,000 Appointments / Monthly
-  LARGE // 10 Businesses, 200 Services, 80,000 Appointments / Monthly
-  ENTERPRISE // Confirmed during enquiry
+  SMALL
+  MEDIUM
+  LARGE
+  ENTERPRISE
 }
 
 enum SubscriptionStatus {

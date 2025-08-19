@@ -29,10 +29,10 @@ export default function OrganizationSetupPage() {
         reset
     } = useOrganizationSetup()
 
-    // Redirect to choose-plan if no subscription is selected
+    // Redirect to plans if no subscription is selected
     useEffect(() => {
         if (!subscriptionData.subscriptionLevel) {
-            router.push('/manage/organization/setup/choose-plan')
+            router.push('/plans')
         }
     }, [subscriptionData.subscriptionLevel, router])
 
@@ -136,7 +136,7 @@ export default function OrganizationSetupPage() {
                                     type="button"
                                     variant="ghost"
                                     size="sm"
-                                    onClick={() => router.push('/manage/organization/setup/choose-plan')}
+                                    onClick={() => router.push('/plans')}
                                     className="mt-2 h-8 text-xs cursor-pointer"
                                 >
                                     Change Plan
@@ -245,7 +245,7 @@ export default function OrganizationSetupPage() {
                                 <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={() => router.push('/manage/organization/setup/choose-plan')}
+                                    onClick={() => router.push('/plans')}
                                     className="flex items-center gap-2"
                                 >
                                     <ArrowLeft className="w-4 h-4" />

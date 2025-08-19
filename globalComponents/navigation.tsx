@@ -23,15 +23,14 @@ type NavigationItemsType = Array<NavigationItem>;
 
 const navigationItems: NavigationItemsType = [
   { title: "Home", path: "/" },
-  { title: "Pricing", path: "/pricing" },
-  { title: "Make a booking", path: "/book" },
+  { title: "Plans", path: "/plans" },
 ];
 
 const Navigation = async () => {
   const session = await auth0.getSession();
 
   return (
-    <NavigationMenu className="grow-0 p-3 border-b-white border-2 w-screen flex justify-around max-w-none">
+    <NavigationMenu className="grow-0 p-3 border-b-white border-2 w-full flex justify-around max-w-none bg-gradient-to-r from-black to-gray-800">
       <NavigationMenuList>
         {navigationItems.map((item) => {
           return (
@@ -58,7 +57,7 @@ const Navigation = async () => {
         </div>
       ) : (
         <Button asChild>
-          <Link className="font-medium" href="/manage/organization/setup/choose-plan">Try free for 21 days</Link>
+          <Link className="font-medium" href="/plans">Try free for 21 days</Link>
         </Button>
       )}
     </NavigationMenu>

@@ -214,13 +214,6 @@ export class PrismaClient<
    */
   $disconnect(): $Utils.JsPromise<void>;
 
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
-
 /**
    * Executes a prepared raw query and returns the number of affected rows.
    * @example
@@ -467,8 +460,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.13.0
-   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+   * Prisma Client JS version: 6.14.0
+   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
    */
   export type PrismaVersion = {
     client: string
@@ -1932,25 +1925,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -6820,6 +6794,7 @@ export namespace Prisma {
     secondLineOfAddress: string | null
     city: string | null
     postCode: string | null
+    stripeCustomerId: string | null
     subscriptionId: number | null
   }
 
@@ -6832,6 +6807,7 @@ export namespace Prisma {
     secondLineOfAddress: string | null
     city: string | null
     postCode: string | null
+    stripeCustomerId: string | null
     subscriptionId: number | null
   }
 
@@ -6844,6 +6820,7 @@ export namespace Prisma {
     secondLineOfAddress: number
     city: number
     postCode: number
+    stripeCustomerId: number
     subscriptionId: number
     _all: number
   }
@@ -6868,6 +6845,7 @@ export namespace Prisma {
     secondLineOfAddress?: true
     city?: true
     postCode?: true
+    stripeCustomerId?: true
     subscriptionId?: true
   }
 
@@ -6880,6 +6858,7 @@ export namespace Prisma {
     secondLineOfAddress?: true
     city?: true
     postCode?: true
+    stripeCustomerId?: true
     subscriptionId?: true
   }
 
@@ -6892,6 +6871,7 @@ export namespace Prisma {
     secondLineOfAddress?: true
     city?: true
     postCode?: true
+    stripeCustomerId?: true
     subscriptionId?: true
     _all?: true
   }
@@ -6991,6 +6971,7 @@ export namespace Prisma {
     secondLineOfAddress: string | null
     city: string
     postCode: string
+    stripeCustomerId: string | null
     subscriptionId: number
     _count: OrganizationCountAggregateOutputType | null
     _avg: OrganizationAvgAggregateOutputType | null
@@ -7022,6 +7003,7 @@ export namespace Prisma {
     secondLineOfAddress?: boolean
     city?: boolean
     postCode?: boolean
+    stripeCustomerId?: boolean
     subscriptionId?: boolean
     businessCustomers?: boolean | Organization$businessCustomersArgs<ExtArgs>
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
@@ -7038,6 +7020,7 @@ export namespace Prisma {
     secondLineOfAddress?: boolean
     city?: boolean
     postCode?: boolean
+    stripeCustomerId?: boolean
     subscriptionId?: boolean
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
@@ -7051,6 +7034,7 @@ export namespace Prisma {
     secondLineOfAddress?: boolean
     city?: boolean
     postCode?: boolean
+    stripeCustomerId?: boolean
     subscriptionId?: boolean
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
@@ -7064,10 +7048,11 @@ export namespace Prisma {
     secondLineOfAddress?: boolean
     city?: boolean
     postCode?: boolean
+    stripeCustomerId?: boolean
     subscriptionId?: boolean
   }
 
-  export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "legalName" | "firstLineOfAddress" | "secondLineOfAddress" | "city" | "postCode" | "subscriptionId", ExtArgs["result"]["organization"]>
+  export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "legalName" | "firstLineOfAddress" | "secondLineOfAddress" | "city" | "postCode" | "stripeCustomerId" | "subscriptionId", ExtArgs["result"]["organization"]>
   export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     businessCustomers?: boolean | Organization$businessCustomersArgs<ExtArgs>
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
@@ -7097,6 +7082,7 @@ export namespace Prisma {
       secondLineOfAddress: string | null
       city: string
       postCode: string
+      stripeCustomerId: string | null
       subscriptionId: number
     }, ExtArgs["result"]["organization"]>
     composites: {}
@@ -7532,6 +7518,7 @@ export namespace Prisma {
     readonly secondLineOfAddress: FieldRef<"Organization", 'String'>
     readonly city: FieldRef<"Organization", 'String'>
     readonly postCode: FieldRef<"Organization", 'String'>
+    readonly stripeCustomerId: FieldRef<"Organization", 'String'>
     readonly subscriptionId: FieldRef<"Organization", 'Int'>
   }
     
@@ -15945,6 +15932,7 @@ export namespace Prisma {
     secondLineOfAddress: 'secondLineOfAddress',
     city: 'city',
     postCode: 'postCode',
+    stripeCustomerId: 'stripeCustomerId',
     subscriptionId: 'subscriptionId'
   };
 
@@ -16504,6 +16492,7 @@ export namespace Prisma {
     secondLineOfAddress?: StringNullableFilter<"Organization"> | string | null
     city?: StringFilter<"Organization"> | string
     postCode?: StringFilter<"Organization"> | string
+    stripeCustomerId?: StringNullableFilter<"Organization"> | string | null
     subscriptionId?: IntFilter<"Organization"> | number
     businessCustomers?: OrganizationOnBusinessCustomerListRelationFilter
     subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
@@ -16519,6 +16508,7 @@ export namespace Prisma {
     secondLineOfAddress?: SortOrderInput | SortOrder
     city?: SortOrder
     postCode?: SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
     subscriptionId?: SortOrder
     businessCustomers?: OrganizationOnBusinessCustomerOrderByRelationAggregateInput
     subscription?: SubscriptionOrderByWithRelationInput
@@ -16538,6 +16528,7 @@ export namespace Prisma {
     secondLineOfAddress?: StringNullableFilter<"Organization"> | string | null
     city?: StringFilter<"Organization"> | string
     postCode?: StringFilter<"Organization"> | string
+    stripeCustomerId?: StringNullableFilter<"Organization"> | string | null
     businessCustomers?: OrganizationOnBusinessCustomerListRelationFilter
     subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
     Business?: BusinessListRelationFilter
@@ -16552,6 +16543,7 @@ export namespace Prisma {
     secondLineOfAddress?: SortOrderInput | SortOrder
     city?: SortOrder
     postCode?: SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
     subscriptionId?: SortOrder
     _count?: OrganizationCountOrderByAggregateInput
     _avg?: OrganizationAvgOrderByAggregateInput
@@ -16572,6 +16564,7 @@ export namespace Prisma {
     secondLineOfAddress?: StringNullableWithAggregatesFilter<"Organization"> | string | null
     city?: StringWithAggregatesFilter<"Organization"> | string
     postCode?: StringWithAggregatesFilter<"Organization"> | string
+    stripeCustomerId?: StringNullableWithAggregatesFilter<"Organization"> | string | null
     subscriptionId?: IntWithAggregatesFilter<"Organization"> | number
   }
 
@@ -17272,6 +17265,7 @@ export namespace Prisma {
     secondLineOfAddress?: string | null
     city: string
     postCode: string
+    stripeCustomerId?: string | null
     businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
     Business?: BusinessCreateNestedManyWithoutOrganizationInput
@@ -17286,6 +17280,7 @@ export namespace Prisma {
     secondLineOfAddress?: string | null
     city: string
     postCode: string
+    stripeCustomerId?: string | null
     subscriptionId: number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
     Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
@@ -17299,6 +17294,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
     Business?: BusinessUpdateManyWithoutOrganizationNestedInput
@@ -17313,6 +17309,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionId?: IntFieldUpdateOperationsInput | number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
     Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
@@ -17327,6 +17324,7 @@ export namespace Prisma {
     secondLineOfAddress?: string | null
     city: string
     postCode: string
+    stripeCustomerId?: string | null
     subscriptionId: number
   }
 
@@ -17338,6 +17336,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OrganizationUncheckedUpdateManyInput = {
@@ -17349,6 +17348,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -18109,6 +18109,7 @@ export namespace Prisma {
     secondLineOfAddress?: SortOrder
     city?: SortOrder
     postCode?: SortOrder
+    stripeCustomerId?: SortOrder
     subscriptionId?: SortOrder
   }
 
@@ -18126,6 +18127,7 @@ export namespace Prisma {
     secondLineOfAddress?: SortOrder
     city?: SortOrder
     postCode?: SortOrder
+    stripeCustomerId?: SortOrder
     subscriptionId?: SortOrder
   }
 
@@ -18138,6 +18140,7 @@ export namespace Prisma {
     secondLineOfAddress?: SortOrder
     city?: SortOrder
     postCode?: SortOrder
+    stripeCustomerId?: SortOrder
     subscriptionId?: SortOrder
   }
 
@@ -19854,6 +19857,7 @@ export namespace Prisma {
     secondLineOfAddress?: string | null
     city: string
     postCode: string
+    stripeCustomerId?: string | null
     businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
   }
@@ -19867,6 +19871,7 @@ export namespace Prisma {
     secondLineOfAddress?: string | null
     city: string
     postCode: string
+    stripeCustomerId?: string | null
     subscriptionId: number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -19922,6 +19927,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
   }
@@ -19935,6 +19941,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionId?: IntFieldUpdateOperationsInput | number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
   }
@@ -20230,6 +20237,7 @@ export namespace Prisma {
     secondLineOfAddress?: string | null
     city: string
     postCode: string
+    stripeCustomerId?: string | null
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
     Business?: BusinessCreateNestedManyWithoutOrganizationInput
   }
@@ -20243,6 +20251,7 @@ export namespace Prisma {
     secondLineOfAddress?: string | null
     city: string
     postCode: string
+    stripeCustomerId?: string | null
     subscriptionId: number
     Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -20295,6 +20304,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
     Business?: BusinessUpdateManyWithoutOrganizationNestedInput
   }
@@ -20308,6 +20318,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionId?: IntFieldUpdateOperationsInput | number
     Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }
@@ -20350,6 +20361,7 @@ export namespace Prisma {
     secondLineOfAddress?: string | null
     city: string
     postCode: string
+    stripeCustomerId?: string | null
     businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
     Business?: BusinessCreateNestedManyWithoutOrganizationInput
   }
@@ -20363,6 +20375,7 @@ export namespace Prisma {
     secondLineOfAddress?: string | null
     city: string
     postCode: string
+    stripeCustomerId?: string | null
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
     Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
   }
@@ -20391,6 +20404,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
     Business?: BusinessUpdateManyWithoutOrganizationNestedInput
   }
@@ -20404,6 +20418,7 @@ export namespace Prisma {
     secondLineOfAddress?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
     Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }

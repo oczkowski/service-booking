@@ -7,11 +7,10 @@ loadEnvConfig(projectDir);
 
 export const env = createEnv({
   server: {
+    // App specific
+    DEPLOY_URL: z.url(),
     // Postgres
     POSTGRES_PRISMA_URL: z.string().min(1),
-    // Google OAuth
-    // GOOGLE_CLIENT_ID: z.string().min(1),
-    // GOOGLE_CLIENT_SECRET: z.string().min(1),
     // Auth0
     AUTH0_BASE_URL: z.string().min(1),
     AUTH0_SECRET: z.string().min(10),
@@ -22,14 +21,18 @@ export const env = createEnv({
     // AUTH0_SCOPE: z.string().min(1),
     AUTH0_HOOK_SECRET: z.string().min(10),
     // Stripe
-    STRIPE_SECRET_KEY: z.string().min(10)
+    STRIPE_SECRET_KEY: z.string().min(10),
   },
   client: {
     // Project specific
     NEXT_PUBLIC_BRAND_NAME: z.string().min(1),
     NEXT_PUBLIC_COMPANY_NAME: z.string().min(1),
+    // Stripe
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(10)
   },
   runtimeEnv: {
+    // App specific
+    DEPLOY_URL: process.env.DEPLOY_URL,
     // Postgres
     POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
     // App settings
@@ -47,6 +50,7 @@ export const env = createEnv({
     // AUTH0_SCOPE: process.env.AUTH0_SCOPE,
     AUTH0_HOOK_SECRET: process.env.AUTH0_HOOK_SECRET,
     // Stripe
-    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   },
 });
