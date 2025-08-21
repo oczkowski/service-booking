@@ -28,7 +28,9 @@ export const env = createEnv({
   },
   runtimeEnv: {
     // App specific
-    DEPLOY_URL: process.env.DEPLOY_URL,
+    DEPLOY_URL: process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : process.env.DEPLOY_URL,
     // Postgres
     POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
     // App settings
@@ -37,7 +39,7 @@ export const env = createEnv({
     // Auth0
     AUTH0_BASE_URL: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
-      : process.env.AUTH0_BASE_URL,
+      : process.env.DEPLOY_URL,
     AUTH0_SECRET: process.env.AUTH0_SECRET,
     AUTH0_ISSUER_BASE_URL: process.env.AUTH0_ISSUER_BASE_URL,
     AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
