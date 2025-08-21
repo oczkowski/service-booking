@@ -48,7 +48,7 @@ const CheckoutPage = () => {
                 } else {
                     setError('Stripe failed to load');
                 }
-            } catch (err) {
+            } catch (_) {
                 setError('Failed to create checkout session');
             }
         };
