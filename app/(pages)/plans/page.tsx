@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-import type { PricingPlan } from './pricing'
-import { plans } from './pricing';
+import type { PricingPlan } from '../../../lib/plans'
+import { plans } from '@/lib/plans';
 import { useOrganizationSetup } from '@/lib/stores/organization-setup'
 import { SubscriptionLevel, PaymentFrequency } from '@/generated/prisma'
 import { useRouter } from "next/navigation"
@@ -40,15 +40,17 @@ export default function ChooseProductPage() {
 
     const handlePlanSelect = (plan: PricingPlan) => {
         const price = isYearly ? plan.yearlyPrice : plan.monthlyPrice
+        const priceId = isYearly ? plan.yearlyPriceId : plan.monthlyPriceId
 
         setSubscription({
             subscriptionLevel: plan.name.toUpperCase() as SubscriptionLevel,
             paymentFrequency: isYearly ? PaymentFrequency.ANNUALY : PaymentFrequency.MONTHLY,
             price,
+            priceId,
             features: plan.features
         })
 
-        router.push('/manage/organization/setup/confirm-details')
+        router.push('/manage/organization/checkout')
     }
 
     const handleYearlyToggle = (yearly: boolean) => {

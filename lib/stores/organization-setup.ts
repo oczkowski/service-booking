@@ -1,11 +1,13 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { SubscriptionLevel, PaymentFrequency } from '@/generated/prisma'
+import { MonthlyPlanPriceIds, YearlyPlanPriceIds } from '@/lib/plans';
 
 export interface SubscriptionData {
   subscriptionLevel: SubscriptionLevel | null
   paymentFrequency: PaymentFrequency
   price: number
+  priceId?: MonthlyPlanPriceIds | YearlyPlanPriceIds
   features: string[]
 }
 
@@ -21,17 +23,17 @@ interface OrganizationSetupStore {
   // Data
   organizationData: OrganizationData
   subscriptionData: SubscriptionData
-  
+
   // Actions
   updateField: <K extends keyof OrganizationData>(field: K, value: OrganizationData[K]) => void
   setSubscription: (subscription: Partial<SubscriptionData>) => void
   reset: () => void
-  
+
   // Validation
   errors: Record<string, string>
   setErrors: (errors: Record<string, string>) => void
   clearError: (field: string) => void
-  
+
   // Computed
   isComplete: () => boolean
 }
@@ -47,6 +49,7 @@ const initialOrganizationData: OrganizationData = {
 const initialSubscriptionData: SubscriptionData = {
   subscriptionLevel: null,
   paymentFrequency: PaymentFrequency.MONTHLY,
+  priceId: MonthlyPlanPriceIds.SMALL,
   price: 0,
   features: []
 }
@@ -57,7 +60,7 @@ export const useOrganizationSetup = create<OrganizationSetupStore>()(
       organizationData: initialOrganizationData,
       subscriptionData: initialSubscriptionData,
       errors: {},
-      
+
       updateField: (field, value) => {
         set((state) => ({
           organizationData: {
@@ -65,7 +68,7 @@ export const useOrganizationSetup = create<OrganizationSetupStore>()(
             [field]: value
           }
         }))
-        
+
         // Clear error when user updates field
         const { errors } = get()
         if (errors[field as string]) {
@@ -74,7 +77,7 @@ export const useOrganizationSetup = create<OrganizationSetupStore>()(
 
         get().clearError('submit')
       },
-      
+
       setSubscription: (subscription) => {
         set((state) => ({
           subscriptionData: {
@@ -83,9 +86,9 @@ export const useOrganizationSetup = create<OrganizationSetupStore>()(
           }
         }))
       },
-      
+
       setErrors: (errors) => set({ errors }),
-      
+
       clearError: (field) => {
         set((state) => {
           const newErrors = { ...state.errors }
@@ -93,7 +96,7 @@ export const useOrganizationSetup = create<OrganizationSetupStore>()(
           return { errors: newErrors }
         })
       },
-      
+
       isComplete: () => {
         const { organizationData, subscriptionData } = get()
         return !!(
@@ -104,8 +107,8 @@ export const useOrganizationSetup = create<OrganizationSetupStore>()(
           organizationData.postCode.trim()
         )
       },
-      
-      reset: () => set({ 
+
+      reset: () => set({
         organizationData: initialOrganizationData,
         subscriptionData: initialSubscriptionData,
         errors: {}

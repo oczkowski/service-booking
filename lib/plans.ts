@@ -1,8 +1,22 @@
+export enum MonthlyPlanPriceIds {
+    SMALL = 'price_1RyGJu2KUzcJxw6Z5bXNJROY',
+    MEDIUM = 'price_1RyGLZ2KUzcJxw6ZZVoP0KRy',
+    LARGE = 'price_1RyGOH2KUzcJxw6ZdtEky2A2',
+}
+
+export enum YearlyPlanPriceIds {
+    SMALL = 'price_1RyGIe2KUzcJxw6Z6U19FjhB',
+    MEDIUM = 'price_1RyGMg2KUzcJxw6ZXvxhfeYs',
+    LARGE = 'price_1RyGP32KUzcJxw6Z2Xv21eZB',
+}
+
 export interface PricingPlan {
     name: string
     description: string
     monthlyPrice: number
+    monthlyPriceId?: MonthlyPlanPriceIds
     yearlyPrice: number
+    yearlyPriceId?: YearlyPlanPriceIds
     businesses: number | string
     services: number
     appointments: number | string
@@ -16,7 +30,9 @@ export const plans: PricingPlan[] = [
         name: "Small",
         description: "Perfect for getting started",
         monthlyPrice: 13.99,
+        monthlyPriceId: MonthlyPlanPriceIds.SMALL,
         yearlyPrice: 139.90,
+        yearlyPriceId: YearlyPlanPriceIds.SMALL,
         businesses: 1,
         services: 20,
         appointments: "2,000",
@@ -35,7 +51,9 @@ export const plans: PricingPlan[] = [
         name: "Medium",
         description: "Great for growing businesses",
         monthlyPrice: 79.99,
+        monthlyPriceId: MonthlyPlanPriceIds.MEDIUM,
         yearlyPrice: 799.90,
+        yearlyPriceId: YearlyPlanPriceIds.MEDIUM,
         businesses: 3,
         services: 60,
         appointments: "5,000",
@@ -59,7 +77,9 @@ export const plans: PricingPlan[] = [
         name: "Large",
         description: "For established enterprises",
         monthlyPrice: 199.99,
+        monthlyPriceId: MonthlyPlanPriceIds.LARGE,
         yearlyPrice: 1999.90,
+        yearlyPriceId: YearlyPlanPriceIds.LARGE,
         businesses: 10,
         services: 200,
         appointments: "80,000",
