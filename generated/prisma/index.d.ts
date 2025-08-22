@@ -1975,37 +1975,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type BusinessCustomerCountOutputType
-   */
-
-  export type BusinessCustomerCountOutputType = {
-    organization: number
-  }
-
-  export type BusinessCustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    organization?: boolean | BusinessCustomerCountOutputTypeCountOrganizationArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * BusinessCustomerCountOutputType without action
-   */
-  export type BusinessCustomerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BusinessCustomerCountOutputType
-     */
-    select?: BusinessCustomerCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * BusinessCustomerCountOutputType without action
-   */
-  export type BusinessCustomerCountOutputTypeCountOrganizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OrganizationOnBusinessCustomerWhereInput
-  }
-
-
-  /**
    * Count Type CustomerCountOutputType
    */
 
@@ -2041,12 +2010,10 @@ export namespace Prisma {
    */
 
   export type OrganizationCountOutputType = {
-    businessCustomers: number
     Business: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    businessCustomers?: boolean | OrganizationCountOutputTypeCountBusinessCustomersArgs
     Business?: boolean | OrganizationCountOutputTypeCountBusinessArgs
   }
 
@@ -2059,13 +2026,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the OrganizationCountOutputType
      */
     select?: OrganizationCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * OrganizationCountOutputType without action
-   */
-  export type OrganizationCountOutputTypeCountBusinessCustomersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OrganizationOnBusinessCustomerWhereInput
   }
 
   /**
@@ -4718,7 +4678,6 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     organization?: boolean | BusinessCustomer$organizationArgs<ExtArgs>
-    _count?: boolean | BusinessCustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["businessCustomer"]>
 
   export type BusinessCustomerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4754,7 +4713,6 @@ export namespace Prisma {
   export type BusinessCustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "email" | "mobile" | "firstName" | "lastName", ExtArgs["result"]["businessCustomer"]>
   export type BusinessCustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | BusinessCustomer$organizationArgs<ExtArgs>
-    _count?: boolean | BusinessCustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BusinessCustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
   export type BusinessCustomerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4762,7 +4720,7 @@ export namespace Prisma {
   export type $BusinessCustomerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BusinessCustomer"
     objects: {
-      organization: Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>[]
+      organization: Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5166,7 +5124,7 @@ export namespace Prisma {
    */
   export interface Prisma__BusinessCustomerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    organization<T extends BusinessCustomer$organizationArgs<ExtArgs> = {}>(args?: Subset<T, BusinessCustomer$organizationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    organization<T extends BusinessCustomer$organizationArgs<ExtArgs> = {}>(args?: Subset<T, BusinessCustomer$organizationArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5607,11 +5565,6 @@ export namespace Prisma {
      */
     include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
     where?: OrganizationOnBusinessCustomerWhereInput
-    orderBy?: OrganizationOnBusinessCustomerOrderByWithRelationInput | OrganizationOnBusinessCustomerOrderByWithRelationInput[]
-    cursor?: OrganizationOnBusinessCustomerWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrganizationOnBusinessCustomerScalarFieldEnum | OrganizationOnBusinessCustomerScalarFieldEnum[]
   }
 
   /**
@@ -7069,7 +7022,7 @@ export namespace Prisma {
   export type $OrganizationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Organization"
     objects: {
-      businessCustomers: Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>[]
+      businessCustomers: Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs> | null
       subscription: Prisma.$SubscriptionPayload<ExtArgs>
       Business: Prisma.$BusinessPayload<ExtArgs>[]
     }
@@ -7478,7 +7431,7 @@ export namespace Prisma {
    */
   export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    businessCustomers<T extends Organization$businessCustomersArgs<ExtArgs> = {}>(args?: Subset<T, Organization$businessCustomersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    businessCustomers<T extends Organization$businessCustomersArgs<ExtArgs> = {}>(args?: Subset<T, Organization$businessCustomersArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     subscription<T extends SubscriptionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubscriptionDefaultArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     Business<T extends Organization$BusinessArgs<ExtArgs> = {}>(args?: Subset<T, Organization$BusinessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7932,11 +7885,6 @@ export namespace Prisma {
      */
     include?: OrganizationOnBusinessCustomerInclude<ExtArgs> | null
     where?: OrganizationOnBusinessCustomerWhereInput
-    orderBy?: OrganizationOnBusinessCustomerOrderByWithRelationInput | OrganizationOnBusinessCustomerOrderByWithRelationInput[]
-    cursor?: OrganizationOnBusinessCustomerWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrganizationOnBusinessCustomerScalarFieldEnum | OrganizationOnBusinessCustomerScalarFieldEnum[]
   }
 
   /**
@@ -16308,6 +16256,7 @@ export namespace Prisma {
 
   export type BusinessWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    organizationId?: number
     AND?: BusinessWhereInput | BusinessWhereInput[]
     OR?: BusinessWhereInput[]
     NOT?: BusinessWhereInput | BusinessWhereInput[]
@@ -16315,10 +16264,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Business"> | Date | string
     contactNumber?: StringFilter<"Business"> | string
     businessName?: StringFilter<"Business"> | string
-    organizationId?: IntFilter<"Business"> | number
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     services?: ServiceListRelationFilter
-  }, "id">
+  }, "id" | "organizationId">
 
   export type BusinessOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16357,7 +16305,7 @@ export namespace Prisma {
     mobile?: StringNullableFilter<"BusinessCustomer"> | string | null
     firstName?: StringFilter<"BusinessCustomer"> | string
     lastName?: StringFilter<"BusinessCustomer"> | string
-    organization?: OrganizationOnBusinessCustomerListRelationFilter
+    organization?: XOR<OrganizationOnBusinessCustomerNullableScalarRelationFilter, OrganizationOnBusinessCustomerWhereInput> | null
   }
 
   export type BusinessCustomerOrderByWithRelationInput = {
@@ -16368,7 +16316,7 @@ export namespace Prisma {
     mobile?: SortOrderInput | SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
-    organization?: OrganizationOnBusinessCustomerOrderByRelationAggregateInput
+    organization?: OrganizationOnBusinessCustomerOrderByWithRelationInput
   }
 
   export type BusinessCustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -16382,7 +16330,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BusinessCustomer"> | Date | string
     firstName?: StringFilter<"BusinessCustomer"> | string
     lastName?: StringFilter<"BusinessCustomer"> | string
-    organization?: OrganizationOnBusinessCustomerListRelationFilter
+    organization?: XOR<OrganizationOnBusinessCustomerNullableScalarRelationFilter, OrganizationOnBusinessCustomerWhereInput> | null
   }, "id" | "email" | "mobile">
 
   export type BusinessCustomerOrderByWithAggregationInput = {
@@ -16494,7 +16442,7 @@ export namespace Prisma {
     postCode?: StringFilter<"Organization"> | string
     stripeCustomerId?: StringNullableFilter<"Organization"> | string | null
     subscriptionId?: IntFilter<"Organization"> | number
-    businessCustomers?: OrganizationOnBusinessCustomerListRelationFilter
+    businessCustomers?: XOR<OrganizationOnBusinessCustomerNullableScalarRelationFilter, OrganizationOnBusinessCustomerWhereInput> | null
     subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
     Business?: BusinessListRelationFilter
   }
@@ -16510,7 +16458,7 @@ export namespace Prisma {
     postCode?: SortOrder
     stripeCustomerId?: SortOrderInput | SortOrder
     subscriptionId?: SortOrder
-    businessCustomers?: OrganizationOnBusinessCustomerOrderByRelationAggregateInput
+    businessCustomers?: OrganizationOnBusinessCustomerOrderByWithRelationInput
     subscription?: SubscriptionOrderByWithRelationInput
     Business?: BusinessOrderByRelationAggregateInput
   }
@@ -16529,7 +16477,7 @@ export namespace Prisma {
     city?: StringFilter<"Organization"> | string
     postCode?: StringFilter<"Organization"> | string
     stripeCustomerId?: StringNullableFilter<"Organization"> | string | null
-    businessCustomers?: OrganizationOnBusinessCustomerListRelationFilter
+    businessCustomers?: XOR<OrganizationOnBusinessCustomerNullableScalarRelationFilter, OrganizationOnBusinessCustomerWhereInput> | null
     subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
     Business?: BusinessListRelationFilter
   }, "id" | "subscriptionId">
@@ -16588,16 +16536,16 @@ export namespace Prisma {
   }
 
   export type OrganizationOnBusinessCustomerWhereUniqueInput = Prisma.AtLeast<{
+    organizationId?: number
+    businessCustomerId?: number
     organizationId_businessCustomerId?: OrganizationOnBusinessCustomerOrganizationIdBusinessCustomerIdCompoundUniqueInput
     AND?: OrganizationOnBusinessCustomerWhereInput | OrganizationOnBusinessCustomerWhereInput[]
     OR?: OrganizationOnBusinessCustomerWhereInput[]
     NOT?: OrganizationOnBusinessCustomerWhereInput | OrganizationOnBusinessCustomerWhereInput[]
-    organizationId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
-    businessCustomerId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
     role?: EnumOrganizationRoleFilter<"OrganizationOnBusinessCustomer"> | $Enums.OrganizationRole
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     businessCustomer?: XOR<BusinessCustomerScalarRelationFilter, BusinessCustomerWhereInput>
-  }, "organizationId_businessCustomerId">
+  }, "organizationId_businessCustomerId" | "organizationId" | "businessCustomerId">
 
   export type OrganizationOnBusinessCustomerOrderByWithAggregationInput = {
     organizationId?: SortOrder
@@ -17122,7 +17070,7 @@ export namespace Prisma {
     mobile?: string | null
     firstName: string
     lastName: string
-    organization?: OrganizationOnBusinessCustomerCreateNestedManyWithoutBusinessCustomerInput
+    organization?: OrganizationOnBusinessCustomerCreateNestedOneWithoutBusinessCustomerInput
   }
 
   export type BusinessCustomerUncheckedCreateInput = {
@@ -17133,7 +17081,7 @@ export namespace Prisma {
     mobile?: string | null
     firstName: string
     lastName: string
-    organization?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutBusinessCustomerInput
+    organization?: OrganizationOnBusinessCustomerUncheckedCreateNestedOneWithoutBusinessCustomerInput
   }
 
   export type BusinessCustomerUpdateInput = {
@@ -17143,7 +17091,7 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
-    organization?: OrganizationOnBusinessCustomerUpdateManyWithoutBusinessCustomerNestedInput
+    organization?: OrganizationOnBusinessCustomerUpdateOneWithoutBusinessCustomerNestedInput
   }
 
   export type BusinessCustomerUncheckedUpdateInput = {
@@ -17154,7 +17102,7 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
-    organization?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutBusinessCustomerNestedInput
+    organization?: OrganizationOnBusinessCustomerUncheckedUpdateOneWithoutBusinessCustomerNestedInput
   }
 
   export type BusinessCustomerCreateManyInput = {
@@ -17266,7 +17214,7 @@ export namespace Prisma {
     city: string
     postCode: string
     stripeCustomerId?: string | null
-    businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
+    businessCustomers?: OrganizationOnBusinessCustomerCreateNestedOneWithoutOrganizationInput
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
     Business?: BusinessCreateNestedManyWithoutOrganizationInput
   }
@@ -17282,7 +17230,7 @@ export namespace Prisma {
     postCode: string
     stripeCustomerId?: string | null
     subscriptionId: number
-    businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedOneWithoutOrganizationInput
     Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
@@ -17295,7 +17243,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
-    businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
+    businessCustomers?: OrganizationOnBusinessCustomerUpdateOneWithoutOrganizationNestedInput
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
     Business?: BusinessUpdateManyWithoutOrganizationNestedInput
   }
@@ -17311,7 +17259,7 @@ export namespace Prisma {
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionId?: IntFieldUpdateOperationsInput | number
-    businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateOneWithoutOrganizationNestedInput
     Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -17966,19 +17914,14 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type OrganizationOnBusinessCustomerListRelationFilter = {
-    every?: OrganizationOnBusinessCustomerWhereInput
-    some?: OrganizationOnBusinessCustomerWhereInput
-    none?: OrganizationOnBusinessCustomerWhereInput
+  export type OrganizationOnBusinessCustomerNullableScalarRelationFilter = {
+    is?: OrganizationOnBusinessCustomerWhereInput | null
+    isNot?: OrganizationOnBusinessCustomerWhereInput | null
   }
 
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
-  }
-
-  export type OrganizationOnBusinessCustomerOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type BusinessCustomerCountOrderByAggregateInput = {
@@ -18749,50 +18692,40 @@ export namespace Prisma {
     deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
-  export type OrganizationOnBusinessCustomerCreateNestedManyWithoutBusinessCustomerInput = {
-    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput> | OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput[]
-    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput[]
-    createMany?: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope
-    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+  export type OrganizationOnBusinessCustomerCreateNestedOneWithoutBusinessCustomerInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput>
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput
   }
 
-  export type OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutBusinessCustomerInput = {
-    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput> | OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput[]
-    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput[]
-    createMany?: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope
-    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+  export type OrganizationOnBusinessCustomerUncheckedCreateNestedOneWithoutBusinessCustomerInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput>
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
-  export type OrganizationOnBusinessCustomerUpdateManyWithoutBusinessCustomerNestedInput = {
-    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput> | OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput[]
-    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput[]
-    upsert?: OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput[]
-    createMany?: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope
-    set?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    disconnect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    delete?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    update?: OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput[]
-    updateMany?: OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput[]
-    deleteMany?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
+  export type OrganizationOnBusinessCustomerUpdateOneWithoutBusinessCustomerNestedInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput>
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput
+    upsert?: OrganizationOnBusinessCustomerUpsertWithoutBusinessCustomerInput
+    disconnect?: OrganizationOnBusinessCustomerWhereInput | boolean
+    delete?: OrganizationOnBusinessCustomerWhereInput | boolean
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput
+    update?: XOR<XOR<OrganizationOnBusinessCustomerUpdateToOneWithWhereWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUpdateWithoutBusinessCustomerInput>, OrganizationOnBusinessCustomerUncheckedUpdateWithoutBusinessCustomerInput>
   }
 
-  export type OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutBusinessCustomerNestedInput = {
-    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput> | OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput[]
-    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput[]
-    upsert?: OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput[]
-    createMany?: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope
-    set?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    disconnect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    delete?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    update?: OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput[]
-    updateMany?: OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput | OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput[]
-    deleteMany?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
+  export type OrganizationOnBusinessCustomerUncheckedUpdateOneWithoutBusinessCustomerNestedInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput>
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutBusinessCustomerInput
+    upsert?: OrganizationOnBusinessCustomerUpsertWithoutBusinessCustomerInput
+    disconnect?: OrganizationOnBusinessCustomerWhereInput | boolean
+    delete?: OrganizationOnBusinessCustomerWhereInput | boolean
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput
+    update?: XOR<XOR<OrganizationOnBusinessCustomerUpdateToOneWithWhereWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUpdateWithoutBusinessCustomerInput>, OrganizationOnBusinessCustomerUncheckedUpdateWithoutBusinessCustomerInput>
   }
 
   export type AppointmentCreateNestedManyWithoutCustomerInput = {
@@ -18837,11 +18770,10 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
-  export type OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput = {
-    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput> | OrganizationOnBusinessCustomerCreateWithoutOrganizationInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput[]
-    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput[]
-    createMany?: OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope
-    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+  export type OrganizationOnBusinessCustomerCreateNestedOneWithoutOrganizationInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput
   }
 
   export type SubscriptionCreateNestedOneWithoutOrganizationInput = {
@@ -18857,11 +18789,10 @@ export namespace Prisma {
     connect?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
   }
 
-  export type OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput = {
-    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput> | OrganizationOnBusinessCustomerCreateWithoutOrganizationInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput[]
-    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput[]
-    createMany?: OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope
-    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
+  export type OrganizationOnBusinessCustomerUncheckedCreateNestedOneWithoutOrganizationInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput
   }
 
   export type BusinessUncheckedCreateNestedManyWithoutOrganizationInput = {
@@ -18871,18 +18802,14 @@ export namespace Prisma {
     connect?: BusinessWhereUniqueInput | BusinessWhereUniqueInput[]
   }
 
-  export type OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput = {
-    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput> | OrganizationOnBusinessCustomerCreateWithoutOrganizationInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput[]
-    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput[]
-    upsert?: OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput | OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput[]
-    createMany?: OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope
-    set?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    disconnect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    delete?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    update?: OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput | OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput[]
-    updateMany?: OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput | OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput[]
-    deleteMany?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
+  export type OrganizationOnBusinessCustomerUpdateOneWithoutOrganizationNestedInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput
+    upsert?: OrganizationOnBusinessCustomerUpsertWithoutOrganizationInput
+    disconnect?: OrganizationOnBusinessCustomerWhereInput | boolean
+    delete?: OrganizationOnBusinessCustomerWhereInput | boolean
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput
+    update?: XOR<XOR<OrganizationOnBusinessCustomerUpdateToOneWithWhereWithoutOrganizationInput, OrganizationOnBusinessCustomerUpdateWithoutOrganizationInput>, OrganizationOnBusinessCustomerUncheckedUpdateWithoutOrganizationInput>
   }
 
   export type SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput = {
@@ -18907,18 +18834,14 @@ export namespace Prisma {
     deleteMany?: BusinessScalarWhereInput | BusinessScalarWhereInput[]
   }
 
-  export type OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput = {
-    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput> | OrganizationOnBusinessCustomerCreateWithoutOrganizationInput[] | OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput[]
-    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput | OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput[]
-    upsert?: OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput | OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput[]
-    createMany?: OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope
-    set?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    disconnect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    delete?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    connect?: OrganizationOnBusinessCustomerWhereUniqueInput | OrganizationOnBusinessCustomerWhereUniqueInput[]
-    update?: OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput | OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput[]
-    updateMany?: OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput | OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput[]
-    deleteMany?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
+  export type OrganizationOnBusinessCustomerUncheckedUpdateOneWithoutOrganizationNestedInput = {
+    create?: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: OrganizationOnBusinessCustomerCreateOrConnectWithoutOrganizationInput
+    upsert?: OrganizationOnBusinessCustomerUpsertWithoutOrganizationInput
+    disconnect?: OrganizationOnBusinessCustomerWhereInput | boolean
+    delete?: OrganizationOnBusinessCustomerWhereInput | boolean
+    connect?: OrganizationOnBusinessCustomerWhereUniqueInput
+    update?: XOR<XOR<OrganizationOnBusinessCustomerUpdateToOneWithWhereWithoutOrganizationInput, OrganizationOnBusinessCustomerUpdateWithoutOrganizationInput>, OrganizationOnBusinessCustomerUncheckedUpdateWithoutOrganizationInput>
   }
 
   export type BusinessUncheckedUpdateManyWithoutOrganizationNestedInput = {
@@ -19858,7 +19781,7 @@ export namespace Prisma {
     city: string
     postCode: string
     stripeCustomerId?: string | null
-    businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
+    businessCustomers?: OrganizationOnBusinessCustomerCreateNestedOneWithoutOrganizationInput
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
   }
 
@@ -19873,7 +19796,7 @@ export namespace Prisma {
     postCode: string
     stripeCustomerId?: string | null
     subscriptionId: number
-    businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutBusinessInput = {
@@ -19928,7 +19851,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
-    businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
+    businessCustomers?: OrganizationOnBusinessCustomerUpdateOneWithoutOrganizationNestedInput
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
   }
 
@@ -19943,7 +19866,7 @@ export namespace Prisma {
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionId?: IntFieldUpdateOperationsInput | number
-    businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type ServiceUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -19989,34 +19912,25 @@ export namespace Prisma {
     create: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput>
   }
 
-  export type OrganizationOnBusinessCustomerCreateManyBusinessCustomerInputEnvelope = {
-    data: OrganizationOnBusinessCustomerCreateManyBusinessCustomerInput | OrganizationOnBusinessCustomerCreateManyBusinessCustomerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutBusinessCustomerInput = {
-    where: OrganizationOnBusinessCustomerWhereUniqueInput
+  export type OrganizationOnBusinessCustomerUpsertWithoutBusinessCustomerInput = {
     update: XOR<OrganizationOnBusinessCustomerUpdateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedUpdateWithoutBusinessCustomerInput>
     create: XOR<OrganizationOnBusinessCustomerCreateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutBusinessCustomerInput>
+    where?: OrganizationOnBusinessCustomerWhereInput
   }
 
-  export type OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutBusinessCustomerInput = {
-    where: OrganizationOnBusinessCustomerWhereUniqueInput
+  export type OrganizationOnBusinessCustomerUpdateToOneWithWhereWithoutBusinessCustomerInput = {
+    where?: OrganizationOnBusinessCustomerWhereInput
     data: XOR<OrganizationOnBusinessCustomerUpdateWithoutBusinessCustomerInput, OrganizationOnBusinessCustomerUncheckedUpdateWithoutBusinessCustomerInput>
   }
 
-  export type OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutBusinessCustomerInput = {
-    where: OrganizationOnBusinessCustomerScalarWhereInput
-    data: XOR<OrganizationOnBusinessCustomerUpdateManyMutationInput, OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutBusinessCustomerInput>
+  export type OrganizationOnBusinessCustomerUpdateWithoutBusinessCustomerInput = {
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    organization?: OrganizationUpdateOneRequiredWithoutBusinessCustomersNestedInput
   }
 
-  export type OrganizationOnBusinessCustomerScalarWhereInput = {
-    AND?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
-    OR?: OrganizationOnBusinessCustomerScalarWhereInput[]
-    NOT?: OrganizationOnBusinessCustomerScalarWhereInput | OrganizationOnBusinessCustomerScalarWhereInput[]
-    organizationId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
-    businessCustomerId?: IntFilter<"OrganizationOnBusinessCustomer"> | number
-    role?: EnumOrganizationRoleFilter<"OrganizationOnBusinessCustomer"> | $Enums.OrganizationRole
+  export type OrganizationOnBusinessCustomerUncheckedUpdateWithoutBusinessCustomerInput = {
+    organizationId?: IntFieldUpdateOperationsInput | number
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
   }
 
   export type AppointmentCreateWithoutCustomerInput = {
@@ -20091,11 +20005,6 @@ export namespace Prisma {
     create: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput>
   }
 
-  export type OrganizationOnBusinessCustomerCreateManyOrganizationInputEnvelope = {
-    data: OrganizationOnBusinessCustomerCreateManyOrganizationInput | OrganizationOnBusinessCustomerCreateManyOrganizationInput[]
-    skipDuplicates?: boolean
-  }
-
   export type SubscriptionCreateWithoutOrganizationInput = {
     createdAt?: Date | string
     level: $Enums.SubscriptionLevel
@@ -20151,20 +20060,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type OrganizationOnBusinessCustomerUpsertWithWhereUniqueWithoutOrganizationInput = {
-    where: OrganizationOnBusinessCustomerWhereUniqueInput
+  export type OrganizationOnBusinessCustomerUpsertWithoutOrganizationInput = {
     update: XOR<OrganizationOnBusinessCustomerUpdateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedUpdateWithoutOrganizationInput>
     create: XOR<OrganizationOnBusinessCustomerCreateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedCreateWithoutOrganizationInput>
+    where?: OrganizationOnBusinessCustomerWhereInput
   }
 
-  export type OrganizationOnBusinessCustomerUpdateWithWhereUniqueWithoutOrganizationInput = {
-    where: OrganizationOnBusinessCustomerWhereUniqueInput
+  export type OrganizationOnBusinessCustomerUpdateToOneWithWhereWithoutOrganizationInput = {
+    where?: OrganizationOnBusinessCustomerWhereInput
     data: XOR<OrganizationOnBusinessCustomerUpdateWithoutOrganizationInput, OrganizationOnBusinessCustomerUncheckedUpdateWithoutOrganizationInput>
   }
 
-  export type OrganizationOnBusinessCustomerUpdateManyWithWhereWithoutOrganizationInput = {
-    where: OrganizationOnBusinessCustomerScalarWhereInput
-    data: XOR<OrganizationOnBusinessCustomerUpdateManyMutationInput, OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationInput>
+  export type OrganizationOnBusinessCustomerUpdateWithoutOrganizationInput = {
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    businessCustomer?: BusinessCustomerUpdateOneRequiredWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationOnBusinessCustomerUncheckedUpdateWithoutOrganizationInput = {
+    businessCustomerId?: IntFieldUpdateOperationsInput | number
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
   }
 
   export type SubscriptionUpsertWithoutOrganizationInput = {
@@ -20362,7 +20276,7 @@ export namespace Prisma {
     city: string
     postCode: string
     stripeCustomerId?: string | null
-    businessCustomers?: OrganizationOnBusinessCustomerCreateNestedManyWithoutOrganizationInput
+    businessCustomers?: OrganizationOnBusinessCustomerCreateNestedOneWithoutOrganizationInput
     Business?: BusinessCreateNestedManyWithoutOrganizationInput
   }
 
@@ -20376,7 +20290,7 @@ export namespace Prisma {
     city: string
     postCode: string
     stripeCustomerId?: string | null
-    businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedManyWithoutOrganizationInput
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedOneWithoutOrganizationInput
     Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
@@ -20405,7 +20319,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
-    businessCustomers?: OrganizationOnBusinessCustomerUpdateManyWithoutOrganizationNestedInput
+    businessCustomers?: OrganizationOnBusinessCustomerUpdateOneWithoutOrganizationNestedInput
     Business?: BusinessUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -20419,7 +20333,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
-    businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationNestedInput
+    businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateOneWithoutOrganizationNestedInput
     Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
@@ -20961,26 +20875,6 @@ export namespace Prisma {
     availibilityGroupId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type OrganizationOnBusinessCustomerCreateManyBusinessCustomerInput = {
-    organizationId: number
-    role: $Enums.OrganizationRole
-  }
-
-  export type OrganizationOnBusinessCustomerUpdateWithoutBusinessCustomerInput = {
-    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
-    organization?: OrganizationUpdateOneRequiredWithoutBusinessCustomersNestedInput
-  }
-
-  export type OrganizationOnBusinessCustomerUncheckedUpdateWithoutBusinessCustomerInput = {
-    organizationId?: IntFieldUpdateOperationsInput | number
-    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
-  }
-
-  export type OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutBusinessCustomerInput = {
-    organizationId?: IntFieldUpdateOperationsInput | number
-    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
-  }
-
   export type AppointmentCreateManyCustomerInput = {
     id?: string
     createdAt?: Date | string
@@ -21017,32 +20911,12 @@ export namespace Prisma {
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
   }
 
-  export type OrganizationOnBusinessCustomerCreateManyOrganizationInput = {
-    businessCustomerId: number
-    role: $Enums.OrganizationRole
-  }
-
   export type BusinessCreateManyOrganizationInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     contactNumber: string
     businessName: string
-  }
-
-  export type OrganizationOnBusinessCustomerUpdateWithoutOrganizationInput = {
-    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
-    businessCustomer?: BusinessCustomerUpdateOneRequiredWithoutOrganizationNestedInput
-  }
-
-  export type OrganizationOnBusinessCustomerUncheckedUpdateWithoutOrganizationInput = {
-    businessCustomerId?: IntFieldUpdateOperationsInput | number
-    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
-  }
-
-  export type OrganizationOnBusinessCustomerUncheckedUpdateManyWithoutOrganizationInput = {
-    businessCustomerId?: IntFieldUpdateOperationsInput | number
-    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
   }
 
   export type BusinessUpdateWithoutOrganizationInput = {

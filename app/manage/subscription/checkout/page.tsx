@@ -19,7 +19,7 @@ const CheckoutPage = () => {
             }
 
             try {
-                const response = await fetch('/api/internal/stripe/checkout', {
+                const response = await fetch('/api/management/stripe/checkout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

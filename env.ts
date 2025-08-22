@@ -5,6 +5,7 @@ export const env = createEnv({
   server: {
     // App specific
     DEPLOY_URL: z.url(),
+    INTERNAL_API_SECRET: z.string().min(10),
     // Postgres
     POSTGRES_PRISMA_URL: z.string().min(1),
     // Auth0
@@ -31,6 +32,7 @@ export const env = createEnv({
     DEPLOY_URL: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : process.env.DEPLOY_URL,
+    INTERNAL_API_SECRET: process.env.INTERNAL_API_SECRET,
     // Postgres
     POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
     // App settings

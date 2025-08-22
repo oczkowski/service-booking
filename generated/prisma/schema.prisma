@@ -31,7 +31,7 @@ model Business {
   businessName  String
 
   organization   Organization @relation(fields: [organizationId], references: [id])
-  organizationId Int
+  organizationId Int          @unique
 
   services Service[]
 }
@@ -46,7 +46,7 @@ model BusinessCustomer {
   firstName String
   lastName  String
 
-  organization OrganizationOnBusinessCustomer[]
+  organization OrganizationOnBusinessCustomer?
 }
 
 // Customer does not authenticate
@@ -74,7 +74,7 @@ model Organization {
 
   stripeCustomerId String?
 
-  businessCustomers OrganizationOnBusinessCustomer[]
+  businessCustomers OrganizationOnBusinessCustomer?
 
   subscription   Subscription @relation(fields: [subscriptionId], references: [id])
   subscriptionId Int          @unique
@@ -84,10 +84,10 @@ model Organization {
 
 model OrganizationOnBusinessCustomer {
   organization   Organization @relation(fields: [organizationId], references: [id])
-  organizationId Int
+  organizationId Int          @unique
 
   businessCustomer   BusinessCustomer @relation(fields: [businessCustomerId], references: [id])
-  businessCustomerId Int
+  businessCustomerId Int              @unique
 
   role OrganizationRole
 

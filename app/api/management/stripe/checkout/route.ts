@@ -73,7 +73,7 @@ export async function POST(request: Request) {
                 mode: 'subscription',
                 customer: stripeCustomerId,
                 success_url:
-                    `${originHeader}/manage/organization/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+                    `${originHeader}/manage/subscription/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
                 // TODO: Change to a cancel URL
                 cancel_url: `${originHeader}/plans`,
                 allow_promotion_codes: false,

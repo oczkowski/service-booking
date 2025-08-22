@@ -50,7 +50,7 @@ export default function ChooseProductPage() {
             features: plan.features
         })
 
-        router.push('/manage/organization/checkout')
+        router.push('/manage/subscription/checkout')
     }
 
     const handleYearlyToggle = (yearly: boolean) => {

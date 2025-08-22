@@ -8,12 +8,8 @@ type FooterLink = {
 };
 
 const footerLinks: FooterLink[] = [
-  { title: "For small businesses", path: "/business" },
-  { title: "For enterprise", path: "/enterprise" },
-  { title: "For Developers", path: "/developers" },
-  { title: "Socials", path: "/socials" },
-  { title: "Jobs", path: "/jobs" },
-  { title: "Business login", path: "/business" },
+  { title: "For small businesses", path: "/plans" },
+  { title: "Business login", path: "/manage/business" },
 ];
 
 const legalLinks: FooterLink[] = [

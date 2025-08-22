@@ -8,5 +8,5 @@ model BusinessCustomer {
   firstName String
   lastName  String
 
-  organization OrganizationOnBusinessCustomer[]
+  organization OrganizationOnBusinessCustomer?
 }
