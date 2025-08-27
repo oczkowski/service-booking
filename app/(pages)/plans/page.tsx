@@ -155,19 +155,19 @@ export default function ChooseProductPage() {
                                     <div className="flex items-center gap-2">
                                         <Building2 className="w-4 h-4 text-blue-500" />
                                         <span className="text-sm">
-                                            {plan.businesses} Business{typeof plan.businesses === 'number' && plan.businesses !== 1 ? 'es' : ''}
+                                            {plan.businesses === Infinity ? 'Unlimited' : plan.businesses} Business{typeof plan.businesses == 'number' && plan.businesses !== 1 ? 'es' : ''}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Users className="w-4 h-4 text-green-500" />
                                         <span className="text-sm">
-                                            {plan.services === 999999 ? 'Unlimited' : plan.services} Services
+                                            {plan.services === Infinity ? 'Unlimited' : plan.services} Services
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Calendar className="w-4 h-4 text-purple-500" />
                                         <span className="text-sm">
-                                            {plan.appointments} appointments/month
+                                            {plan.appointments === Infinity ? 'Unlimited' : plan.appointments} appointments/month
                                         </span>
                                     </div>
                                 </div>

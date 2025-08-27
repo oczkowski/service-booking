@@ -1,3 +1,5 @@
+import { SubscriptionLevel } from "@/generated/prisma";
+
 export enum MonthlyPlanPriceIds {
     SMALL = 'price_1RyGJu2KUzcJxw6Z5bXNJROY',
     MEDIUM = 'price_1RyGLZ2KUzcJxw6ZZVoP0KRy',
@@ -12,14 +14,15 @@ export enum YearlyPlanPriceIds {
 
 export interface PricingPlan {
     name: string
+    level: SubscriptionLevel
     description: string
     monthlyPrice: number
     monthlyPriceId?: MonthlyPlanPriceIds
     yearlyPrice: number
     yearlyPriceId?: YearlyPlanPriceIds
-    businesses: number | string
+    businesses: number
     services: number
-    appointments: number | string
+    appointments: number
     features: string[]
     popular?: boolean
     enterprise?: boolean
@@ -28,6 +31,7 @@ export interface PricingPlan {
 export const plans: PricingPlan[] = [
     {
         name: "Small",
+        level: SubscriptionLevel.SMALL,
         description: "Perfect for getting started",
         monthlyPrice: 13.99,
         monthlyPriceId: MonthlyPlanPriceIds.SMALL,
@@ -35,7 +39,7 @@ export const plans: PricingPlan[] = [
         yearlyPriceId: YearlyPlanPriceIds.SMALL,
         businesses: 1,
         services: 20,
-        appointments: "2,000",
+        appointments: 2000,
         features: [
             "1 Business location",
             "Up to 20 services",
@@ -49,6 +53,7 @@ export const plans: PricingPlan[] = [
     },
     {
         name: "Medium",
+        level: SubscriptionLevel.MEDIUM,
         description: "Great for growing businesses",
         monthlyPrice: 79.99,
         monthlyPriceId: MonthlyPlanPriceIds.MEDIUM,
@@ -56,7 +61,7 @@ export const plans: PricingPlan[] = [
         yearlyPriceId: YearlyPlanPriceIds.MEDIUM,
         businesses: 3,
         services: 60,
-        appointments: "5,000",
+        appointments: 5000,
         popular: true,
         features: [
             "3 Business locations",
@@ -75,6 +80,7 @@ export const plans: PricingPlan[] = [
     },
     {
         name: "Large",
+        level: SubscriptionLevel.LARGE,
         description: "For established enterprises",
         monthlyPrice: 199.99,
         monthlyPriceId: MonthlyPlanPriceIds.LARGE,
@@ -82,7 +88,7 @@ export const plans: PricingPlan[] = [
         yearlyPriceId: YearlyPlanPriceIds.LARGE,
         businesses: 10,
         services: 200,
-        appointments: "80,000",
+        appointments: 80000,
         features: [
             "10 Business locations",
             "Up to 200 services",
@@ -102,12 +108,13 @@ export const plans: PricingPlan[] = [
     },
     {
         name: "Enterprise",
+        level: SubscriptionLevel.ENTERPRISE,
         description: "Custom solution for large organizations",
         monthlyPrice: 0,
         yearlyPrice: 0,
-        businesses: "Unlimited",
-        services: 999999,
-        appointments: "Unlimited",
+        businesses: Infinity,
+        services: Infinity,
+        appointments: Infinity,
         enterprise: true,
         features: [
             "Unlimited business locations",

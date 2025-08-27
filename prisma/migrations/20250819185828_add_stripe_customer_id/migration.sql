@@ -5,4 +5,4 @@
 
 */
 -- AlterTable
-ALTER TABLE "public"."Organization" ADD COLUMN     "stripeCustomerId" TEXT NOT NULL;
+ALTER TABLE "public"."Organization" ADD COLUMN     "stripeCustomerId" TEXT;

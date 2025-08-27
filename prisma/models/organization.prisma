@@ -16,7 +16,7 @@ model Organization {
   subscription Subscription @relation(fields: [subscriptionId], references: [id])
   subscriptionId Int @unique
 
-  Business     Business[]
+  business     Business[]
 }
 
 model OrganizationOnBusinessCustomer {
@@ -37,8 +37,6 @@ model Subscription {
   level SubscriptionLevel
   price Decimal           @db.Decimal(10, 2)
   status SubscriptionStatus @default(TRIAL)
-  stripeCustomerId String?
-  stripeSubscriptionId String?
   trialEndsAt DateTime?
   paymentFrequency PaymentFrequency
 

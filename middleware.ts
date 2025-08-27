@@ -92,16 +92,15 @@ export async function middleware(request: NextRequest) {
         // UI (Allow subscription manage route even if not subscription)
         if (!pathname.startsWith("/manage/subscription") && pathname.startsWith("/manage")) {
             const subscriptionStatus = await checkSubscription(session.user.email);
-            console.log({ subscriptionStatus })
             // Trial expired?
-            if (subscriptionStatus.status === SubscriptionStatus.TRIAL && new Date() > new Date(subscriptionStatus.trialEndsAt)) {
+            if (subscriptionStatus?.status === SubscriptionStatus.TRIAL && new Date() > new Date(subscriptionStatus.trialEndsAt)) {
                 return NextResponse.redirect(
                     new URL(`/manage/subscription/trial/ended`, request.nextUrl.origin)
                 );
             }
 
             // Subscription not active? TODO: Think of some better logic
-            if (![SubscriptionStatus.TRIAL, SubscriptionStatus.ACTIVE].includes(subscriptionStatus.status)) {
+            if (![SubscriptionStatus.TRIAL, SubscriptionStatus.ACTIVE].includes(subscriptionStatus?.status)) {
                 return NextResponse.redirect(
                     new URL(`/plans`, request.nextUrl.origin)
                 );

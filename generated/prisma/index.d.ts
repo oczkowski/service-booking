@@ -2010,11 +2010,11 @@ export namespace Prisma {
    */
 
   export type OrganizationCountOutputType = {
-    Business: number
+    business: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Business?: boolean | OrganizationCountOutputTypeCountBusinessArgs
+    business?: boolean | OrganizationCountOutputTypeCountBusinessArgs
   }
 
   // Custom InputTypes
@@ -3350,8 +3350,8 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
-    contactNumber: string | null
     businessName: string | null
+    contactNumber: string | null
     organizationId: number | null
   }
 
@@ -3359,8 +3359,8 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
-    contactNumber: string | null
     businessName: string | null
+    contactNumber: string | null
     organizationId: number | null
   }
 
@@ -3368,8 +3368,8 @@ export namespace Prisma {
     id: number
     createdAt: number
     updatedAt: number
-    contactNumber: number
     businessName: number
+    contactNumber: number
     organizationId: number
     _all: number
   }
@@ -3389,8 +3389,8 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
-    contactNumber?: true
     businessName?: true
+    contactNumber?: true
     organizationId?: true
   }
 
@@ -3398,8 +3398,8 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
-    contactNumber?: true
     businessName?: true
+    contactNumber?: true
     organizationId?: true
   }
 
@@ -3407,8 +3407,8 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
-    contactNumber?: true
     businessName?: true
+    contactNumber?: true
     organizationId?: true
     _all?: true
   }
@@ -3503,8 +3503,8 @@ export namespace Prisma {
     id: number
     createdAt: Date
     updatedAt: Date
-    contactNumber: string
     businessName: string
+    contactNumber: string
     organizationId: number
     _count: BusinessCountAggregateOutputType | null
     _avg: BusinessAvgAggregateOutputType | null
@@ -3531,8 +3531,8 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    contactNumber?: boolean
     businessName?: boolean
+    contactNumber?: boolean
     organizationId?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     services?: boolean | Business$servicesArgs<ExtArgs>
@@ -3543,8 +3543,8 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    contactNumber?: boolean
     businessName?: boolean
+    contactNumber?: boolean
     organizationId?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["business"]>
@@ -3553,8 +3553,8 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    contactNumber?: boolean
     businessName?: boolean
+    contactNumber?: boolean
     organizationId?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["business"]>
@@ -3563,12 +3563,12 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    contactNumber?: boolean
     businessName?: boolean
+    contactNumber?: boolean
     organizationId?: boolean
   }
 
-  export type BusinessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "contactNumber" | "businessName" | "organizationId", ExtArgs["result"]["business"]>
+  export type BusinessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "businessName" | "contactNumber" | "organizationId", ExtArgs["result"]["business"]>
   export type BusinessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     services?: boolean | Business$servicesArgs<ExtArgs>
@@ -3591,8 +3591,8 @@ export namespace Prisma {
       id: number
       createdAt: Date
       updatedAt: Date
-      contactNumber: string
       businessName: string
+      contactNumber: string
       organizationId: number
     }, ExtArgs["result"]["business"]>
     composites: {}
@@ -4022,8 +4022,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Business", 'Int'>
     readonly createdAt: FieldRef<"Business", 'DateTime'>
     readonly updatedAt: FieldRef<"Business", 'DateTime'>
-    readonly contactNumber: FieldRef<"Business", 'String'>
     readonly businessName: FieldRef<"Business", 'String'>
+    readonly contactNumber: FieldRef<"Business", 'String'>
     readonly organizationId: FieldRef<"Business", 'Int'>
   }
     
@@ -6960,7 +6960,7 @@ export namespace Prisma {
     subscriptionId?: boolean
     businessCustomers?: boolean | Organization$businessCustomersArgs<ExtArgs>
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
-    Business?: boolean | Organization$BusinessArgs<ExtArgs>
+    business?: boolean | Organization$businessArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -7009,7 +7009,7 @@ export namespace Prisma {
   export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     businessCustomers?: boolean | Organization$businessCustomersArgs<ExtArgs>
     subscription?: boolean | SubscriptionDefaultArgs<ExtArgs>
-    Business?: boolean | Organization$BusinessArgs<ExtArgs>
+    business?: boolean | Organization$businessArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7024,7 +7024,7 @@ export namespace Prisma {
     objects: {
       businessCustomers: Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs> | null
       subscription: Prisma.$SubscriptionPayload<ExtArgs>
-      Business: Prisma.$BusinessPayload<ExtArgs>[]
+      business: Prisma.$BusinessPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -7433,7 +7433,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     businessCustomers<T extends Organization$businessCustomersArgs<ExtArgs> = {}>(args?: Subset<T, Organization$businessCustomersArgs<ExtArgs>>): Prisma__OrganizationOnBusinessCustomerClient<$Result.GetResult<Prisma.$OrganizationOnBusinessCustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     subscription<T extends SubscriptionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubscriptionDefaultArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    Business<T extends Organization$BusinessArgs<ExtArgs> = {}>(args?: Subset<T, Organization$BusinessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    business<T extends Organization$businessArgs<ExtArgs> = {}>(args?: Subset<T, Organization$businessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7888,9 +7888,9 @@ export namespace Prisma {
   }
 
   /**
-   * Organization.Business
+   * Organization.business
    */
-  export type Organization$BusinessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Organization$businessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Business
      */
@@ -15837,8 +15837,8 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    contactNumber: 'contactNumber',
     businessName: 'businessName',
+    contactNumber: 'contactNumber',
     organizationId: 'organizationId'
   };
 
@@ -16236,8 +16236,8 @@ export namespace Prisma {
     id?: IntFilter<"Business"> | number
     createdAt?: DateTimeFilter<"Business"> | Date | string
     updatedAt?: DateTimeFilter<"Business"> | Date | string
-    contactNumber?: StringFilter<"Business"> | string
     businessName?: StringFilter<"Business"> | string
+    contactNumber?: StringFilter<"Business"> | string
     organizationId?: IntFilter<"Business"> | number
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     services?: ServiceListRelationFilter
@@ -16247,8 +16247,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    contactNumber?: SortOrder
     businessName?: SortOrder
+    contactNumber?: SortOrder
     organizationId?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
     services?: ServiceOrderByRelationAggregateInput
@@ -16256,24 +16256,24 @@ export namespace Prisma {
 
   export type BusinessWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    organizationId?: number
     AND?: BusinessWhereInput | BusinessWhereInput[]
     OR?: BusinessWhereInput[]
     NOT?: BusinessWhereInput | BusinessWhereInput[]
     createdAt?: DateTimeFilter<"Business"> | Date | string
     updatedAt?: DateTimeFilter<"Business"> | Date | string
-    contactNumber?: StringFilter<"Business"> | string
     businessName?: StringFilter<"Business"> | string
+    contactNumber?: StringFilter<"Business"> | string
+    organizationId?: IntFilter<"Business"> | number
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     services?: ServiceListRelationFilter
-  }, "id" | "organizationId">
+  }, "id">
 
   export type BusinessOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    contactNumber?: SortOrder
     businessName?: SortOrder
+    contactNumber?: SortOrder
     organizationId?: SortOrder
     _count?: BusinessCountOrderByAggregateInput
     _avg?: BusinessAvgOrderByAggregateInput
@@ -16289,8 +16289,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Business"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Business"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Business"> | Date | string
-    contactNumber?: StringWithAggregatesFilter<"Business"> | string
     businessName?: StringWithAggregatesFilter<"Business"> | string
+    contactNumber?: StringWithAggregatesFilter<"Business"> | string
     organizationId?: IntWithAggregatesFilter<"Business"> | number
   }
 
@@ -16444,7 +16444,7 @@ export namespace Prisma {
     subscriptionId?: IntFilter<"Organization"> | number
     businessCustomers?: XOR<OrganizationOnBusinessCustomerNullableScalarRelationFilter, OrganizationOnBusinessCustomerWhereInput> | null
     subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
-    Business?: BusinessListRelationFilter
+    business?: BusinessListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -16460,7 +16460,7 @@ export namespace Prisma {
     subscriptionId?: SortOrder
     businessCustomers?: OrganizationOnBusinessCustomerOrderByWithRelationInput
     subscription?: SubscriptionOrderByWithRelationInput
-    Business?: BusinessOrderByRelationAggregateInput
+    business?: BusinessOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -16479,7 +16479,7 @@ export namespace Prisma {
     stripeCustomerId?: StringNullableFilter<"Organization"> | string | null
     businessCustomers?: XOR<OrganizationOnBusinessCustomerNullableScalarRelationFilter, OrganizationOnBusinessCustomerWhereInput> | null
     subscription?: XOR<SubscriptionScalarRelationFilter, SubscriptionWhereInput>
-    Business?: BusinessListRelationFilter
+    business?: BusinessListRelationFilter
   }, "id" | "subscriptionId">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -17003,8 +17003,8 @@ export namespace Prisma {
   export type BusinessCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    contactNumber: string
     businessName: string
+    contactNumber: string
     organization: OrganizationCreateNestedOneWithoutBusinessInput
     services?: ServiceCreateNestedManyWithoutBusinessInput
   }
@@ -17013,8 +17013,8 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    contactNumber: string
     businessName: string
+    contactNumber: string
     organizationId: number
     services?: ServiceUncheckedCreateNestedManyWithoutBusinessInput
   }
@@ -17022,8 +17022,8 @@ export namespace Prisma {
   export type BusinessUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
     organization?: OrganizationUpdateOneRequiredWithoutBusinessNestedInput
     services?: ServiceUpdateManyWithoutBusinessNestedInput
   }
@@ -17032,8 +17032,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
     organizationId?: IntFieldUpdateOperationsInput | number
     services?: ServiceUncheckedUpdateManyWithoutBusinessNestedInput
   }
@@ -17042,24 +17042,24 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    contactNumber: string
     businessName: string
+    contactNumber: string
     organizationId: number
   }
 
   export type BusinessUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
   }
 
   export type BusinessUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
     organizationId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -17216,7 +17216,7 @@ export namespace Prisma {
     stripeCustomerId?: string | null
     businessCustomers?: OrganizationOnBusinessCustomerCreateNestedOneWithoutOrganizationInput
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
-    Business?: BusinessCreateNestedManyWithoutOrganizationInput
+    business?: BusinessCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -17231,7 +17231,7 @@ export namespace Prisma {
     stripeCustomerId?: string | null
     subscriptionId: number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedOneWithoutOrganizationInput
-    Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
+    business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -17245,7 +17245,7 @@ export namespace Prisma {
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     businessCustomers?: OrganizationOnBusinessCustomerUpdateOneWithoutOrganizationNestedInput
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
-    Business?: BusinessUpdateManyWithoutOrganizationNestedInput
+    business?: BusinessUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -17260,7 +17260,7 @@ export namespace Prisma {
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionId?: IntFieldUpdateOperationsInput | number
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateOneWithoutOrganizationNestedInput
-    Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
+    business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -17866,8 +17866,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    contactNumber?: SortOrder
     businessName?: SortOrder
+    contactNumber?: SortOrder
     organizationId?: SortOrder
   }
 
@@ -17880,8 +17880,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    contactNumber?: SortOrder
     businessName?: SortOrder
+    contactNumber?: SortOrder
     organizationId?: SortOrder
   }
 
@@ -17889,8 +17889,8 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    contactNumber?: SortOrder
     businessName?: SortOrder
+    contactNumber?: SortOrder
     organizationId?: SortOrder
   }
 
@@ -20036,8 +20036,8 @@ export namespace Prisma {
   export type BusinessCreateWithoutOrganizationInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    contactNumber: string
     businessName: string
+    contactNumber: string
     services?: ServiceCreateNestedManyWithoutBusinessInput
   }
 
@@ -20045,8 +20045,8 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    contactNumber: string
     businessName: string
+    contactNumber: string
     services?: ServiceUncheckedCreateNestedManyWithoutBusinessInput
   }
 
@@ -20138,8 +20138,8 @@ export namespace Prisma {
     id?: IntFilter<"Business"> | number
     createdAt?: DateTimeFilter<"Business"> | Date | string
     updatedAt?: DateTimeFilter<"Business"> | Date | string
-    contactNumber?: StringFilter<"Business"> | string
     businessName?: StringFilter<"Business"> | string
+    contactNumber?: StringFilter<"Business"> | string
     organizationId?: IntFilter<"Business"> | number
   }
 
@@ -20153,7 +20153,7 @@ export namespace Prisma {
     postCode: string
     stripeCustomerId?: string | null
     subscription: SubscriptionCreateNestedOneWithoutOrganizationInput
-    Business?: BusinessCreateNestedManyWithoutOrganizationInput
+    business?: BusinessCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutBusinessCustomersInput = {
@@ -20167,7 +20167,7 @@ export namespace Prisma {
     postCode: string
     stripeCustomerId?: string | null
     subscriptionId: number
-    Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
+    business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutBusinessCustomersInput = {
@@ -20220,7 +20220,7 @@ export namespace Prisma {
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscription?: SubscriptionUpdateOneRequiredWithoutOrganizationNestedInput
-    Business?: BusinessUpdateManyWithoutOrganizationNestedInput
+    business?: BusinessUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutBusinessCustomersInput = {
@@ -20234,7 +20234,7 @@ export namespace Prisma {
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     subscriptionId?: IntFieldUpdateOperationsInput | number
-    Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
+    business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type BusinessCustomerUpsertWithoutOrganizationInput = {
@@ -20277,7 +20277,7 @@ export namespace Prisma {
     postCode: string
     stripeCustomerId?: string | null
     businessCustomers?: OrganizationOnBusinessCustomerCreateNestedOneWithoutOrganizationInput
-    Business?: BusinessCreateNestedManyWithoutOrganizationInput
+    business?: BusinessCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutSubscriptionInput = {
@@ -20291,7 +20291,7 @@ export namespace Prisma {
     postCode: string
     stripeCustomerId?: string | null
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedCreateNestedOneWithoutOrganizationInput
-    Business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
+    business?: BusinessUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutSubscriptionInput = {
@@ -20320,7 +20320,7 @@ export namespace Prisma {
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     businessCustomers?: OrganizationOnBusinessCustomerUpdateOneWithoutOrganizationNestedInput
-    Business?: BusinessUpdateManyWithoutOrganizationNestedInput
+    business?: BusinessUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutSubscriptionInput = {
@@ -20334,14 +20334,14 @@ export namespace Prisma {
     postCode?: StringFieldUpdateOperationsInput | string
     stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     businessCustomers?: OrganizationOnBusinessCustomerUncheckedUpdateOneWithoutOrganizationNestedInput
-    Business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
+    business?: BusinessUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type BusinessCreateWithoutServicesInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    contactNumber: string
     businessName: string
+    contactNumber: string
     organization: OrganizationCreateNestedOneWithoutBusinessInput
   }
 
@@ -20349,8 +20349,8 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    contactNumber: string
     businessName: string
+    contactNumber: string
     organizationId: number
   }
 
@@ -20421,8 +20421,8 @@ export namespace Prisma {
   export type BusinessUpdateWithoutServicesInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
     organization?: OrganizationUpdateOneRequiredWithoutBusinessNestedInput
   }
 
@@ -20430,8 +20430,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
     organizationId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -20915,15 +20915,15 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    contactNumber: string
     businessName: string
+    contactNumber: string
   }
 
   export type BusinessUpdateWithoutOrganizationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
     services?: ServiceUpdateManyWithoutBusinessNestedInput
   }
 
@@ -20931,8 +20931,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
     services?: ServiceUncheckedUpdateManyWithoutBusinessNestedInput
   }
 
@@ -20940,8 +20940,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contactNumber?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
+    contactNumber?: StringFieldUpdateOperationsInput | string
   }
 
   export type AppointmentCreateManyServiceInput = {

@@ -134,8 +134,8 @@ exports.Prisma.BusinessScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  contactNumber: 'contactNumber',
   businessName: 'businessName',
+  contactNumber: 'contactNumber',
   organizationId: 'organizationId'
 };
 
