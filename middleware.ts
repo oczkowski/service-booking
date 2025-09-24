@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
         let subscriptionStatus;
         try {
             subscriptionStatus = await data.json()
-        } catch (_) { console.log('Error checking subscription', data.status) }
+        } catch (error) { console.log('Error checking subscription', error) }
         return subscriptionStatus;
     }
 
