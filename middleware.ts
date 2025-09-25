@@ -18,7 +18,8 @@ export async function middleware(request: NextRequest) {
             method: 'POST',
             body: JSON.stringify({ email }),
             headers: {
-                ['x-internal-secret']: env.INTERNAL_API_SECRET
+                ['x-internal-secret']: env.INTERNAL_API_SECRET,
+                ['x-vercel-protection-bypass']: env.INTERNAL_API_SECRET
             }
         })
 
