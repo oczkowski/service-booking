@@ -3,6 +3,8 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
+    // Vercel
+    VERCEL_AUTOMATION_BYPASS_SECRET: z.string().min(10).optional(),
     // App specific
     DEPLOY_URL: z.url(),
     INTERNAL_API_SECRET: z.string().min(10),
@@ -28,6 +30,8 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(10)
   },
   runtimeEnv: {
+    // Vercel
+    VERCEL_AUTOMATION_BYPASS_SECRET: process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
     // App specific
     DEPLOY_URL: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`

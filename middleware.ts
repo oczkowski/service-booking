@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
             body: JSON.stringify({ email }),
             headers: {
                 ['x-internal-secret']: env.INTERNAL_API_SECRET,
-                ['x-vercel-protection-bypass']: env.INTERNAL_API_SECRET
+                ...(env.VERCEL_AUTOMATION_BYPASS_SECRET ? { ['x-vercel-protection-bypass']: env.VERCEL_AUTOMATION_BYPASS_SECRET } : {})
             }
         })
 
